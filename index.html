@@ -30,12 +30,8 @@
         <!-- Header Corporativo Estilo Premium Dorado -->
         <header class="bg-gradient-to-r from-slate-900 to-slate-800 border-b-2 border-amber-500/30 py-4 px-6 flex items-center justify-between shadow-xl">
             <div class="flex items-center space-x-4">
-                <!-- Contenedor de la Tuerca con efecto Bordado Dorado -->
-                <div class="w-12 h-12 bg-gradient-to-br from-amber-400 via-yellow-200 to-amber-600 rounded-full flex items-center justify-center shadow-[0_0_15px_rgba(245,158,11,0.5)] border-2 border-amber-300 ring-4 ring-slate-900/50 relative overflow-hidden group">
-                    <!-- Textura de líneas finas para simular el hilo bordado -->
+                <div class="w-12 h-12 bg-gradient-to-br from-amber-400 via-yellow-200 to-amber-600 rounded-full flex items-center justify-center shadow-[0_0_15px_rgba(245,158,11,0.5)] border-2 border-amber-300 ring-4 ring-slate-900/50 relative overflow-hidden">
                     <div class="absolute inset-0 opacity-20 bg-[linear-gradient(45deg,#000_25%,transparent_25%,transparent_50%,#000_50%,#000_75%,transparent_75%,transparent)] bg-[size:4px_4px]"></div>
-                    
-                    <!-- Icono de la Tuerca Dorada Metálica con Brillo -->
                     <svg class="w-7 h-7 text-slate-950 animate-spin-slow drop-shadow-[0_2px_3px_rgba(0,0,0,0.4)] relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -46,21 +42,50 @@
                     <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Logística Técnica de Avanzada</p>
                 </div>
             </div>
-            <span class="bg-amber-500/10 text-amber-400 text-xs px-3 py-1 rounded-full font-black border border-amber-500/30 tracking-wider shadow-sm">CABA</span>
+            <span class="bg-amber-500/10 text-amber-400 text-xs px-3 py-1 rounded-full font-black border border-amber-500/30 tracking-wider">CABA</span>
         </header>
 
         <main class="p-4 flex-1 max-w-md mx-auto w-full space-y-4">
-            <!-- Formulario de Incidencia -->
+            <!-- Formulario Flexible de Incidencia (Triple Opción) -->
             <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
                 <h2 class="text-lg font-black text-slate-900 mb-1">Reportar Incidencia</h2>
-                <p class="text-xs text-gray-500 mb-4">Graba un video de máximo 30 segundos describiendo la falla mecánica o estructural.</p>
+                <p class="text-xs text-gray-500 mb-4">Seleccioná cómo preferís detallar el problema mecánico o estructural:</p>
                 
-                <div class="border-2 border-dashed border-gray-200 rounded-2xl p-6 flex flex-col items-center justify-center bg-gray-50 relative">
-                    <svg class="w-10 h-10 text-gray-400 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                    </svg>
-                    <span class="text-sm font-bold text-slate-800">Video_Cliente.mp4</span>
-                    <span class="text-xs text-emerald-600 mt-1 font-mono font-bold bg-emerald-50 px-2 py-0.5 rounded-full">✓ Cargado exitosamente (24s)</span>
+                <!-- Selectores de Tipo de Reporte -->
+                <div class="grid grid-cols-3 gap-2 mb-4 text-center">
+                    <button @click="tipoReporte = 'video'" :class="tipoReporte === 'video' ? 'bg-slate-900 text-amber-400 border-amber-400' : 'bg-gray-50 text-gray-600 border-gray-200'" class="p-2.5 border text-xs font-bold rounded-xl transition flex flex-col items-center justify-center space-y-1">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                        <span>Video</span>
+                    </button>
+                    <button @click="tipoReporte = 'foto'" :class="tipoReporte === 'foto' ? 'bg-slate-900 text-amber-400 border-amber-400' : 'bg-gray-50 text-gray-600 border-gray-200'" class="p-2.5 border text-xs font-bold rounded-xl transition flex flex-col items-center justify-center space-y-1">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                        <span>Foto / Imagen</span>
+                    </button>
+                    <button @click="tipoReporte = 'texto'" :class="tipoReporte === 'texto' ? 'bg-slate-900 text-amber-400 border-amber-400' : 'bg-gray-50 text-gray-600 border-gray-200'" class="p-2.5 border text-xs font-bold rounded-xl transition flex flex-col items-center justify-center space-y-1">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                        <span>Texto</span>
+                    </button>
+                </div>
+
+                <!-- Input Dinámico según Selección -->
+                <div class="border-2 border-dashed border-gray-200 rounded-2xl p-5 bg-gray-50">
+                    <div x-show="tipoReporte === 'video'" class="flex flex-col items-center justify-center text-center">
+                        <span class="text-sm font-bold text-slate-800">Video_Cliente.mp4</span>
+                        <span class="text-xs text-emerald-600 mt-1 font-mono font-bold bg-emerald-50 px-2 py-0.5 rounded-full">✓ Cargado (24s)</span>
+                    </div>
+
+                    <div x-show="tipoReporte === 'foto'" class="flex flex-col items-center justify-center text-center space-y-2">
+                        <label class="cursor-pointer bg-white border border-gray-300 px-4 py-2 rounded-xl text-xs font-bold shadow-sm hover:bg-gray-50 block">
+                            <span>Seleccionar Foto (JPG, PNG)</span>
+                            <input type="file" accept="image/jpeg, image/png" @change="clienteFotoCargada = true" class="hidden">
+                        </label>
+                        <span x-show="clienteFotoCargada" class="text-xs text-emerald-600 font-mono font-bold bg-emerald-50 px-2 py-0.5 rounded-full">✓ Imagen lista para enviar</span>
+                        <span x-show="!clienteFotoCargada" class="text-[11px] text-gray-400">Ningún archivo seleccionado</span>
+                    </div>
+
+                    <div x-show="tipoReporte === 'texto'">
+                        <textarea placeholder="Describí detalladamente la falla que estás experimentando para el peritaje técnico..." class="w-full bg-white border border-gray-200 rounded-xl p-3 text-sm focus:outline-none focus:border-amber-500 transition" rows="3"></textarea>
+                    </div>
                 </div>
             </div>
 
@@ -85,7 +110,7 @@
         <footer class="fixed bottom-0 left-0 right-0 bg-gray-900 text-[10px] text-gray-400 p-4 border-t border-amber-500/20 leading-relaxed text-justify z-40 select-none">
             <div class="max-w-md mx-auto">
                 <span class="font-extrabold text-amber-400 block mb-1 tracking-wide">AVISO DE NEUTRALIDAD Y CONDICIONES DE PLATAFORMA:</span>
-                TUERKA es una plataforma tecnológica de intermediación y negociación operada bajo la modalidad de locación de software de gestión administrativa ("Secretaría Digital"). El uso de la plataforma devenga un cargo administrativo del uno por ciento (1%) sobre el valor de la locación de servicios privada celebrada de forma exclusiva y autónoma entre el profesional independiente matriculado y el usuario solicitante. TUERKA no es parte de la relación civil o comercial subyacente, no fija honorarios ni asume responsabilidad solidaria por daños, praxis o resultados de la reparación.
+                TUERKA es una plataforma tecnológica de intermediación y negociación operada bajo la modaldiad de locación de software de gestión administrativa ("Secretaría Digital"). El uso de la plataforma devenga un cargo administrativo del uno por ciento (1%) sobre el valor de la locación de servicios privada celebrada de forma exclusiva y autónoma entre el profesional independiente matriculado y el usuario solicitante. TUERKA no es parte de la relación civil o comercial subyacente, no fija honorarios ni asume responsabilidad solidaria por daños, praxis o resultados de la reparación.
             </div>
         </footer>
     </div>
@@ -113,7 +138,7 @@
                         </div>
                         
                         <div class="aspect-video bg-black rounded-xl mb-4 flex items-center justify-center border border-slate-600 relative">
-                            <span class="text-xs text-slate-400 font-mono">Simulador Video_Cliente (24s)</span>
+                            <span class="text-xs text-slate-400 font-mono">Simulador Entrada Multimedia Cliente</span>
                         </div>
 
                         <div class="space-y-4">
@@ -132,7 +157,7 @@
                         </div>
                     </div>
 
-                    <button @click="liberarCartelera()" class="mt-6 w-full bg-emerald-600 hover:bg-emerald-500 text-white font-black py-3.5 px-4 rounded-xl transition text-sm uppercase tracking-widest shadow-lg active:scale-[0.98]">
+                    <button @click="liberarCartelera()" class="mt-6 w-full bg-emerald-600 hover:bg-emerald-500 text-white font-black py-3.5 px-4 rounded-xl transition text-sm uppercase tracking-widest shadow-lg">
                         Liberar a Cartelera Pública
                     </button>
                 </div>
@@ -141,43 +166,105 @@
     </div>
 
     <!-- ========================================== -->
-    <!-- PANTALLA 3: VISTA DEL TÉCNICO (AMIGABLE)  -->
+    <!-- PANTALLA 3: VISTA DEL TÉCNICO COMPLETA    -->
     <!-- ========================================== -->
     <div x-show="currentView === 'tecnico'" class="min-h-screen bg-gray-100 p-4 pb-48">
         <div class="max-w-md mx-auto w-full space-y-4">
             
-            <!-- SIMULADOR INTERNO DE CRITERIOS DE REGISTRO / AUDITORÍA -->
-            <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-200 text-xs">
-                <span class="font-black text-slate-800 block mb-2 border-b pb-1 uppercase tracking-wider">🎛️ Control de Validación Administrativa (Testing)</span>
+            <!-- SIMULADOR INTERNO DE AUDITORÍA (AUDITORES INTERNOS) -->
+            <div class="bg-slate-900 text-white p-4 rounded-2xl shadow-lg border border-slate-800 text-xs">
+                <span class="font-black text-amber-400 block mb-2 border-b border-slate-800 pb-1 uppercase tracking-wider">🛠️ PANEL DE CONTROL DE AUDITORÍA (ADMINISTRACIÓN)</span>
                 <div class="space-y-2">
+                    <p class="text-slate-400 text-[11px]">Simulá el comportamiento de los validadores internos desde acá:</p>
                     <label class="flex items-center space-x-3 cursor-pointer">
-                        <input type="checkbox" x-model="tecnico.Validacion_Admin" @change="checkDispo()" class="w-4 h-4 rounded text-amber-500 focus:ring-amber-400">
-                        <span class="font-bold text-gray-700">Validacion_Admin (Auditoría aprobada)</span>
+                        <input type="checkbox" x-model="tecnico.Validacion_Admin" @change="checkDispo()" class="w-4 h-4 rounded text-amber-500 focus:ring-amber-400 bg-slate-800 border-slate-700">
+                        <span class="font-bold text-slate-200">Aprobar Matrícula y Antecedentes (Validacion_Admin)</span>
                     </label>
-                    <div class="flex space-x-1 items-center">
-                        <span class="font-bold text-gray-500">Estado_Dispo:</span>
-                        <span class="font-mono font-black text-sm" :class="tecnico.Estado_Dispo === 'Activo' ? 'text-emerald-600' : 'text-red-600'" x-text="tecnico.Estado_Dispo"></span>
+                    <div class="flex space-x-2 items-center pt-1">
+                        <span class="font-bold text-slate-400">Estado de Cuenta Actual:</span>
+                        <span class="font-mono font-black text-xs uppercase px-2 py-0.5 rounded" :class="tecnico.Estado_Dispo === 'Activo' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-rose-500/20 text-rose-400'" x-text="tecnico.Estado_Dispo"></span>
                     </div>
                 </div>
             </div>
 
-            <!-- GATEKEEPING HARD -->
-            <div x-show="!tecnico.Validacion_Admin || tecnico.Estado_Dispo !== 'Activo'" class="bg-gray-800 border border-gray-700 rounded-2xl p-6 text-center shadow-xl text-white">
-                <div class="w-16 h-16 bg-amber-500/10 border border-amber-500/30 rounded-full flex items-center justify-center mx-auto mb-4 text-amber-400">
-                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m0 4h.01M5.938 18h12.124c1.11 0 1.956-1.154 1.41-2.12l-6.062-10.777c-.557-.991-1.957-.991-2.514 0L3.118 15.88c-.546.965.299 2.12 1.41 2.12z" />
-                    </svg>
+            <!-- SITUACIÓN A: CUENTA EN PROCESO DE AUDITORÍA (MUESTRA T&C Y FORMULARIO DE CARGA) -->
+            <div x-show="!tecnico.Validacion_Admin || tecnico.Estado_Dispo !== 'Activo'" class="space-y-4">
+                
+                <!-- Alerta de Bloqueo de Operaciones -->
+                <div class="bg-amber-500/10 border-2 border-amber-500/30 rounded-2xl p-5 text-slate-900 flex items-start space-x-3 shadow-sm bg-white">
+                    <div class="w-10 h-10 bg-amber-500/20 rounded-full flex items-center justify-center text-amber-600 shrink-0">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m0 4h.01M5.938 18h12.124c1.11 0 1.956-1.154 1.41-2.12l-6.062-10.777c-.557-.991-1.957-.991-2.514 0L3.118 15.88c-.546.965.299 2.12 1.41 2.12z" /></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-base font-black text-slate-900">Auditoría de Cuenta Requerida</h3>
+                        <p class="text-xs text-gray-600 mt-1 leading-normal">
+                            Para visualizar la cartelera activa de CABA y aceptar servicios, es obligatorio cargar la documentación habilitante y aceptar los Términos y Condiciones vigentes.
+                        </p>
+                    </div>
                 </div>
-                <h2 class="text-lg font-black mb-1">Cuenta en Proceso de Auditoría</h2>
-                <p class="text-xs text-gray-400 leading-relaxed">
-                    TUERKA está validando tu documentación técnica y antecedentes legales. Te avisaremos por WhatsApp cuando tu cuenta esté activa en CABA.
-                </p>
+
+                <!-- Sección Formulario de Carga Obligatoria -->
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-200 space-y-4">
+                    <h2 class="text-sm font-black text-slate-900 uppercase tracking-wider border-b pb-2">📂 Carga de Documentación Habilitante</h2>
+                    
+                    <!-- Campo 1: Matrícula Profesional -->
+                    <div class="space-y-1.5">
+                        <label class="block text-xs font-bold text-gray-700">1. Copia de Matrícula Profesional o Idoneidad Habilitante</label>
+                        <div class="flex items-center space-x-2">
+                            <label class="bg-gray-100 hover:bg-gray-200 text-slate-800 font-bold px-4 py-2.5 rounded-xl text-xs cursor-pointer border border-gray-300 transition block">
+                                <span>Seleccionar Archivo</span>
+                                <input type="file" accept="application/pdf, image/jpeg, image/png" @change="manejarCargaArchivo('matricula')" class="hidden">
+                            </label>
+                            <span class="text-xs font-mono font-bold" :class="docs.matricula ? 'text-emerald-600 bg-emerald-50 px-2 py-1 rounded-lg' : 'text-gray-400'" x-text="docs.matricula ? '✓ Archivo Cargado (' + docs.matriculaExt.toUpperCase() + ')' : 'No seleccionado (Soporta PDF, JPG)'"></span>
+                        </div>
+                    </div>
+
+                    <!-- Campo 2: Antecedentes Penales -->
+                    <div class="space-y-1.5">
+                        <label class="block text-xs font-bold text-gray-700">2. Certificado de Antecedentes Penales (RNR - Vigencia < 90 días)</label>
+                        <div class="flex items-center space-x-2">
+                            <label class="bg-gray-100 hover:bg-gray-200 text-slate-800 font-bold px-4 py-2.5 rounded-xl text-xs cursor-pointer border border-gray-300 transition block">
+                                <span>Seleccionar Archivo</span>
+                                <input type="file" accept="application/pdf, image/jpeg, image/png" @change="manejarCargaArchivo('antecedentes')" class="hidden">
+                            </label>
+                            <span class="text-xs font-mono font-bold" :class="docs.antecedentes ? 'text-emerald-600 bg-emerald-50 px-2 py-1 rounded-lg' : 'text-gray-400'" x-text="docs.antecedentes ? '✓ Archivo Cargado (' + docs.antecedentesExt.toUpperCase() + ')' : 'No seleccionado (Soporta PDF, JPG)'"></span>
+                        </div>
+                    </div>
+
+                    <!-- Alerta de error de formato inválido -->
+                    <div x-show="errorFormato" x-transition class="bg-rose-50 border border-rose-200 text-rose-800 text-xs p-3 rounded-xl font-bold">
+                        ⚠️ Error de carga: Formato de archivo no permitido. Asegurate de subir únicamente archivos PDF, JPG o PNG.
+                    </div>
+                </div>
+
+                <!-- Sección Legal de Términos y Condiciones (T&C) -->
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-200 space-y-3">
+                    <h2 class="text-sm font-black text-slate-900 uppercase tracking-wider border-b pb-2">⚖️ Términos y Condiciones Generales de Uso</h2>
+                    <div class="h-32 overflow-y-scroll border border-gray-200 rounded-xl p-3 text-[11px] text-gray-600 bg-gray-50 leading-relaxed font-medium space-y-2">
+                        <p class="font-bold text-slate-800">1. RELACIÓN CONTRACTUAL DE USO DE SOFTWARE</p>
+                        <p>El profesional independiente adhiere de manera libre y voluntaria a las presentes condiciones de uso de la plataforma tecnológica TUERKA. Se deja expresa constancia de que la plataforma opera exclusivamente como un entorno de mediación logística y optimización de datos ("Secretaría Digital").</p>
+                        <p class="font-bold text-slate-800">2. INDEPENDENCIA TÉCNICA Y EXCLUSIÓN DE SOLIDARIDAD</p>
+                        <p>El profesional autónomo declara poseer las habilitaciones civiles, comerciales, técnicas y/o matrículas profesionales requeridas por la normativa vigente aplicable en la Ciudad Autónoma de Buenos Aires. El profesional asume la responsabilidad total y exclusiva por la praxis de la reparación efectuada, eximiendo a la plataforma de toda responsabilidad solidaria derivada del Art. 40 de la Ley 24.240 de Defensa del Consumidor.</p>
+                        <p class="font-bold text-slate-800">3. RETRIBUCIÓN POR DERECHO DE USO</p>
+                        <p>El uso del software devengará un costo administrativo del uno por ciento (1%) sobre el valor bruto del pliego técnico aceptado, retenido en concepto de gestión de la infraestructura administrativa digital.</p>
+                    </div>
+
+                    <!-- Checkbox de aceptación vinculante -->
+                    <label class="flex items-start space-x-3 cursor-pointer pt-1">
+                        <input type="checkbox" x-model="tecnicoAceptoTyC" class="w-4 h-4 rounded text-amber-500 focus:ring-amber-400 mt-0.5">
+                        <span class="text-xs font-bold text-slate-700 leading-snug">He leído, comprendo y acepto bajo declaración jurada los Términos, Condiciones y el Pliego de Deslinde Legal.</span>
+                    </label>
+
+                    <button :disabled="!tecnicoAceptoTyC || !docs.matricula || !docs.antecedentes" :class="(!tecnicoAceptoTyC || !docs.matricula || !docs.antecedentes) ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-slate-900 text-amber-400 hover:bg-slate-800 border border-amber-500/30 shadow-md'" class="w-full font-black text-xs py-3.5 rounded-xl transition uppercase tracking-widest mt-2">
+                        Enviar Documentación a Revisión
+                    </button>
+                </div>
             </div>
 
-            <!-- TÉCNICO VALIDADO ACTIVO -->
+            <!-- SITUACIÓN B: CUENTA TOTALMENTE VALIDADA Y ACTIVA (MUESTRA FLUJO LOGÍSTICO COMPLETO) -->
             <div x-show="tecnico.Validacion_Admin && tecnico.Estado_Dispo === 'Activo'" class="space-y-4">
                 
-                <!-- SUB-VISTA A: CARTELERA PÚBLICA CON DESGLOSE DE COMISIÓN (1%) -->
+                <!-- SUB-VISTA A: CARTELERA PÚBLICA -->
                 <div x-show="orden.Estado === 'Publicada'" class="bg-white p-5 rounded-2xl border border-gray-200 shadow-xl relative overflow-hidden">
                     <div class="absolute top-0 right-0 w-24 h-24 bg-amber-500/5 rounded-full blur-xl"></div>
                     
@@ -200,7 +287,6 @@
                         </div>
                     </div>
 
-                    <!-- CUADRO DE NEGOCIACIÓN DE LA SECRETARÍA -->
                     <div class="bg-slate-50 border border-slate-200 rounded-xl p-3.5 mb-4 text-xs space-y-1.5 font-bold">
                         <div class="flex justify-between text-gray-500 font-medium">
                             <span>Mano de obra bruta:</span>
@@ -222,7 +308,7 @@
                         </p>
                     </div>
 
-                    <button @click="orden.Estado = 'Aceptada'" class="w-full bg-slate-900 hover:bg-slate-800 text-amber-400 font-black text-sm py-3.5 rounded-xl transition shadow-md uppercase tracking-widest border border-amber-500/30 active:scale-[0.98]">
+                    <button @click="orden.Estado = 'Aceptada'" class="w-full bg-slate-900 hover:bg-slate-800 text-amber-400 font-black text-sm py-3.5 rounded-xl transition shadow-md uppercase tracking-widest border border-amber-500/30">
                         Aceptar y Confirmar Orden
                     </button>
                 </div>
@@ -240,22 +326,21 @@
                             <p class="text-sm font-bold text-gray-800" x-text="orden.Zona_Aproximada"></p>
                         </div>
 
-                        <div x-show="['En Camino', 'En Domicilio', 'Terminada'].includes(orden.Estado)" class="p-4 bg-emerald-50 border-2 border-emerald-200 rounded-xl shadow-inner">
+                        <div x-show="['En Camino', 'En Domicilio', 'Terminada'].includes(orden.Estado)" class="p-4 bg-emerald-50 border-2 border-emerald-200 rounded-xl">
                             <span class="block text-[10px] font-black text-emerald-700 uppercase tracking-wider">📍 DIRECCIÓN EXACTA REVELADA</span>
                             <p class="text-base font-mono font-black text-emerald-900 mt-1" x-text="orden.Direccion_Exacta"></p>
                         </div>
                         <div x-show="orden.Estado === 'Aceptada'" class="p-4 bg-gray-50 border border-gray-200 rounded-xl text-center">
-                            <p class="text-xs text-gray-500 font-bold leading-tight">La ubicación exacta se desbloqueará y registrará al presionar el botón de inicio de viaje.</p>
+                            <p class="text-xs text-gray-500 font-bold leading-tight">La ubicación exacta se desbloqueará al presionar el botón de inicio de viaje.</p>
                         </div>
                     </div>
 
-                    <!-- BOTONERA TÁCTIL GRANDE PARA CELULAR -->
                     <div class="pt-2">
-                        <button x-show="orden.Estado === 'Aceptada'" @click="marcarEnCamino()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-4 rounded-xl transition shadow-lg text-sm uppercase tracking-widest active:scale-[0.98]">
+                        <button x-show="orden.Estado === 'Aceptada'" @click="marcarEnCamino()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-4 rounded-xl transition shadow-lg text-sm uppercase tracking-widest">
                             🚀 Comenzar Viaje ("Estoy en Camino")
                         </button>
 
-                        <button x-show="orden.Estado === 'En Camino'" @click="marcarYaLlegue()" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-black py-4 rounded-xl transition shadow-lg text-sm uppercase tracking-widest active:scale-[0.98]">
+                        <button x-show="orden.Estado === 'En Camino'" @click="marcarYaLlegue()" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-black py-4 rounded-xl transition shadow-lg text-sm uppercase tracking-widest">
                             🙋‍♂️ Notificar Arribo ("Ya Llegué")
                         </button>
 
@@ -271,7 +356,7 @@
                                 <span class="text-[11px] text-gray-500 mt-2 font-bold">Presentar al encargado / seguridad.</span>
                             </div>
 
-                            <button @click="orden.Estado = 'Terminada'" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-black py-4 rounded-xl transition shadow-lg text-sm uppercase tracking-widest active:scale-[0.98]">
+                            <button @click="orden.Estado = 'Terminada'" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-black py-4 rounded-xl transition shadow-lg text-sm uppercase tracking-widest">
                                 ✓ Finalizar y Cerrar Servicio
                             </button>
                         </div>
@@ -286,16 +371,28 @@
         </div>
     </div>
 
-    <!-- CÓDIGO DE MOTOR / DATA COMPORTAMIENTAL -->
+    <!-- CÓDIGO DE MOTOR / LOGICA COMPORTAMIENTAL -->
     <script>
         function tuerkaApp() {
             return {
                 currentView: 'cliente',
+                tipoReporte: 'video', // Controla el triple input del cliente
+                clienteFotoCargada: false,
+
+                // Estado del Técnico y Documentación
+                tecnicoAceptoTyC: false,
+                errorFormato: false,
+                docs: {
+                    matricula: false,
+                    matriculaExt: '',
+                    antecedentes: false,
+                    antecedentesExt: ''
+                },
                 
                 tecnico: {
                     Nombre_Completo: "Carlos Pérez",
                     Especialidad: ["Gas", "Plomería"],
-                    Validacion_Admin: false,
+                    Validacion_Admin: false, // Controlado por el panel superior de testing
                     Estado_Dispo: 'Baja'
                 },
 
@@ -324,6 +421,29 @@
                     { label: "En Domicilio", check: (estado) => ["En Domicilio", "Terminada"].includes(estado) }
                 ],
 
+                // Control de carga de archivos con filtros específicos (PDF, JPG, JPEG, PNG)
+                manejarCargaArchivo(tipo) {
+                    const fileInput = event.target;
+                    if (fileInput.files.length > 0) {
+                        const file = fileInput.files[0];
+                        const nombre = file.name.toLowerCase();
+                        const extension = nombre.split('.').pop();
+                        
+                        const extensionesValidas = ['pdf', 'jpg', 'jpeg', 'png'];
+                        
+                        if (extensionesValidas.includes(extension)) {
+                            this.errorFormato = false;
+                            this.docs[tipo] = true;
+                            this.docs[tipo + 'Ext'] = extension;
+                        } else {
+                            this.errorFormato = true;
+                            this.docs[tipo] = false;
+                            this.docs[tipo + 'Ext'] = '';
+                            fileInput.value = ''; // Resetea el input corrupto
+                        }
+                    }
+                },
+
                 checkDispo() {
                     this.tecnico.Estado_Dispo = this.tecnico.Validacion_Admin ? 'Activo' : 'Baja';
                 },
@@ -340,7 +460,6 @@
                     this.orden.Timestamp_EnCamino = new Date().toISOString();
                     this.orden.Estado = 'En Camino';
                     
-                    // ENVÍO DE DATOS EN VIVO HACIA TU LINK CONFIGURADO DE MAKE
                     fetch("https://hook.us2.make.com/bmm7z3g7xmne05x2dbx7ttxtvqelhrdt", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
