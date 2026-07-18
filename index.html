@@ -13,10 +13,10 @@
         @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
     </style>
 </head>
-<body class="bg-gray-100 font-sans antialiased text-gray-900 select-none" x-data="tuerkaApp()" x-init="evaluarParametros()">
+<body class="bg-gray-100 font-sans antialiased text-gray-900 select-none" x-data="tuerkaApp()">
 
-    <!-- SELECTOR DE VISTAS (Visible sólo en modo simulación/admin secreto) -->
-    <div x-show="modoAdmin" class="bg-slate-900 text-slate-400 p-3 text-xs flex justify-center space-x-4 sticky top-0 z-50 border-b border-slate-800 shadow-md">
+    <!-- SELECTOR DE VISTAS DE ENTORNO -->
+    <div class="bg-slate-900 text-slate-400 p-3 text-xs flex justify-center space-x-4 sticky top-0 z-50 border-b border-slate-800 shadow-md">
         <span class="font-bold text-amber-400 font-mono">Entornos:</span>
         <button @click="currentView = 'cliente'" :class="currentView === 'cliente' ? 'underline font-black text-amber-400' : ''">1. Cliente</button>
         <button @click="currentView = 'asesor'" :class="currentView === 'asesor' ? 'underline font-black text-amber-400' : ''">2. Asesor Backend</button>
@@ -66,7 +66,7 @@
                     </button>
                 </div>
 
-                <div class="border-2 border-dashed border-gray-200 rounded-2xl p-5 bg-gray-50">
+                <div class="border-2 border-dashed border-gray-200 rounded-2xl p-5 bg-gray-50 mb-3">
                     <div x-show="tipoReporte === 'video'" class="flex flex-col items-center justify-center text-center">
                         <span class="text-sm font-bold text-slate-800">Video_Cliente.mp4</span>
                         <span class="text-xs text-emerald-600 mt-1 font-mono font-bold bg-emerald-50 px-2 py-0.5 rounded-full">✓ Cargado (24s)</span>
@@ -79,9 +79,14 @@
                         <span x-show="clienteFotoCargada" class="text-xs text-emerald-600 font-mono font-bold bg-emerald-50 px-2 py-0.5 rounded-full">✓ Imagen lista</span>
                     </div>
                     <div x-show="tipoReporte === 'texto'">
-                        <textarea placeholder="Describí detalladamente la falla que estás experimentando..." class="w-full bg-white border border-gray-200 rounded-xl p-3 text-sm focus:outline-none focus:border-amber-500 transition" rows="3"></textarea>
+                        <textarea placeholder="Describí la falla..." class="w-full bg-white border border-gray-200 rounded-xl p-3 text-sm focus:outline-none focus:border-amber-500 transition" rows="3"></textarea>
                     </div>
                 </div>
+
+                <!-- ACLARACIÓN DE PRIVACIDAD PARA EL CLIENTE -->
+                <p class="text-[10px] text-gray-500 leading-normal font-medium bg-gray-50 p-2.5 rounded-xl border border-gray-200">
+                    🔒 <b>Aviso de Resguardo Temporal:</b> La información multimedia y descriptiva del incidente se procesa con el único fin de realizar la mediación logística. TUERKA no realiza la guarda permanente de estos datos en sus servidores. Una vez aceptada la orden, los datos quedan bajo tenencia y responsabilidad del técnico asignado para la concreción del servicio.
+                </p>
             </div>
 
             <!-- Tracker de Progreso en Tiempo Real -->
@@ -100,6 +105,7 @@
             </div>
         </main>
 
+        <!-- STICKY FOOTER LEGAL DE NEUTRALIDAD ABSOLUTA -->
         <footer class="fixed bottom-0 left-0 right-0 bg-gray-900 text-[10px] text-gray-400 p-4 border-t border-amber-500/20 leading-relaxed text-justify z-40 select-none">
             <div class="max-w-md mx-auto">
                 <span class="font-extrabold text-amber-400 block mb-1 tracking-wide">AVISO DE NEUTRALIDAD Y CONDICIONES DE PLATAFORMA:</span>
@@ -131,28 +137,13 @@
     </div>
 
     <!-- ========================================== -->
-    <!-- PANTALLA 3: VISTA DEL TÉCNICO (BLINDADA)  -->
+    <!-- PANTALLA 3: VISTA DEL TÉCNICO COMPLETA    -->
     <!-- ========================================== -->
     <div x-show="currentView === 'tecnico'" class="min-h-screen bg-gray-100 p-4 pb-48">
         <div class="max-w-md mx-auto w-full space-y-4">
-            
-            <!-- SIMULADOR INTERNO DE AUDITORÍA (Oculto al público, solo visible con ?admin=true) -->
-            <div x-show="modoAdmin" class="bg-slate-900 text-white p-4 rounded-2xl shadow-lg border border-slate-800 text-xs">
-                <span class="font-black text-amber-400 block mb-2 border-b border-slate-800 pb-1 uppercase tracking-wider">🛠️ PANEL DE CONTROL DE AUDITORÍA (ADMIN SECRETO)</span>
-                <div class="space-y-2">
-                    <label class="flex items-center space-x-3 cursor-pointer">
-                        <input type="checkbox" x-model="tecnico.Validacion_Admin" @change="checkDispo()" class="w-4 h-4 rounded text-amber-500 bg-slate-800 border-slate-700">
-                        <span class="font-bold text-slate-200">Aprobar Legajo Fiscal (Simular OK)</span>
-                    </label>
-                    <div class="flex space-x-2 items-center pt-1">
-                        <span class="font-bold text-slate-400">Estado de Cuenta:</span>
-                        <span class="font-mono font-black text-xs uppercase px-2 py-0.5 rounded" :class="tecnico.Estado_Dispo === 'Activo' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-rose-500/20 text-rose-400'" x-text="tecnico.Estado_Dispo"></span>
-                    </div>
-                </div>
-            </div>
 
             <!-- SITUACIÓN A: CUENTA EN AUDITORÍA -->
-            <div x-show="!tecnico.Validacion_Admin || tecnico.Estado_Dispo !== 'Activo'" class="space-y-4">
+            <div x-show="tecnico.Estado_Dispo !== 'Activo'" class="space-y-4">
                 
                 <div class="bg-white border-2 border-amber-500/20 rounded-2xl p-5 flex items-start space-x-3 shadow-sm">
                     <div class="w-10 h-10 bg-amber-500/10 rounded-full flex items-center justify-center text-amber-600 shrink-0">
@@ -170,7 +161,7 @@
                 <div x-show="legajoEnviado" x-transition class="bg-emerald-50 border-2 border-emerald-500/30 rounded-2xl p-4 text-emerald-900 shadow-sm space-y-1">
                     <div class="flex items-center space-x-2 text-emerald-700 font-black text-sm">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                        <span>¡Legajo Received!</span>
+                        <span>¡Legajo Recibido!</span>
                     </div>
                     <p class="text-xs text-emerald-800 leading-normal font-medium">
                         Tu documentación ingresó al sistema de auditoría. El plazo de validación técnica es de un <b>máximo de 24 horas hábiles</b>. Te notificaremos vía WhatsApp una vez aprobado.
@@ -242,6 +233,11 @@
                             <p class="font-bold text-slate-800">1. PROTECCIÓN DE DATOS PERSONALES (LEY Nº 25.326)</p>
                             <p>En cumplimiento de la Ley de Protección de Datos Personales de la República Argentina, TUERKA informa que todos los datos suministrados serán tratados con absoluta confidencialidad para auditoría interna de legajos.</p>
                         </div>
+                        <!-- NUEVA CLÁUSULA EXPLICITA DE RECOLECCIÓN LOGÍSTICA -->
+                        <div>
+                            <p class="font-bold text-slate-800">2. CUSTODIA Y PODER DE DATOS MULTIMEDIA DE INCIDENCIAS</p>
+                            <p>El profesional técnico adhiere manifestando comprender y aceptar de forma vinculante que TUERKA actúa meramente como un canal tecnológico y de intermediación logística transitoria, por lo que <b>la plataforma no efectúa guarda, almacenamiento ni archivo a largo plazo de los datos, descripciones o imágenes aportadas por los clientes</b> con respecto a las fallas reportadas. Al aceptar una orden, dichos datos comerciales quedan en poder, custodia y bajo la exclusiva responsabilidad legal de resguardo del técnico locatario independiente, desligando a la plataforma de cualquier contingencia derivada de su tratamiento posterior.</p>
+                        </div>
                     </div>
                     <label class="flex items-start space-x-3 cursor-pointer pt-1">
                         <input type="checkbox" x-model="tecnicoAceptoTyC" class="w-4 h-4 rounded text-amber-500 focus:ring-amber-400 mt-0.5">
@@ -252,7 +248,7 @@
             </div>
 
             <!-- SITUACIÓN B: CUENTA ACTIVADA (CARTELERA Y SERVICIOS) -->
-            <div x-show="tecnico.Validacion_Admin && tecnico.Estado_Dispo === 'Activo'" class="space-y-4">
+            <div x-show="tecnico.Estado_Dispo === 'Activo'" class="space-y-4">
                 <div x-show="orden.Estado === 'Publicada'" class="bg-white p-5 rounded-2xl border border-gray-200 shadow-xl relative overflow-hidden">
                     <div class="flex justify-between items-start mb-4">
                         <span class="bg-amber-500/10 text-amber-700 text-xs font-black px-3 py-1 rounded-full border border-amber-500/20" x-text="'Zona: ' + orden.Zona_Aproximada"></span>
@@ -281,11 +277,6 @@
                             <span class="text-slate-900 font-mono text-sm" x-text="'$' + (orden.Precio_Sugerido_Market * 0.01).toFixed(2) + ' ARS'"></span>
                         </div>
                         <button @click="simularBotonPago()" class="w-full bg-[#009EE3] text-white font-black py-3 rounded-xl text-xs uppercase flex items-center justify-center space-x-2 transition shadow"><span>💳 Pagar con Mercado Pago</span></button>
-                        
-                        <!-- Simulador IPN visible sólo para el admin -->
-                        <div x-show="checkoutAbierto && modoAdmin" class="bg-slate-900 text-white p-2.5 rounded-lg text-center space-y-1.5 pt-2">
-                            <button @click="confirmarPagoExitoso()" class="bg-emerald-600 text-white font-mono text-[9px] font-black px-3 py-1 rounded uppercase tracking-wider">Simular Pago Exitoso</button>
-                        </div>
                     </div>
 
                     <div class="space-y-2 text-sm">
@@ -312,10 +303,9 @@
     <script>
         function tuerkaApp() {
             return {
-                currentView: 'cliente',
+                currentView: 'tecnico',
                 tipoReporte: 'video',
                 clienteFotoCargada: false,
-                modoAdmin: false, // Variable trampa que oculta los simuladores al público
 
                 legajoEnviado: false,
                 comisionPagada: false,
@@ -325,7 +315,7 @@
                 
                 formTecnico: { nombre: '', cuit: '', whatsapp: '' },
                 docs: { afip: false, afipExt: '', matricula: false, matriculaExt: '', antecedentes: false, antecedentesExt: '' },
-                tecnico: { Nombre_Completo: "Carlos Pérez", Validacion_Admin: false, Estado_Dispo: 'Baja' },
+                tecnico: { Nombre_Completo: "Carlos Pérez", Estado_Dispo: 'Baja' },
                 orden: { ID_Orden: 3849, Estado: 'Pendiente Peritaje', Pliego_Asesor: 'Se detecta pérdida de presión por fisura en llave de paso.', Precio_Sugerido_Market: 45000, Zona_Aproximada: 'Palermo Soho, CABA', Direccion_Exacta: 'Guatemala 4821, Piso 3B' },
                 asesorForm: { pliego: '', materiales: '', precio: 0 },
                 etapasCliente: [
@@ -334,14 +324,6 @@
                     { label: "En Camino", check: (estado) => estado === "En Camino" },
                     { label: "En Domicilio", check: (estado) => ["En Domicilio", "Terminada"].includes(estado) }
                 ],
-
-                // Evalúa de forma silenciosa la URL en busca de la llave de desarrollo secreta
-                evaluarParametros() {
-                    const urlParams = new URLSearchParams(window.location.search);
-                    if (urlParams.get('admin') === 'true') {
-                        this.modoAdmin = true;
-                    }
-                },
 
                 enviarLegajo() {
                     this.legajoEnviado = true;
@@ -358,8 +340,7 @@
                     }).catch(err => console.log('Error'));
                 },
 
-                simularBotonPago() { this.checkoutAbierto = true; },
-                confirmarPagoExitoso() { this.comisionPagada = true; this.checkoutAbierto = false; },
+                simularBotonPago() { this.checkoutAbierto = true; this.comisionPagada = true; },
                 manejarCargaArchivo(tipo) {
                     const fileInput = event.target;
                     if (fileInput.files.length > 0) {
@@ -371,7 +352,6 @@
                         }
                     }
                 },
-                checkDispo() { this.tecnico.Estado_Dispo = this.tecnico.Validacion_Admin ? 'Activo' : 'Baja'; },
                 liberarCartelera() { this.orden.Estado = 'Publicada'; this.currentView = 'tecnico'; },
                 marcarEnCamino() { this.orden.Estado = 'En Camino'; },
                 marcarYaLlegue() { this.orden.Estado = 'En Domicilio'; }
