@@ -3,280 +3,158 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TUERKA - Logística Técnica</title>
-    <!-- Tailwind CSS para Estilos -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Alpine.js para la Lógica de Estados y Reactividad -->
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <title>Registro de Técnicos - Validación de Legajos</title>
     <style>
-        .animate-spin-slow { animation: spin 8s linear infinite; }
-        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        :root {
+            --primary-color: #1a1a1a;
+            --accent-color: #0066cc;
+            --background-gray: #f5f5f7;
+            --border-color: #d2d2d7;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--background-gray);
+            color: var(--primary-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .form-container {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        h2 {
+            margin-top: 0;
+            margin-bottom: 24px;
+            font-size: 24px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        input[type="text"],
+        input[type="email"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: border-color 0.2s;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        input[type="file"] {
+            display: block;
+            width: 100%;
+            padding: 10px 0;
+            font-size: 14px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 14px;
+            background-color: var(--primary-color);
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-top: 10px;
+        }
+
+        .btn-submit:hover {
+            background-color: #333333;
+        }
+
+        .legal-notice {
+            font-size: 12px;
+            color: #6e6e73;
+            text-align: center;
+            margin-top: 20px;
+            line-height: 1.4;
+        }
     </style>
 </head>
-<body class="bg-gray-100 font-sans antialiased text-gray-900 select-none" x-data="tuerkaApp()">
+<body>
 
-    <!-- SELECTOR DE VISTAS DE ENTORNO -->
-    <div class="bg-slate-900 text-slate-400 p-3 text-xs flex justify-center space-x-4 sticky top-0 z-50 border-b border-slate-800 shadow-md">
-        <span class="font-bold text-amber-400 font-mono">Entornos:</span>
-        <button @click="currentView = 'cliente'" :class="currentView === 'cliente' ? 'underline font-black text-amber-400' : ''">1. Cliente</button>
-        <button @click="currentView = 'asesor'" :class="currentView === 'asesor' ? 'underline font-black text-amber-400' : ''">2. Asesor Backend</button>
-        <button @click="currentView = 'tecnico'" :class="currentView === 'tecnico' ? 'underline font-black text-amber-400' : ''">3. Técnico Portal</button>
-    </div>
+<div class="form-container">
+    <h2>Registro de Legajo Técnico</h2>
+    
+    <!-- REEMPLAZAR 'TU_URL_DE_MAKE' CON EL LINK COMPLETO DEL WEBHOOK ROSA -->
+    <form id="form-tuerka" action="TU_URL_DE_MAKE" method="POST" enctype="multipart/form-data">
+        
+        <!-- Campo Oculto para control interno de eventos si lo necesitás -->
+        <input type="hidden" name="evento" value="nuevo_registro_tecnico">
 
-    <!-- ========================================== -->
-    <!-- PANTALLA 1: VISTA DEL CLIENTE             -->
-    <!-- ========================================== -->
-    <div x-show="currentView === 'cliente'" class="min-h-screen bg-gray-50 pb-52 flex flex-col justify-between">
-        <header class="bg-gradient-to-r from-slate-900 to-slate-800 border-b-2 border-amber-500/30 py-4 px-6 flex items-center justify-between shadow-xl">
-            <div class="flex items-center space-x-4">
-                <div class="w-12 h-12 bg-gradient-to-br from-amber-400 via-yellow-200 to-amber-600 rounded-full flex items-center justify-center shadow-[0_0_15px_rgba(245,158,11,0.5)] border-2 border-amber-300 ring-4 ring-slate-900/50 relative overflow-hidden">
-                    <div class="absolute inset-0 opacity-20 bg-[linear-gradient(45deg,#000_25%,transparent_25%,transparent_50%,#000_50%,#000_75%,transparent_75%,transparent)] bg-[size:4px_4px]"></div>
-                    <svg class="w-7 h-7 text-slate-950 animate-spin-slow drop-shadow-[0_2px_3px_rgba(0,0,0,0.4)] relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                </div>
-                <div>
-                    <h1 class="text-xl font-black tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-100 to-amber-500 drop-shadow-sm">TUERKA</h1>
-                    <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Logística Técnica de Avanzada</p>
-                </div>
-            </div>
-            <span class="bg-amber-500/10 text-amber-400 text-xs px-3 py-1 rounded-full font-black border border-amber-500/30 tracking-wider">CABA</span>
-        </header>
-
-        <main class="p-4 flex-1 max-w-md mx-auto w-full space-y-4">
-            <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 space-y-4">
-                <div>
-                    <h2 class="text-lg font-black text-slate-900 mb-1">Reportar Incidencia</h2>
-                    <p class="text-xs text-gray-500">Seleccioná cómo preferís detallar el problema mecánico o estructural:</p>
-                </div>
-                
-                <div class="grid grid-cols-3 gap-2 text-center">
-                    <button @click="tipoReporte = 'video'" :class="tipoReporte === 'video' ? 'bg-slate-900 text-amber-400 border-amber-400' : 'bg-gray-50 text-gray-600 border-gray-200'" class="p-2.5 border text-xs font-bold rounded-xl flex flex-col items-center justify-center space-y-1 transition">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-                        <span>Video</span>
-                    </button>
-                    <button @click="tipoReporte = 'foto'" :class="tipoReporte === 'foto' ? 'bg-slate-900 text-amber-400 border-amber-400' : 'bg-gray-50 text-gray-600 border-gray-200'" class="p-2.5 border text-xs font-bold rounded-xl flex flex-col items-center justify-center space-y-1 transition">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                        <span>Foto</span>
-                    </button>
-                    <button @click="tipoReporte = 'texto'" :class="tipoReporte === 'texto' ? 'bg-slate-900 text-amber-400 border-amber-400' : 'bg-gray-50 text-gray-600 border-gray-200'" class="p-2.5 border text-xs font-bold rounded-xl flex flex-col items-center justify-center space-y-1 transition">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                        <span>Texto</span>
-                    </button>
-                </div>
-
-                <div class="border-2 border-dashed border-gray-200 rounded-2xl p-5 bg-gray-50">
-                    <div x-show="tipoReporte === 'video'" class="flex flex-col items-center justify-center text-center">
-                        <span class="text-sm font-bold text-slate-800">Video_Cliente.mp4</span>
-                        <span class="text-xs text-emerald-600 mt-1 font-mono font-bold bg-emerald-50 px-2 py-0.5 rounded-full">✓ Cargado (24s)</span>
-                    </div>
-                    <div x-show="tipoReporte === 'foto'" class="flex flex-col items-center justify-center text-center space-y-2">
-                        <label class="cursor-pointer bg-white border border-gray-300 px-4 py-2 rounded-xl text-xs font-bold shadow-sm hover:bg-gray-50 block">
-                            <span>Seleccionar Foto</span>
-                            <input type="file" accept="image/jpeg, image/png" @change="clienteFotoCargada = true" class="hidden">
-                        </label>
-                        <span x-show="clienteFotoCargada" class="text-xs text-emerald-600 font-mono font-bold bg-emerald-50 px-2 py-0.5 rounded-full">✓ Imagen lista</span>
-                    </div>
-                    <div x-show="tipoReporte === 'texto'">
-                        <textarea placeholder="Describí la falla..." class="w-full bg-white border border-gray-200 rounded-xl p-3 text-sm focus:outline-none focus:border-amber-500 transition" rows="3"></textarea>
-                    </div>
-                </div>
-
-                <div class="bg-rose-50 border border-rose-200 p-3 rounded-xl text-[11px] text-rose-900 leading-normal space-y-1.5 font-medium">
-                    <p class="font-black text-rose-950 uppercase tracking-wide flex items-center">
-                        <svg class="w-4 h-4 mr-1 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
-                        Declaración Obligatoria de Capacidad (CCyCN)
-                    </p>
-                    <p>
-                        Al solicitar este servicio, el usuario garantiza bajo declaración jurada que cuenta con la legitimación del inmueble y que al arribo del prestador <b>habrá un mayor de 18 años con plena capacidad civil para consentir actos jurídicos, validar el pliego técnico y firmar la conformidad.</b> Caso contrario, el servicio se cancelará por culpa del usuario devengando los gastos de traslado.
-                    </p>
-                </div>
-            </div>
-        </main>
-    </div>
-
-    <!-- ========================================== -->
-    <!-- PANTALLA 3: VISTA DEL TÉCNICO COMPLETA    -->
-    <!-- ========================================== -->
-    <div x-show="currentView === 'tecnico'" class="min-h-screen bg-gray-100 p-4 pb-48">
-        <div class="max-w-md mx-auto w-full space-y-4">
-
-            <!-- SITUACIÓN A: CUENTA EN AUDITORÍA -->
-            <div x-show="tecnico.Estado_Dispo !== 'Activo'" class="space-y-4">
-                
-                <div class="bg-white border-2 border-amber-500/20 rounded-2xl p-5 flex items-start space-x-3 shadow-sm">
-                    <div class="w-10 h-10 bg-amber-500/10 rounded-full flex items-center justify-center text-amber-600 shrink-0">
-                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
-                    </div>
-                    <div>
-                        <h3 class="text-base font-black text-slate-900">Validación de Identidad Fiscal y Comercial</h3>
-                        <p class="text-xs text-gray-600 mt-1 leading-normal">
-                            Para operar en la cartelera activa de CABA, es obligatorio cargar tu condición fiscal autónoma y aceptar el manejo de datos personales de acuerdo a la ley vigente.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- ALERTA DE RECEPCIÓN EXITOSA -->
-                <div x-show="legajoEnviado" x-transition class="bg-emerald-50 border-2 border-emerald-500/30 rounded-2xl p-4 text-emerald-900 shadow-sm space-y-1">
-                    <div class="flex items-center space-x-2 text-emerald-700 font-black text-sm">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                        <span>¡Legajo Recibido con Éxito!</span>
-                    </div>
-                    <p class="text-xs text-emerald-800 leading-normal font-medium">
-                        Tu documentación ingresó formalmente al sistema de auditoría. El plazo de validación técnica es de un <b>máximo de 24 horas hábiles</b>. Se ha enviado un comprobante a tu casilla y te notificaremos por <b>correo electrónico</b> una vez que tu cuenta se encuentre activa.
-                    </p>
-                </div>
-
-                <!-- APARTADO DE DATOS PERSONALES CON FILTROS AVANZADOS -->
-                <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-200 space-y-3">
-                    <h2 class="text-sm font-black text-slate-900 uppercase tracking-wider border-b pb-1.5">👤 Información y Datos Personales</h2>
-                    <div class="space-y-3">
-                        <div class="grid grid-cols-2 gap-3">
-                            <div>
-                                <label class="block text-[11px] font-bold text-gray-500 mb-1">Nombre Completo *</label>
-                                <input type="text" x-model="formTecnico.nombre" placeholder="Juan Pérez" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-2.5 text-xs font-bold focus:outline-none focus:border-amber-500">
-                            </div>
-                            <div>
-                                <label class="block text-[11px] font-bold text-gray-500 mb-1">CUIT (Formato: XX-XXXXXXXX-X) *</label>
-                                <input type="text" x-model="formTecnico.cuit" @input="formatearCUIT" placeholder="20-12345678-9" maxlength="13" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-2.5 text-xs font-bold font-mono focus:outline-none" :class="validarCUIT(formTecnico.cuit) ? 'border-emerald-500 focus:border-emerald-500' : 'border-gray-200 focus:border-amber-500'">
-                                <span x-show="formTecnico.cuit && !validarCUIT(formTecnico.cuit)" class="text-[9px] text-rose-600 font-bold block mt-1">⚠️ Formato de CUIT inválido.</span>
-                            </div>
-                        </div>
-                        <div>
-                            <label class="block text-[11px] font-bold text-gray-500 mb-1">Correo Electrónico (Notificaciones Oficiales) *</label>
-                            <input type="email" x-model="formTecnico.email" placeholder="ejemplo@correo.com" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-2.5 text-xs font-bold font-mono focus:outline-none" :class="validarEmail(formTecnico.email) ? 'border-emerald-500 focus:border-emerald-500' : 'border-gray-200 focus:border-amber-500'">
-                            <span x-show="formTecnico.email && !validarEmail(formTecnico.email)" class="text-[9px] text-rose-600 font-bold block mt-1">⚠️ Formato de Email inválido.</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- FORMULARIO DE CARGA DE ARCHIVOS -->
-                <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-200 space-y-4">
-                    <h2 class="text-sm font-black text-slate-900 uppercase tracking-wider border-b pb-2">📂 Documentación Obligatoria</h2>
-                    <div class="space-y-1.5">
-                        <label class="block text-xs font-bold text-gray-800">1. Constancia de Opción AFIP (Monotributo / Responsable Inscripto Vigente)</label>
-                        <div class="flex items-center space-x-2">
-                            <label class="bg-gray-100 hover:bg-gray-200 text-slate-800 font-bold px-4 py-2.5 rounded-xl text-xs cursor-pointer border border-gray-300 block transition">
-                                <span>Subir Constancia</span>
-                                <input type="file" accept="application/pdf, image/jpeg, image/png" @change="manejarCargaArchivo('afip')" class="hidden">
-                            </label>
-                            <span class="text-xs font-mono font-bold" :class="docs.afip ? 'text-emerald-600 bg-emerald-50 px-2 py-1 rounded-lg' : 'text-gray-400'" x-text="docs.afip ? '✓ Cargado (' + docs.afipExt.toUpperCase() + ')' : 'Falta Cargar'"></span>
-                        </div>
-                    </div>
-                    <div class="space-y-1.5">
-                        <label class="block text-xs font-bold text-gray-700">2. Matrícula Profesional o Certificado de Idoneidad Técnica</label>
-                        <div class="flex items-center space-x-2">
-                            <label class="bg-gray-100 hover:bg-gray-200 text-slate-800 font-bold px-4 py-2.5 rounded-xl text-xs cursor-pointer border border-gray-300 block transition">
-                                <span>Subir Archivo</span>
-                                <input type="file" accept="application/pdf, image/jpeg, image/png" @change="manejarCargaArchivo('matricula')" class="hidden">
-                            </label>
-                            <span class="text-xs font-mono font-bold" :class="docs.matricula ? 'text-emerald-600 bg-emerald-50 px-2 py-1 rounded-lg' : 'text-gray-400'" x-text="docs.matricula ? '✓ Cargado (' + docs.matriculaExt.toUpperCase() + ')' : 'Falta Cargar'"></span>
-                        </div>
-                    </div>
-                    <div class="space-y-1.5">
-                        <label class="block text-xs font-bold text-gray-700">3. Certificado de Antecedentes Penales (RNR actualizado)</label>
-                        <div class="flex items-center space-x-2">
-                            <label class="bg-gray-100 hover:bg-gray-200 text-slate-800 font-bold px-4 py-2.5 rounded-xl text-xs cursor-pointer border border-gray-300 block transition">
-                                <span>Subir Archivo</span>
-                                <input type="file" accept="application/pdf, image/jpeg, image/png" @change="manejarCargaArchivo('antecedentes')" class="hidden">
-                            </label>
-                            <span class="text-xs font-mono font-bold" :class="docs.antecedentes ? 'text-emerald-600 bg-emerald-50 px-2 py-1 rounded-lg' : 'text-gray-400'" x-text="docs.antecedentes ? '✓ Cargado (' + docs.antecedentesExt.toUpperCase() + ')' : 'Falta Cargar'"></span>
-                        </div>
-                    </div>
-                    <div x-show="errorFormato" class="bg-rose-50 border border-rose-200 text-rose-800 text-xs p-3 rounded-xl font-bold">⚠️ Formato inválido. Subí PDF, JPG o PNG.</div>
-                </div>
-
-                <!-- POLÍTICA DE MANEJO DE DATOS Y CONTRATO -->
-                <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-200 space-y-3">
-                    <h2 class="text-sm font-black text-slate-900 uppercase tracking-wider border-b pb-2">⚖️ Ley de Protección de Datos y Contrato</h2>
-                    <div class="h-32 overflow-y-scroll border border-gray-200 rounded-xl p-3 text-[11px] text-gray-600 bg-gray-50 leading-relaxed font-medium space-y-3">
-                        <div>
-                            <p class="font-bold text-slate-800">1. PROTECCIÓN DE DATOS PERSONALES (LEY Nº 25.326)</p>
-                            <p>En cumplimiento de la Ley de Protección de Datos Personales de la República Argentina, TUERKA informa que todos los datos suministrados serán tratados con absoluta confidencialidad para auditoría interna de legajos.</p>
-                        </div>
-                    </div>
-                    <label class="flex items-start space-x-3 cursor-pointer pt-1">
-                        <input type="checkbox" x-model="tecnicoAceptoTyC" class="w-4 h-4 rounded text-amber-500 focus:ring-amber-400 mt-0.5">
-                        <span class="text-xs font-bold text-slate-700">Acepto los términos de la Ley 25.326 de Protección de Datos y mi condición fiscal autónoma.</span>
-                    </label>
-                    
-                    <!-- El botón evalúa de forma estricta las expresiones regulares del CUIT y el Email -->
-                    <button @click="enviarLegajo()" :disabled="!tecnicoAceptoTyC || !docs.afip || !docs.matricula || !docs.antecedentes || !formTecnico.nombre || !validarCUIT(formTecnico.cuit) || !validarEmail(formTecnico.email)" :class="(!tecnicoAceptoTyC || !docs.afip || !docs.matricula || !docs.antecedentes || !formTecnico.nombre || !validarCUIT(formTecnico.cuit) || !validarEmail(formTecnico.email)) ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-slate-900 text-amber-400 hover:bg-slate-800'" class="w-full font-black text-xs py-3.5 rounded-xl uppercase tracking-widest mt-2 transition">Enviar Legajo a Auditoría</button>
-                </div>
-            </div>
+        <!-- Datos de Texto Obligatorios -->
+        <div class="form-group">
+            <label for="tecnico_nombre">Nombre Completo</label>
+            <input type="text" id="tecnico_nombre" name="tecnico_nombre" placeholder="Juan Pérez" required>
         </div>
+
+        <div class="form-group">
+            <label for="tecnico_cuit">CUIT (Sin guiones)</label>
+            <input type="text" id="tecnico_cuit" name="tecnico_cuit" placeholder="20123456789" pattern="[0-9]{11}" title="Por favor, ingrese los 11 dígitos del CUIT sin espacios ni guiones" required>
+        </div>
+
+        <div class="form-group">
+            <label for="tecnico_email">Correo Electrónico</label>
+            <input type="email" id="tecnico_email" name="tecnico_email" placeholder="ejemplo@correo.com" required>
+        </div>
+
+        <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 25px 0;">
+
+        <!-- Carga de Archivos Binarios Reales (Avanzado) -->
+        <div class="form-group">
+            <label for="constancia_afip">1. Constancia de Opción AFIP (PDF / Imagen)</label>
+            <input type="file" id="constancia_afip" name="constancia_afip" accept=".pdf,.jpg,.jpeg,.png" required>
+        </div>
+
+        <div class="form-group">
+            <label for="matricula">2. Matrícula Profesional Habilitante (PDF / Imagen)</label>
+            <input type="file" id="matricula" name="matricula" accept=".pdf,.jpg,.jpeg,.png" required>
+        </div>
+
+        <div class="form-group">
+            <label for="antecedentes">3. Certificado de Antecedentes Penales (PDF)</label>
+            <input type="file" id="antecedentes" name="antecedentes" accept=".pdf,.jpg,.jpeg,.png" required>
+        </div>
+
+        <button type="submit" class="btn-submit">Enviar Documentación</button>
+    </form>
+
+    <div class="legal-notice">
+        La documentación se transmite mediante canales cifrados y se almacena en carácter de declaración jurada sujeta a auditoría legal dentro de las 24 horas hábiles.
     </div>
+</div>
 
-    <!-- CÓDIGO DE MOTOR -->
-    <script>
-        function tuerkaApp() {
-            return {
-                currentView: 'tecnico',
-                tipoReporte: 'video',
-                clienteFotoCargada: false,
-
-                legajoEnviado: false,
-                comisionPagada: false,
-                checkoutAbierto: false,
-                tecnicoAceptoTyC: false,
-                errorFormato: false,
-                
-                formTecnico: { nombre: '', cuit: '', email: '' },
-                docs: { afip: false, afipExt: '', matricula: false, matriculaExt: '', antecedentes: false, antecedentesExt: '' },
-                tecnico: { Nombre_Completo: "Carlos Pérez", Estado_Dispo: 'Baja' },
-                orden: { ID_Orden: 3849, Estado: 'Pendiente Peritaje', Pliego_Asesor: 'Se detecta pérdida de presión por fisura en llave de paso.', Precio_Sugerido_Market: 45000, Zona_Aproximada: 'Palermo Soho, CABA', Direccion_Exacta: 'Guatemala 4821, Piso 3B' },
-
-                // EXPRESIONES REGULARES DE VALIDACIÓN REAL
-                validarCUIT(cuit) {
-                    const regex = /^\d{2}-\d{8}-\d{1}$/;
-                    return regex.test(cuit);
-                },
-                validarEmail(email) {
-                    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                    return regex.test(email);
-                },
-
-                // Máscara inteligente para guiones del CUIT en tiempo de ejecución táctil
-                formatearCUIT() {
-                    let valor = this.formTecnico.cuit.replace(/\D/g, '');
-                    if (valor.length > 2 && valor.length <= 10) {
-                        valor = valor.substring(0, 2) + '-' + valor.substring(2);
-                    } else if (valor.length > 10) {
-                        valor = valor.substring(0, 2) + '-' + valor.substring(2, 10) + '-' + valor.substring(10, 11);
-                    }
-                    this.formTecnico.cuit = valor;
-                },
-
-                enviarLegajo() {
-                    this.legajoEnviado = true;
-                    fetch("https://hook.us2.make.com/bmm7z3g7xmne05x2dbx7ttxtvqelhrdt", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({
-                            evento: "NUEVO_LEGAJO_AUDITORIA",
-                            tecnico_nombre: this.formTecnico.nombre,
-                            tecnico_cuit: this.formTecnico.cuit,
-                            tecnico_email: this.formTecnico.email,
-                            mensaje: "Se ha cargado un nuevo legajo estructurado para revisión legal de 24 hs."
-                        })
-                    }).catch(err => console.log('Error'));
-                },
-
-                simularBotonPago() { this.checkoutAbierto = true; this.comisionPagada = true; },
-                manejarCargaArchivo(tipo) {
-                    const fileInput = event.target;
-                    if (fileInput.files.length > 0) {
-                        const extension = fileInput.files[0].name.toLowerCase().split('.').pop();
-                        if (['pdf', 'jpg', 'jpeg', 'png'].includes(extension)) {
-                            this.errorFormato = false; this.docs[tipo] = true; this.docs[tipo + 'Ext'] = extension;
-                        } else {
-                            this.errorFormato = true; this.docs[tipo] = false; fileInput.value = '';
-                        }
-                    }
-                }
-            }
-        }
-    </script>
 </body>
 </html>
