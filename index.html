@@ -27,7 +27,6 @@
     <!-- PANTALLA 1: VISTA DEL CLIENTE             -->
     <!-- ========================================== -->
     <div x-show="currentView === 'cliente'" class="min-h-screen bg-gray-50 pb-52 flex flex-col justify-between">
-        <!-- Header Corporativo Estilo Premium Dorado -->
         <header class="bg-gradient-to-r from-slate-900 to-slate-800 border-b-2 border-amber-500/30 py-4 px-6 flex items-center justify-between shadow-xl">
             <div class="flex items-center space-x-4">
                 <div class="w-12 h-12 bg-gradient-to-br from-amber-400 via-yellow-200 to-amber-600 rounded-full flex items-center justify-center shadow-[0_0_15px_rgba(245,158,11,0.5)] border-2 border-amber-300 ring-4 ring-slate-900/50 relative overflow-hidden">
@@ -46,7 +45,6 @@
         </header>
 
         <main class="p-4 flex-1 max-w-md mx-auto w-full space-y-4">
-            <!-- Formulario Flexible de Incidencia -->
             <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 space-y-4">
                 <div>
                     <h2 class="text-lg font-black text-slate-900 mb-1">Reportar Incidencia</h2>
@@ -94,57 +92,8 @@
                         Al solicitar este servicio, el usuario garantiza bajo declaración jurada que cuenta con la legitimación del inmueble y que al arribo del prestador <b>habrá un mayor de 18 años con plena capacidad civil para consentir actos jurídicos, validar el pliego técnico y firmar la conformidad.</b> Caso contrario, el servicio se cancelará por culpa del usuario devengando los gastos de traslado.
                     </p>
                 </div>
-
-                <p class="text-[10px] text-gray-500 leading-normal font-medium bg-gray-50 p-2.5 rounded-xl border border-gray-200">
-                    🔒 <b>Aviso de Resguardo Temporal:</b> TUERKA no realiza la guarda permanente de estos datos. Una vez aceptada la orden, los datos quedan bajo responsabilidad del técnico asignado de acuerdo a la Ley 25.326.
-                </p>
-            </div>
-
-            <!-- Tracker de Progreso en Tiempo Real -->
-            <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
-                <h3 class="text-xs font-black uppercase tracking-wider text-slate-400 mb-4">Estado del Servicio</h3>
-                <div class="flex flex-col space-y-4">
-                    <template x-for="(etapa, index) in etapasCliente" :key="index">
-                        <div class="flex items-center space-x-4">
-                            <div class="w-5 h-5 rounded-full flex items-center justify-center transition-all duration-300" :class="etapa.check(orden.Estado) ? 'bg-amber-500 ring-4 ring-amber-100' : 'bg-gray-200'">
-                                <div x-show="etapa.check(orden.Estado)" class="w-2 h-2 bg-slate-950 rounded-full"></div>
-                            </div>
-                            <span class="text-sm font-bold transition-colors" :class="etapa.check(orden.Estado) ? 'text-slate-900 font-black' : 'text-gray-400'" x-text="etapa.label"></span>
-                        </div>
-                    </template>
-                </div>
             </div>
         </main>
-
-        <!-- STICKY FOOTER LEGAL -->
-        <footer class="fixed bottom-0 left-0 right-0 bg-gray-900 text-[10px] text-gray-400 p-4 border-t border-amber-500/20 leading-relaxed text-justify z-40 select-none">
-            <div class="max-w-md mx-auto">
-                <span class="font-extrabold text-amber-400 block mb-1 tracking-wide">AVISO DE NEUTRALIDAD Y CONDICIONES DE PLATAFORMA:</span>
-                TUERKA es una plataforma tecnológica de intermediación y negociación operada bajo la modalidad de locación de software de gestión administrativa ("Secretaría Digital"). El uso de la plataforma devenga un cargo administrativo del uno por ciento (1%) sobre el valor de la locación de servicios privada celebrada de forma exclusiva y autónoma entre el profesional independiente matriculado y el usuario solicitante. TUERKA no es parte de la relación civil o comercial subyacente, no fija honorarios ni asume responsabilidad solidaria por daños, praxis o resultados de la reparación.
-            </div>
-        </footer>
-    </div>
-
-    <!-- ========================================== -->
-    <!-- PANTALLA 2: PANEL OCULTO DEL ASESOR       -->
-    <!-- ========================================== -->
-    <div x-show="currentView === 'asesor'" class="min-h-screen bg-slate-900 text-slate-100 p-4">
-        <div class="max-w-md mx-auto w-full">
-            <header class="mb-6 border-b border-slate-800 pb-4">
-                <h1 class="text-xl font-black text-white">Mesa de Peritaje Técnico v1.0</h1>
-            </header>
-            <div x-show="orden.Estado === 'Pendiente Peritaje'" class="bg-slate-800 p-5 rounded-2xl border border-slate-700 space-y-4 shadow-2xl">
-                <div class="flex justify-between items-center">
-                    <span class="text-xs font-mono bg-slate-700 px-2.5 py-1 rounded-lg text-slate-300 font-bold" x-text="'ID: #' + orden.ID_Orden"></span>
-                </div>
-                <div class="space-y-3">
-                    <textarea x-model="asesorForm.pliego" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-sm text-white focus:outline-none" rows="2"></textarea>
-                    <textarea x-model="asesorForm.materiales" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-sm text-white focus:outline-none" rows="2"></textarea>
-                    <input type="number" x-model="asesorForm.precio" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-sm text-white font-mono font-bold focus:outline-none">
-                </div>
-                <button @click="liberarCartelera()" class="w-full bg-emerald-600 text-white font-black py-3.5 rounded-xl text-sm uppercase tracking-wider transition active:scale-[0.98]">Liberar a Cartelera</button>
-            </div>
-        </div>
     </div>
 
     <!-- ========================================== -->
@@ -168,18 +117,18 @@
                     </div>
                 </div>
 
-                <!-- ALERTA DE RECEPCIÓN EXITOSA POR EMAIL (24 HORAS VÍNCULANTE) -->
+                <!-- ALERTA DE RECEPCIÓN EXITOSA -->
                 <div x-show="legajoEnviado" x-transition class="bg-emerald-50 border-2 border-emerald-500/30 rounded-2xl p-4 text-emerald-900 shadow-sm space-y-1">
                     <div class="flex items-center space-x-2 text-emerald-700 font-black text-sm">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                         <span>¡Legajo Recibido con Éxito!</span>
                     </div>
                     <p class="text-xs text-emerald-800 leading-normal font-medium">
-                        Tu documentación ingresó formalmente al sistema. El plazo de auditoría técnica es de un <b>máximo de 24 horas hábiles</b>. Se ha enviado un comprobante a tu casilla y te notificaremos por <b>correo electrónico</b> una vez que tu cuenta se encuentre activa.
+                        Tu documentación ingresó formalmente al sistema de auditoría. El plazo de validación técnica es de un <b>máximo de 24 horas hábiles</b>. Se ha enviado un comprobante a tu casilla y te notificaremos por <b>correo electrónico</b> una vez que tu cuenta se encuentre activa.
                     </p>
                 </div>
 
-                <!-- APARTADO DE DATOS PERSONALES ACTUALIZADO (CASILLERO DE MAIL) -->
+                <!-- APARTADO DE DATOS PERSONALES CON FILTROS AVANZADOS -->
                 <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-200 space-y-3">
                     <h2 class="text-sm font-black text-slate-900 uppercase tracking-wider border-b pb-1.5">👤 Información y Datos Personales</h2>
                     <div class="space-y-3">
@@ -189,15 +138,15 @@
                                 <input type="text" x-model="formTecnico.nombre" placeholder="Juan Pérez" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-2.5 text-xs font-bold focus:outline-none focus:border-amber-500">
                             </div>
                             <div>
-                                <label class="block text-[11px] font-bold text-gray-500 mb-1">CUIL / CUIT *</label>
-                                <input type="text" x-model="formTecnico.cuit" placeholder="20-XXXXXXXX-X" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-2.5 text-xs font-bold font-mono focus:outline-none focus:border-amber-500">
+                                <label class="block text-[11px] font-bold text-gray-500 mb-1">CUIT (Formato: XX-XXXXXXXX-X) *</label>
+                                <input type="text" x-model="formTecnico.cuit" @input="formatearCUIT" placeholder="20-12345678-9" maxlength="13" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-2.5 text-xs font-bold font-mono focus:outline-none" :class="validarCUIT(formTecnico.cuit) ? 'border-emerald-500 focus:border-emerald-500' : 'border-gray-200 focus:border-amber-500'">
+                                <span x-show="formTecnico.cuit && !validarCUIT(formTecnico.cuit)" class="text-[9px] text-rose-600 font-bold block mt-1">⚠️ Formato de CUIT inválido.</span>
                             </div>
                         </div>
-                        <!-- NUEVO CAMPO: CORREO ELECTRÓNICO (EX WHATSAPP) -->
                         <div>
                             <label class="block text-[11px] font-bold text-gray-500 mb-1">Correo Electrónico (Notificaciones Oficiales) *</label>
-                            <input type="email" x-model="formTecnico.email" placeholder="ejemplo@correo.com" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-2.5 text-xs font-bold font-mono focus:outline-none focus:border-amber-500">
-                            <p class="text-[10px] text-gray-400 mt-1 font-medium">En este email recibirás la resolución técnica del legajo y los avisos de liquidación del 1%.</p>
+                            <input type="email" x-model="formTecnico.email" placeholder="ejemplo@correo.com" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-2.5 text-xs font-bold font-mono focus:outline-none" :class="validarEmail(formTecnico.email) ? 'border-emerald-500 focus:border-emerald-500' : 'border-gray-200 focus:border-amber-500'">
+                            <span x-show="formTecnico.email && !validarEmail(formTecnico.email)" class="text-[9px] text-rose-600 font-bold block mt-1">⚠️ Formato de Email inválido.</span>
                         </div>
                     </div>
                 </div>
@@ -244,72 +193,16 @@
                     <div class="h-32 overflow-y-scroll border border-gray-200 rounded-xl p-3 text-[11px] text-gray-600 bg-gray-50 leading-relaxed font-medium space-y-3">
                         <div>
                             <p class="font-bold text-slate-800">1. PROTECCIÓN DE DATOS PERSONALES (LEY Nº 25.326)</p>
-                            <p>En cumplimiento de la Ley de Protección de Datos Personales de la República Argentina, TUERKA informa que todos los datos suministrados (incluyendo nombre, CUIT/CUIL, documentación adjunta y casilla de correo electrónico) serán tratados con absoluta confidencialidad para auditoría interna de legajos, validación de antecedentes y despacho de notificaciones operativas vía email.</p>
-                        </div>
-                        <div>
-                            <p class="font-bold text-slate-800">2. CUSTODIA Y PODER DE DATOS MULTIMEDIA DE INCIDENCIAS</p>
-                            <p>La plataforma no efectúa guarda ni archivo a largo plazo de los datos, descripciones o imágenes aportadas por los clientes. Al aceptar una orden, dichos datos comerciales quedan en poder, custodia y bajo la exclusiva responsabilidad de resguardo confidencial del técnico locatario independiente.</p>
+                            <p>En cumplimiento de la Ley de Protección de Datos Personales de la República Argentina, TUERKA informa que todos los datos suministrados serán tratados con absoluta confidencialidad para auditoría interna de legajos.</p>
                         </div>
                     </div>
                     <label class="flex items-start space-x-3 cursor-pointer pt-1">
                         <input type="checkbox" x-model="tecnicoAceptoTyC" class="w-4 h-4 rounded text-amber-500 focus:ring-amber-400 mt-0.5">
                         <span class="text-xs font-bold text-slate-700">Acepto los términos de la Ley 25.326 de Protección de Datos y mi condición fiscal autónoma.</span>
                     </label>
-                    <button @click="enviarLegajo()" :disabled="!tecnicoAceptoTyC || !docs.afip || !docs.matricula || !docs.antecedentes || !formTecnico.nombre || !formTecnico.cuit || !formTecnico.email" :class="(!tecnicoAceptoTyC || !docs.afip || !docs.matricula || !docs.antecedentes || !formTecnico.nombre || !formTecnico.cuit || !formTecnico.email) ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-slate-900 text-amber-400 hover:bg-slate-800'" class="w-full font-black text-xs py-3.5 rounded-xl uppercase tracking-widest mt-2 transition">Enviar Legajo a Auditoría</button>
-                </div>
-            </div>
-
-            <!-- SITUACIÓN B: CUENTA ACTIVADA (CARTELERA Y SERVICIOS) -->
-            <div x-show="tecnico.Estado_Dispo === 'Activo'" class="space-y-4">
-                <div x-show="orden.Estado === 'Publicada'" class="bg-white p-5 rounded-2xl border border-gray-200 shadow-xl relative overflow-hidden">
-                    <div class="flex justify-between items-start mb-4">
-                        <span class="bg-amber-500/10 text-amber-700 text-xs font-black px-3 py-1 rounded-full border border-amber-500/20" x-text="'Zona: ' + orden.Zona_Aproximada"></span>
-                        <div class="text-right">
-                            <span class="text-lg font-mono font-black text-slate-900" x-text="'$' + orden.Precio_Sugerido_Market + ' ARS'"></span>
-                        </div>
-                    </div>
-                    <div class="space-y-3 mb-4 text-xs font-bold bg-slate-50 border border-slate-200 p-3 rounded-xl">
-                        <div class="flex justify-between text-slate-900 font-black">
-                            <span>Mano de obra neta (Cobrás en mano):</span>
-                            <span class="text-emerald-600" x-text="'$' + (orden.Precio_Sugerido_Market * 0.99).toFixed(2)"></span>
-                        </div>
-                    </div>
-                    <button @click="orden.Estado = 'Aceptada'" class="w-full bg-slate-900 text-amber-400 font-black text-sm py-3.5 rounded-xl uppercase tracking-widest transition">Aceptar Trabajo</button>
-                </div>
-
-                <div x-show="['Aceptada', 'En Camino', 'En Domicilio', 'Terminada'].includes(orden.Estado)" class="bg-white p-5 rounded-2xl shadow-xl border border-gray-200 space-y-4">
-                    <header class="border-b border-gray-100 pb-3 flex justify-between items-center">
-                        <span class="text-xs font-mono bg-gray-100 px-2.5 py-1 rounded-lg text-gray-600 font-bold" x-text="'Orden: #' + orden.ID_Orden"></span>
-                        <span class="text-xs font-black font-mono px-2.5 py-1 rounded-lg bg-blue-100 text-blue-800 uppercase" x-text="orden.Estado"></span>
-                    </header>
                     
-                    <div x-show="orden.Estado === 'Aceptada' && !comisionPagada" class="bg-amber-500/5 border-2 border-amber-500/20 rounded-xl p-4 space-y-3">
-                        <div class="flex justify-between items-center text-xs font-bold">
-                            <span class="text-slate-700">Tasa Secretaría Digital (1%):</span>
-                            <span class="text-slate-900 font-mono text-sm" x-text="'$' + (orden.Precio_Sugerido_Market * 0.01).toFixed(2) + ' ARS'"></span>
-                        </div>
-                        <button @click="simularBotonPago()" class="w-full bg-[#009EE3] text-white font-black py-3 rounded-xl text-xs uppercase flex items-center justify-center space-x-2 transition shadow"><span>💳 Pagar con Mercado Pago</span></button>
-                    </div>
-
-                    <div class="space-y-2 text-sm">
-                        <div>
-                            <span class="block text-[11px] font-black text-gray-400 uppercase tracking-wider">Zona General</span>
-                            <p class="text-sm font-bold text-gray-800" x-text="orden.Zona_Aproximada"></p>
-                        </div>
-                        <div x-show="['En Camino', 'En Domicilio', 'Terminada'].includes(orden.Estado)" class="p-4 bg-emerald-50 border-2 border-emerald-200 rounded-xl shadow-inner">
-                            <p class="text-base font-mono font-black text-emerald-900" x-text="orden.Direccion_Exacta"></p>
-                        </div>
-                    </div>
-
-                    <div x-show="orden.Estado === 'En Camino'" class="p-3 bg-rose-50 border border-rose-200 text-rose-900 text-xs rounded-xl font-medium">
-                        ⚠️ <b>Protocolo Obligatorio de Admisión CCyCN:</b> Al llegar, corroborar que la persona que otorga el acceso sea mayor de 18 años con discernimiento legal. Si es menor, no iniciar tareas y reportar a la central logística.
-                    </div>
-
-                    <div class="pt-1">
-                        <button x-show="orden.Estado === 'Aceptada'" :disabled="!comisionPagada" @click="marcarEnCamino()" :class="!comisionPagada ? 'bg-gray-300 text-gray-500 cursor-not-allowed shadow-none' : 'bg-blue-600 text-white shadow-lg'" class="w-full font-black py-4 rounded-xl text-sm uppercase tracking-widest transition">🚀 Comenzar Viaje</button>
-                        <button x-show="orden.Estado === 'En Camino'" @click="marcarYaLlegue()" class="w-full bg-amber-500 text-slate-950 font-black py-4 rounded-xl text-sm uppercase tracking-widest shadow-lg">🙋‍♂️ Notificar Arribo</button>
-                        <div x-show="orden.Estado === 'En Domicilio'" class="text-center space-y-4"><button @click="orden.Estado = 'Terminada'" class="w-full bg-emerald-600 text-white font-black py-4 rounded-xl text-sm uppercase tracking-widest shadow-lg">✓ Finalizar Reparación</button></div>
-                    </div>
+                    <!-- El botón evalúa de forma estricta las expresiones regulares del CUIT y el Email -->
+                    <button @click="enviarLegajo()" :disabled="!tecnicoAceptoTyC || !docs.afip || !docs.matricula || !docs.antecedentes || !formTecnico.nombre || !validarCUIT(formTecnico.cuit) || !validarEmail(formTecnico.email)" :class="(!tecnicoAceptoTyC || !docs.afip || !docs.matricula || !docs.antecedentes || !formTecnico.nombre || !validarCUIT(formTecnico.cuit) || !validarEmail(formTecnico.email)) ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-slate-900 text-amber-400 hover:bg-slate-800'" class="w-full font-black text-xs py-3.5 rounded-xl uppercase tracking-widest mt-2 transition">Enviar Legajo a Auditoría</button>
                 </div>
             </div>
         </div>
@@ -329,17 +222,31 @@
                 tecnicoAceptoTyC: false,
                 errorFormato: false,
                 
-                formTecnico: { nombre: '', cuit: '', email: '' }, // Cambiado whatsapp por email
+                formTecnico: { nombre: '', cuit: '', email: '' },
                 docs: { afip: false, afipExt: '', matricula: false, matriculaExt: '', antecedentes: false, antecedentesExt: '' },
                 tecnico: { Nombre_Completo: "Carlos Pérez", Estado_Dispo: 'Baja' },
                 orden: { ID_Orden: 3849, Estado: 'Pendiente Peritaje', Pliego_Asesor: 'Se detecta pérdida de presión por fisura en llave de paso.', Precio_Sugerido_Market: 45000, Zona_Aproximada: 'Palermo Soho, CABA', Direccion_Exacta: 'Guatemala 4821, Piso 3B' },
-                asesorForm: { pliego: '', materiales: '', precio: 0 },
-                etapasCliente: [
-                    { label: "Peritaje Técnico", check: (estado) => estado === "Pendiente Peritaje" },
-                    { label: "Técnico Asignado", check: (estado) => ["Publicada", "Aceptada"].includes(estado) },
-                    { label: "En Camino", check: (estado) => estado === "En Camino" },
-                    { label: "En Domicilio", check: (estado) => ["En Domicilio", "Terminada"].includes(estado) }
-                ],
+
+                // EXPRESIONES REGULARES DE VALIDACIÓN REAL
+                validarCUIT(cuit) {
+                    const regex = /^\d{2}-\d{8}-\d{1}$/;
+                    return regex.test(cuit);
+                },
+                validarEmail(email) {
+                    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    return regex.test(email);
+                },
+
+                // Máscara inteligente para guiones del CUIT en tiempo de ejecución táctil
+                formatearCUIT() {
+                    let valor = this.formTecnico.cuit.replace(/\D/g, '');
+                    if (valor.length > 2 && valor.length <= 10) {
+                        valor = valor.substring(0, 2) + '-' + valor.substring(2);
+                    } else if (valor.length > 10) {
+                        valor = valor.substring(0, 2) + '-' + valor.substring(2, 10) + '-' + valor.substring(10, 11);
+                    }
+                    this.formTecnico.cuit = valor;
+                },
 
                 enviarLegajo() {
                     this.legajoEnviado = true;
@@ -350,8 +257,8 @@
                             evento: "NUEVO_LEGAJO_AUDITORIA",
                             tecnico_nombre: this.formTecnico.nombre,
                             tecnico_cuit: this.formTecnico.cuit,
-                            tecnico_email: this.formTecnico.email, // Viaja el email limpio a Make
-                            mensaje: "Se ha cargado un nuevo legajo con Constancia AFIP, Matrícula y Antecedentes para revisión de 24 hs."
+                            tecnico_email: this.formTecnico.email,
+                            mensaje: "Se ha cargado un nuevo legajo estructurado para revisión legal de 24 hs."
                         })
                     }).catch(err => console.log('Error'));
                 },
@@ -367,10 +274,7 @@
                             this.errorFormato = true; this.docs[tipo] = false; fileInput.value = '';
                         }
                     }
-                },
-                liberarCartelera() { this.orden.Estado = 'Publicada'; this.currentView = 'tecnico'; },
-                marcarEnCamino() { this.orden.Estado = 'En Camino'; },
-                marcarYaLlegue() { this.orden.Estado = 'En Domicilio'; }
+                }
             }
         }
     </script>
