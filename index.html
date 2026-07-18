@@ -120,7 +120,7 @@
         <footer class="fixed bottom-0 left-0 right-0 bg-gray-900 text-[10px] text-gray-400 p-4 border-t border-amber-500/20 leading-relaxed text-justify z-40 select-none">
             <div class="max-w-md mx-auto">
                 <span class="font-extrabold text-amber-400 block mb-1 tracking-wide">AVISO DE NEUTRALIDAD Y CONDICIONES DE PLATAFORMA:</span>
-                TUERKA es una plataforma tecnológica de intermediación y negociación operada bajo la modalidad de locación de software de gestión administrativa ("Secretaría Digital"). El uso de la plataforma devenga un cargo administrativo del uno por ciento (1%) sobre el valor de la locación de servicios privada celebrada de forma exclusiva y autónoma entre el profesional independiente matriculado y el usuario solicitante. TUERKA no es parte de la relación civil o comercial subyacente, no fija honorarios ni asume responsabilidad solidaria por daños, praxis o resultados de la reparación.
+                TUERKA es una plataforma tecnológica de intermediación y negociación operada bajo la modal de locación de software de gestión administrativa ("Secretaría Digital"). El uso de la plataforma devenga un cargo administrativo del uno por ciento (1%) sobre el valor de la locación de servicios privada celebrada de forma exclusiva y autónoma entre el profesional independiente matriculado y el usuario solicitante. TUERKA no es parte de la relación civil o comercial subyacente, no fija honorarios ni asume responsabilidad solidaria por daños, praxis o resultados de la reparación.
             </div>
         </footer>
     </div>
@@ -180,7 +180,7 @@
                 </div>
 
                 <!-- ENVOLTORIO FORMULARIO VINCULADO AL SCRIPT ASÍNCRONO -->
-                <form id="form-legajo-tecnico">
+                <form id="form-legajo-tecnico" @submit.prevent="enviarLegajo()">
                     <div class="space-y-4">
                         <!-- APARTADO DE DATOS PERSONALES -->
                         <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-200 space-y-3">
@@ -189,16 +189,16 @@
                                 <div class="grid grid-cols-2 gap-3">
                                     <div>
                                         <label class="block text-[11px] font-bold text-gray-500 mb-1">Nombre Completo *</label>
-                                        <input type="text" id="input_nombre" placeholder="Juan Pérez" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-2.5 text-xs font-bold focus:outline-none focus:border-amber-500" required>
+                                        <input type="text" id="input_nombre" x-model="formTecnico.nombre" placeholder="Juan Pérez" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-2.5 text-xs font-bold focus:outline-none focus:border-amber-500" required>
                                     </div>
                                     <div>
                                         <label class="block text-[11px] font-bold text-gray-500 mb-1">CUIL / CUIT *</label>
-                                        <input type="text" id="input_cuit" placeholder="20XXXXXXXX9" pattern="[0-9]{11}" title="CUIT de 11 dígitos sin guiones" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-2.5 text-xs font-bold font-mono focus:outline-none focus:border-amber-500" required>
+                                        <input type="text" id="input_cuit" x-model="formTecnico.cuit" placeholder="20XXXXXXXX9" pattern="[0-9]{11}" title="CUIT de 11 dígitos sin guiones" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-2.5 text-xs font-bold font-mono focus:outline-none focus:border-amber-500" required>
                                     </div>
                                 </div>
                                 <div>
                                     <label class="block text-[11px] font-bold text-gray-500 mb-1">Correo Electrónico (Notificaciones Oficiales) *</label>
-                                    <input type="email" id="input_email" placeholder="ejemplo@correo.com" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-2.5 text-xs font-bold font-mono focus:outline-none focus:border-amber-500" required>
+                                    <input type="email" id="input_email" x-model="formTecnico.email" placeholder="ejemplo@correo.com" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-2.5 text-xs font-bold font-mono focus:outline-none focus:border-amber-500" required>
                                     <p class="text-[10px] text-gray-400 mt-1 font-medium">En este email recibirás la resolución técnica del legajo y los avisos de liquidación del 1%.</p>
                                 </div>
                             </div>
@@ -320,7 +320,7 @@
         </div>
     </div>
 
-    <!-- CÓDIGO DE MOTOR CON MANEJO DE ESTADOS Y SUBIDA PREVIA -->
+    <!-- CÓDIGO DE MOTOR CON LOS IDS ASOCIADOS -->
     <script>
         function tuerkaApp() {
             return {
@@ -346,13 +346,11 @@
                     { label: "En Domicilio", check: (estado) => ["En Domicilio", "Terminada"].includes(estado) }
                 ],
 
-                // Manejo asíncronico unificado del formulario
                 async enviarLegajo() {
                     const boton = document.getElementById('btnEnviar');
                     boton.disabled = true;
                     
                     try {
-                        // Función helper para transformar el archivo binario a una URL https real mediante file.io
                         async function procesarArchivoUrl(idInput) {
                             const input = document.getElementById(idInput);
                             if (!input || input.files.length === 0) return '';
@@ -379,12 +377,12 @@
 
                         boton.innerText = 'Registrando Legajo...';
 
-                        // Armamos el JSON limpio con las URLs estructuradas como texto
+                        // Mapeo directo y transparente de los IDs corregidos
                         const payload = {
                             evento: "NUEVO_LEGAJO_AUDITORIA",
-                            tecnico_nombre: this.formTecnico.nombre,
-                            tecnico_cuit: this.formTecnico.cuit,
-                            tecnico_email: this.formTecnico.email,
+                            tecnico_nombre: document.getElementById('input_nombre').value,
+                            tecnico_cuit: document.getElementById('input_cuit').value,
+                            tecnico_email: document.getElementById('input_email').value,
                             url_afip: urlAfip,
                             url_matricula: urlMatricula,
                             url_antecedentes: urlAntecedentes,
@@ -403,13 +401,14 @@
                             document.getElementById('form-legajo-tecnico').reset();
                             this.formTecnico = { nombre: '', cuit: '', email: '' };
                             this.docs = { afip: false, afipExt: '', matricula: false, matriculaExt: '', antecedentes: false, antecedentesExt: '' };
+                            this.tecnicoAceptoTyC = false;
                         } else {
-                            throw new Error('Fallo en el servidor de automatización');
+                            throw new Error('Error en el endpoint de automatización.');
                         }
 
                     } catch (err) {
                         console.error(err);
-                        alert('Hubo un problema de transmisión de archivos. Por favor, verifique los formatos e intente nuevamente.');
+                        alert('Hubo un problema de transmisión de datos. Verifique su conexión e intente nuevamente.');
                     } finally {
                         boton.innerText = 'Enviar Legajo a Auditoría';
                         boton.disabled = false;
