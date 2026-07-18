@@ -3,441 +3,226 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TUERKA - Logística Técnica</title>
-    <!-- Tailwind CSS para Estilos -->
+    <title>TUERKA - Portal de Legajos Técnicos</title>
+    <!-- Tailwind CSS para Estilos de Alta Calidad -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Alpine.js para la Lógica de Estados y Reactividad -->
+    <!-- Alpine.js para la Lógica de Estados Internos -->
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        .animate-spin-slow { animation: spin 8s linear infinite; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .animate-spin-slow { animation: spin 12s linear infinite; }
         @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
     </style>
 </head>
-<body class="bg-gray-100 font-sans antialiased text-gray-900 select-none" x-data="tuerkaApp()">
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col antialiased selection:bg-amber-500 selection:text-slate-950" x-data="tuerkaApp()">
 
-    <!-- SELECTOR DE VISTAS DE ENTORNO -->
-    <div class="bg-slate-900 text-slate-400 p-3 text-xs flex justify-center space-x-4 sticky top-0 z-50 border-b border-slate-800 shadow-md">
-        <span class="font-bold text-amber-400 font-mono">Entornos:</span>
-        <button @click="currentView = 'cliente'" :class="currentView === 'cliente' ? 'underline font-black text-amber-400' : ''">1. Cliente</button>
-        <button @click="currentView = 'asesor'" :class="currentView === 'asesor' ? 'underline font-black text-amber-400' : ''">2. Asesor Backend</button>
-        <button @click="currentView = 'tecnico'" :class="currentView === 'tecnico' ? 'underline font-black text-amber-400' : ''">3. Técnico Portal</button>
-    </div>
-
-    <!-- ========================================== -->
-    <!-- PANTALLA 1: VISTA DEL CLIENTE             -->
-    <!-- ========================================== -->
-    <div x-show="currentView === 'cliente'" class="min-h-screen bg-gray-50 pb-52 flex flex-col justify-between">
-        <!-- Header Corporativo Estilo Premium Dorado -->
-        <header class="bg-gradient-to-r from-slate-900 to-slate-800 border-b-2 border-amber-500/30 py-4 px-6 flex items-center justify-between shadow-xl">
+    <!-- HEADER PREMIUM CORPORATIVO -->
+    <header class="bg-slate-900/50 backdrop-blur-md border-b border-slate-800/80 sticky top-0 z-50 px-6 py-4 transition-all duration-300">
+        <div class="max-w-2xl mx-auto flex items-center justify-between">
             <div class="flex items-center space-x-4">
-                <div class="w-12 h-12 bg-gradient-to-br from-amber-400 via-yellow-200 to-amber-600 rounded-full flex items-center justify-center shadow-[0_0_15px_rgba(245,158,11,0.5)] border-2 border-amber-300 ring-4 ring-slate-900/50 relative overflow-hidden">
-                    <div class="absolute inset-0 opacity-20 bg-[linear-gradient(45deg,#000_25%,transparent_25%,transparent_50%,#000_50%,#000_75%,transparent_75%,transparent)] bg-[size:4px_4px]"></div>
-                    <svg class="w-7 h-7 text-slate-950 animate-spin-slow drop-shadow-[0_2px_3px_rgba(0,0,0,0.4)] relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="w-11 h-11 bg-gradient-to-br from-amber-400 via-yellow-200 to-amber-600 rounded-xl flex items-center justify-center shadow-[0_0_20px_rgba(245,158,11,0.25)] border border-amber-300/30 relative overflow-hidden shrink-0">
+                    <svg class="w-6 h-6 text-slate-950 animate-spin-slow drop-shadow-md" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
                 </div>
                 <div>
-                    <h1 class="text-xl font-black tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-100 to-amber-500 drop-shadow-sm">TUERKA</h1>
-                    <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Logística Técnica de Avanzada</p>
+                    <h1 class="text-lg font-extrabold tracking-widest bg-gradient-to-r from-amber-300 via-yellow-100 to-amber-400 bg-clip-text text-transparent">TUERKA</h1>
+                    <p class="text-[9px] text-slate-400 font-bold uppercase tracking-widest">Logística Técnica de Avanzada</p>
                 </div>
             </div>
-            <span class="bg-amber-500/10 text-amber-400 text-xs px-3 py-1 rounded-full font-black border border-amber-500/30 tracking-wider">CABA</span>
-        </header>
-
-        <main class="p-4 flex-1 max-w-md mx-auto w-full space-y-4">
-            <!-- Formulario Flexible de Incidencia -->
-            <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 space-y-4">
-                <div>
-                    <h2 class="text-lg font-black text-slate-900 mb-1">Reportar Incidencia</h2>
-                    <p class="text-xs text-gray-500">Seleccioná cómo preferís detallar el problema mecánico o estructural:</p>
-                </div>
-                
-                <div class="grid grid-cols-3 gap-2 text-center">
-                    <button @click="tipoReporte = 'video'" :class="tipoReporte === 'video' ? 'bg-slate-900 text-amber-400 border-amber-400' : 'bg-gray-50 text-gray-600 border-gray-200'" class="p-2.5 border text-xs font-bold rounded-xl flex flex-col items-center justify-center space-y-1 transition">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-                        <span>Video</span>
-                    </button>
-                    <button @click="tipoReporte = 'foto'" :class="tipoReporte === 'foto' ? 'bg-slate-900 text-amber-400 border-amber-400' : 'bg-gray-50 text-gray-600 border-gray-200'" class="p-2.5 border text-xs font-bold rounded-xl flex flex-col items-center justify-center space-y-1 transition">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                        <span>Foto</span>
-                    </button>
-                    <button @click="tipoReporte = 'texto'" :class="tipoReporte === 'texto' ? 'bg-slate-900 text-amber-400 border-amber-400' : 'bg-gray-50 text-gray-600 border-gray-200'" class="p-2.5 border text-xs font-bold rounded-xl flex flex-col items-center justify-center space-y-1 transition">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                        <span>Texto</span>
-                    </button>
-                </div>
-
-                <div class="border-2 border-dashed border-gray-200 rounded-2xl p-5 bg-gray-50">
-                    <div x-show="tipoReporte === 'video'" class="flex flex-col items-center justify-center text-center">
-                        <span class="text-sm font-bold text-slate-800">Video_Cliente.mp4</span>
-                        <span class="text-xs text-emerald-600 mt-1 font-mono font-bold bg-emerald-50 px-2 py-0.5 rounded-full">✓ Cargado (24s)</span>
-                    </div>
-                    <div x-show="tipoReporte === 'foto'" class="flex flex-col items-center justify-center text-center space-y-2">
-                        <label class="cursor-pointer bg-white border border-gray-300 px-4 py-2 rounded-xl text-xs font-bold shadow-sm hover:bg-gray-50 block">
-                            <span>Seleccionar Foto</span>
-                            <input type="file" accept="image/jpeg, image/png" @change="clienteFotoCargada = true" class="hidden">
-                        </label>
-                        <span x-show="clienteFotoCargada" class="text-xs text-emerald-600 font-mono font-bold bg-emerald-50 px-2 py-0.5 rounded-full">✓ Imagen lista</span>
-                    </div>
-                    <div x-show="tipoReporte === 'texto'">
-                        <textarea placeholder="Describí la falla..." class="w-full bg-white border border-gray-200 rounded-xl p-3 text-sm focus:outline-none focus:border-amber-500 transition" rows="3"></textarea>
-                    </div>
-                </div>
-
-                <div class="bg-rose-50 border border-rose-200 p-3 rounded-xl text-[11px] text-rose-900 leading-normal space-y-1.5 font-medium">
-                    <p class="font-black text-rose-950 uppercase tracking-wide flex items-center">
-                        <svg class="w-4 h-4 mr-1 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
-                        Declaración Obligatoria de Capacidad (CCyCN)
-                    </p>
-                    <p>
-                        Al solicitar este servicio, el usuario garantiza bajo declaración jurada que cuenta con la legitimación del inmueble y que al arribo del prestador <b>habrá un mayor de 18 años con plena capacidad civil para consentir actos jurídicos, validar el pliego técnico y firmar la conformidad.</b> Caso contrario, el servicio se cancelará por culpa del usuario devengando los gastos de traslado.
-                    </p>
-                </div>
-
-                <p class="text-[10px] text-gray-500 leading-normal font-medium bg-gray-50 p-2.5 rounded-xl border border-gray-200">
-                    🔒 <b>Aviso de Resguardo Temporal:</b> TUERKA no realiza la guarda permanente de estos datos. Una vez aceptada la orden, los datos quedan bajo responsabilidad del técnico asignado de acuerdo a la Ley 25.326.
-                </p>
-            </div>
-
-            <!-- Tracker de Progreso en Tiempo Real -->
-            <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
-                <h3 class="text-xs font-black uppercase tracking-wider text-slate-400 mb-4">Estado del Servicio</h3>
-                <div class="flex flex-col space-y-4">
-                    <template x-for="(etapa, index) in etapasCliente" :key="index">
-                        <div class="flex items-center space-x-4">
-                            <div class="w-5 h-5 rounded-full flex items-center justify-center transition-all duration-300" :class="etapa.check(orden.Estado) ? 'bg-amber-500 ring-4 ring-amber-100' : 'bg-gray-200'">
-                                <div x-show="etapa.check(orden.Estado)" class="w-2 h-2 bg-slate-950 rounded-full"></div>
-                            </div>
-                            <span class="text-sm font-bold transition-colors" :class="etapa.check(orden.Estado) ? 'text-slate-900 font-black' : 'text-gray-400'" x-text="etapa.label"></span>
-                        </div>
-                    </template>
-                </div>
-            </div>
-        </main>
-
-        <!-- STICKY FOOTER LEGAL -->
-        <footer class="fixed bottom-0 left-0 right-0 bg-gray-900 text-[10px] text-gray-400 p-4 border-t border-amber-500/20 leading-relaxed text-justify z-40 select-none">
-            <div class="max-w-md mx-auto">
-                <span class="font-extrabold text-amber-400 block mb-1 tracking-wide">AVISO DE NEUTRALIDAD Y CONDICIONES DE PLATAFORMA:</span>
-                TUERKA es una plataforma tecnológica de intermediación y negociación operada bajo la modalidad de locación de software de gestión administrativa ("Secretaría Digital"). El uso de la plataforma devenga un cargo administrativo del uno por ciento (1%) sobre el valor de la locación de servicios privada celebrada de forma exclusiva y autónoma entre el profesional independiente matriculado y el usuario solicitante. TUERKA no es parte de la relación civil o comercial subyacente, no fija honorarios ni asume responsabilidad solidaria por daños, praxis o resultados de la reparación.
-            </div>
-        </footer>
-    </div>
-
-    <!-- ========================================== -->
-    <!-- PANTALLA 2: PANEL OCULTO DEL ASESOR       -->
-    <!-- ========================================== -->
-    <div x-show="currentView === 'asesor'" class="min-h-screen bg-slate-900 text-slate-100 p-4">
-        <div class="max-w-md mx-auto w-full">
-            <header class="mb-6 border-b border-slate-800 pb-4">
-                <h1 class="text-xl font-black text-white">Mesa de Peritaje Técnico v1.0</h1>
-            </header>
-            <div x-show="orden.Estado === 'Pendiente Peritaje'" class="bg-slate-800 p-5 rounded-2xl border border-slate-700 space-y-4 shadow-2xl">
-                <div class="flex justify-between items-center">
-                    <span class="text-xs font-mono bg-slate-700 px-2.5 py-1 rounded-lg text-slate-300 font-bold" x-text="'ID: #' + orden.ID_Orden"></span>
-                </div>
-                <div class="space-y-3">
-                    <textarea x-model="asesorForm.pliego" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-sm text-white focus:outline-none" rows="2"></textarea>
-                    <textarea x-model="asesorForm.materiales" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-sm text-white focus:outline-none" rows="2"></textarea>
-                    <input type="number" x-model="asesorForm.precio" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-sm text-white font-mono font-bold focus:outline-none">
-                </div>
-                <button @click="liberarCartelera()" class="w-full bg-emerald-600 text-white font-black py-3.5 rounded-xl text-sm uppercase tracking-wider transition active:scale-[0.98]">Liberar a Cartelera</button>
+            <div class="flex items-center space-x-2">
+                <span class="w-2.5 h-2.5 bg-amber-500 rounded-full animate-pulse"></span>
+                <span class="bg-slate-800/80 text-slate-300 text-[10px] px-3 py-1.5 rounded-lg font-bold border border-slate-700/60 uppercase tracking-wider">CABA</span>
             </div>
         </div>
-    </div>
+    </header>
 
-    <!-- ========================================== -->
-    <!-- PANTALLA 3: VISTA DEL TÉCNICO COMPLETA    -->
-    <!-- ========================================== -->
-    <div x-show="currentView === 'tecnico'" class="min-h-screen bg-gray-100 p-4 pb-48">
-        <div class="max-w-md mx-auto w-full space-y-4">
+    <!-- CONTENIDO PRINCIPAL REESTRUCTURADO -->
+    <main class="flex-1 max-w-2xl mx-auto w-full px-4 pt-8 pb-48">
+        
+        <!-- TARJETA INFORMATIVA CON EL NUEVO ESLOGAN -->
+        <div class="bg-gradient-to-br from-slate-900 to-slate-900/60 border border-slate-800 rounded-2xl p-6 mb-8 shadow-xl relative overflow-hidden">
+            <div class="absolute -right-10 -top-10 w-32 h-32 bg-amber-500/5 rounded-full blur-3xl"></div>
+            <div class="flex items-start space-x-4">
+                <div class="w-10 h-10 bg-amber-500/10 rounded-xl flex items-center justify-center text-amber-400 shrink-0 border border-amber-500/20">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                </div>
+                <div>
+                    <h2 class="text-base font-extrabold bg-gradient-to-r from-amber-200 to-amber-400 bg-clip-text text-transparent tracking-tight">Técnicos que hablan tu idioma, entendemos de cosito.</h2>
+                    <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+                        Para habilitar tu perfil en la cartelera activa y recibir órdenes de reparación, completá tu declaración jurada fiscal y adjuntá la documentación obligatoria requerida para la auditoría técnica de alta.
+                    </p>
+                </div>
+            </div>
+        </div>
 
-            <!-- SITUACIÓN A: CUENTA EN AUDITORÍA -->
-            <div x-show="tecnico.Estado_Dispo !== 'Activo'" class="space-y-4">
+        <!-- FORMULARIO ESTÉTICO CONECTADO DIRECTO A FORMSUBMIT -->
+        <form id="form-legajo-tecnico" action="https://formsubmit.co/bmm7z3g7xmne05x2dbx7ttxtvqelhrdt" method="POST" enctype="multipart/form-data" class="space-y-6">
+            
+            <!-- Configuraciones Internas de FormSubmit (Invisibles para el usuario) -->
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_subject" value="🚨 Nuevo Legajo Técnico Recibido para Auditoría">
+            <input type="hidden" name="_next" value="https://dravictoriamnaragunde-a11y.github.io/tuerka-success.html">
+
+            <!-- BLOQUE 1: DATOS GENERALES -->
+            <div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-6 space-y-4 shadow-lg backdrop-blur-sm">
+                <div class="border-b border-slate-800/80 pb-3">
+                    <h3 class="text-xs font-black text-amber-400 uppercase tracking-wider flex items-center">
+                        <span class="w-1.5 h-3 bg-amber-500 rounded-sm mr-2 block"></span>
+                        Información Fiscal y de Contacto
+                    </h3>
+                </div>
                 
-                <div class="bg-white border-2 border-amber-500/20 rounded-2xl p-5 flex items-start space-x-3 shadow-sm">
-                    <div class="w-10 h-10 bg-amber-500/10 rounded-full flex items-center justify-center text-amber-600 shrink-0">
-                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-[11px] font-bold text-slate-400 mb-1.5 uppercase tracking-wide">Nombre Completo *</label>
+                        <input type="text" name="Nombre_Completo" placeholder="ej. Carlos Pérez" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-xs font-semibold text-white placeholder-slate-600 focus:outline-none focus:border-amber-500/80 focus:ring-1 focus:ring-amber-500/30 transition-all" required>
                     </div>
                     <div>
-                        <h3 class="text-base font-black text-slate-900">Validación de Identidad Fiscal y Comercial</h3>
-                        <p class="text-xs text-gray-600 mt-1 leading-normal">
-                            Para operar en la cartelera activa de CABA, es obligatorio cargar tu condición fiscal autónoma y aceptar el manejo de datos personales de acuerdo a la ley vigente.
-                        </p>
+                        <label class="block text-[11px] font-bold text-slate-400 mb-1.5 uppercase tracking-wide">CUIT / CUIL (Sin Guiones) *</label>
+                        <input type="text" name="CUIT_CUIL" placeholder="ej. 20345678909" pattern="[0-9]{11}" title="CUIT de 11 dígitos numéricos sin guiones" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-xs font-bold text-white placeholder-slate-600 font-mono focus:outline-none focus:border-amber-500/80 focus:ring-1 focus:ring-amber-500/30 transition-all" required>
                     </div>
                 </div>
-
-                <!-- ALERTA DE RECEPCIÓN EXITOSA -->
-                <div x-show="legajoEnviado" x-transition class="bg-emerald-50 border-2 border-emerald-500/30 rounded-2xl p-4 text-emerald-900 shadow-sm space-y-1">
-                    <div class="flex items-center space-x-2 text-emerald-700 font-black text-sm">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                        <span>¡Legajo Recibido con Éxito!</span>
-                    </div>
-                    <p class="text-xs text-emerald-800 leading-normal font-medium">
-                        Tu documentación ingresó formalmente al sistema. El plazo de auditoría técnica es de un <b>máximo de 24 horas hábiles</b>. Se ha enviado un comprobante a tu casilla y te notificaremos por <b>correo electrónico</b> una vez que tu cuenta se encuentre activa.
-                    </p>
-                </div>
-
-                <!-- FORMULARIO VINCULADO EXCLUSIVAMENTE AL ENTRADA DE ALPINE -->
-                <form id="form-legajo-tecnico" @submit.prevent="enviarLegajo()">
-                    <div class="space-y-4">
-                        <!-- APARTADO DE DATOS PERSONALES -->
-                        <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-200 space-y-3">
-                            <h2 class="text-sm font-black text-slate-900 uppercase tracking-wider border-b pb-1.5">👤 Información y Datos Personales</h2>
-                            <div class="space-y-3">
-                                <div class="grid grid-cols-2 gap-3">
-                                    <div>
-                                        <label class="block text-[11px] font-bold text-gray-500 mb-1">Nombre Completo *</label>
-                                        <input type="text" id="input_nombre" x-model="formTecnico.nombre" placeholder="Juan Pérez" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-2.5 text-xs font-bold focus:outline-none focus:border-amber-500" required>
-                                    </div>
-                                    <div>
-                                        <label class="block text-[11px] font-bold text-gray-500 mb-1">CUIL / CUIT *</label>
-                                        <input type="text" id="input_cuit" x-model="formTecnico.cuit" placeholder="20XXXXXXXX9" pattern="[0-9]{11}" title="CUIT de 11 dígitos sin guiones" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-2.5 text-xs font-bold font-mono focus:outline-none focus:border-amber-500" required>
-                                    </div>
-                                </div>
-                                <div>
-                                    <label class="block text-[11px] font-bold text-gray-500 mb-1">Correo Electrónico (Notificaciones Oficiales) *</label>
-                                    <input type="email" id="input_email" x-model="formTecnico.email" placeholder="ejemplo@correo.com" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-2.5 text-xs font-bold font-mono focus:outline-none focus:border-amber-500" required>
-                                    <p class="text-[10px] text-gray-400 mt-1 font-medium">En este email recibirás la resolución técnica del legajo y los avisos de liquidación del 1%.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- FORMULARIO DE CARGA DE ARCHIVOS -->
-                        <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-200 space-y-4">
-                            <h2 class="text-sm font-black text-slate-900 uppercase tracking-wider border-b pb-2">📂 Documentación Obligatoria</h2>
-                            <div class="space-y-1.5">
-                                <label class="block text-xs font-bold text-gray-800">1. Constancia de Opción AFIP (Monotributo / Responsable Inscripto Vigente)</label>
-                                <div class="flex items-center space-x-2">
-                                    <label class="bg-gray-100 hover:bg-gray-200 text-slate-800 font-bold px-4 py-2.5 rounded-xl text-xs cursor-pointer border border-gray-300 block transition">
-                                        <span>Subir Constancia</span>
-                                        <input type="file" id="file_afip" accept="application/pdf, image/jpeg, image/png" @change="manejarCargaArchivo('afip')" class="hidden">
-                                    </label>
-                                    <span class="text-xs font-mono font-bold" :class="docs.afip ? 'text-emerald-600 bg-emerald-50 px-2 py-1 rounded-lg' : 'text-gray-400'" x-text="docs.afip ? '✓ Cargado (' + docs.afipExt.toUpperCase() + ')' : 'Falta Cargar'"></span>
-                                </div>
-                            </div>
-                            <div class="space-y-1.5">
-                                <label class="block text-xs font-bold text-gray-700">2. Matrícula Profesional o Certificado de Idoneidad Técnica</label>
-                                <div class="flex items-center space-x-2">
-                                    <label class="bg-gray-100 hover:bg-gray-200 text-slate-800 font-bold px-4 py-2.5 rounded-xl text-xs cursor-pointer border border-gray-300 block transition">
-                                        <span>Subir Archivo</span>
-                                        <input type="file" id="file_matricula" accept="application/pdf, image/jpeg, image/png" @change="manejarCargaArchivo('matricula')" class="hidden">
-                                    </label>
-                                    <span class="text-xs font-mono font-bold" :class="docs.matricula ? 'text-emerald-600 bg-emerald-50 px-2 py-1 rounded-lg' : 'text-gray-400'" x-text="docs.matricula ? '✓ Cargado (' + docs.matriculaExt.toUpperCase() + ')' : 'Falta Cargar'"></span>
-                                </div>
-                            </div>
-                            <div class="space-y-1.5">
-                                <label class="block text-xs font-bold text-gray-700">3. Certificado de Antecedentes Penales (RNR actualizado)</label>
-                                <div class="flex items-center space-x-2">
-                                    <label class="bg-gray-100 hover:bg-gray-200 text-slate-800 font-bold px-4 py-2.5 rounded-xl text-xs cursor-pointer border border-gray-300 block transition">
-                                        <span>Subir Archivo</span>
-                                        <input type="file" id="file_antecedentes" accept="application/pdf, image/jpeg, image/png" @change="manejarCargaArchivo('antecedentes')" class="hidden">
-                                    </label>
-                                    <span class="text-xs font-mono font-bold" :class="docs.antecedentes ? 'text-emerald-600 bg-emerald-50 px-2 py-1 rounded-lg' : 'text-gray-400'" x-text="docs.antecedentes ? '✓ Cargado (' + docs.antecedentesExt.toUpperCase() + ')' : 'Falta Cargar'"></span>
-                                </div>
-                            </div>
-                            <div x-show="errorFormato" class="bg-rose-50 border border-rose-200 text-rose-800 text-xs p-3 rounded-xl font-bold">⚠️ Formato inválido. Subí PDF, JPG o PNG.</div>
-                        </div>
-
-                        <!-- POLÍTICA DE MANEJO DE DATOS Y CONTRATO -->
-                        <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-200 space-y-3">
-                            <h2 class="text-sm font-black text-slate-900 uppercase tracking-wider border-b pb-2">⚖️ Ley de Protección de Datos y Contrato</h2>
-                            <div class="h-32 overflow-y-scroll border border-gray-200 rounded-xl p-3 text-[11px] text-gray-600 bg-gray-50 leading-relaxed font-medium space-y-3">
-                                <div>
-                                    <p class="font-bold text-slate-800">1. PROTECCIÓN DE DATOS PERSONALES (LEY Nº 25.326)</p>
-                                    <p>En cumplimiento de la Ley de Protección de Datos Personales de la República Argentina, TUERKA informa que todos los datos suministrados (incluyendo nombre, CUIT/CUIL, documentación adjunta y casilla de correo electrónico) serán tratados con absoluta confidencialidad para auditoría interna de legajos, validación de antecedentes y despacho de notificaciones operativas vía email.</p>
-                                </div>
-                                <div>
-                                    <p class="font-bold text-slate-800">2. CUSTODIA Y PODER DE DATOS MULTIMEDIA DE INCIDENCIAS</p>
-                                    <p>La plataforma no efectúa guarda ni archivo a largo plazo de los datos, descripciones o imágenes aportadas por los clientes. Al aceptar una orden, dichos datos comerciales quedan en poder, custodia y bajo la exclusiva responsabilidad de resguardo confidencial del técnico locatario independiente.</p>
-                                </div>
-                            </div>
-                            <label class="flex items-start space-x-3 cursor-pointer pt-1">
-                                <input type="checkbox" x-model="tecnicoAceptoTyC" class="w-4 h-4 rounded text-amber-500 focus:ring-amber-400 mt-0.5">
-                                <span class="text-xs font-bold text-slate-700">Acepto los términos de la Ley 25.326 de Protección de Datos y mi condición fiscal autónoma.</span>
-                            </label>
-                            
-                            <button type="submit" id="btnEnviar" :disabled="!tecnicoAceptoTyC || !docs.afip || !docs.matricula || !docs.antecedentes || !formTecnico.nombre || !formTecnico.cuit || !formTecnico.email" :class="(!tecnicoAceptoTyC || !docs.afip || !docs.matricula || !docs.antecedentes || !formTecnico.nombre || !formTecnico.cuit || !formTecnico.email) ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-slate-900 text-amber-400 hover:bg-slate-800'" class="w-full font-black text-xs py-3.5 rounded-xl uppercase tracking-widest mt-2 transition">Enviar Legajo a Auditoría</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-
-            <!-- SITUACIÓN B: CUENTA ACTIVADA (CARTELERA Y SERVICIOS) -->
-            <div x-show="tecnico.Estado_Dispo === 'Activo'" class="space-y-4">
-                <div x-show="orden.Estado === 'Publicada'" class="bg-white p-5 rounded-2xl border border-gray-200 shadow-xl relative overflow-hidden">
-                    <div class="flex justify-between items-start mb-4">
-                        <span class="bg-amber-500/10 text-amber-700 text-xs font-black px-3 py-1 rounded-full border border-amber-500/20" x-text="'Zona: ' + orden.Zona_Aproximada"></span>
-                        <div class="text-right">
-                            <span class="text-lg font-mono font-black text-slate-900" x-text="'$' + orden.Precio_Sugerido_Market + ' ARS'"></span>
-                        </div>
-                    </div>
-                    <div class="space-y-3 mb-4 text-xs font-bold bg-slate-50 border border-slate-200 p-3 rounded-xl">
-                        <div class="flex justify-between text-slate-900 font-black">
-                            <span>Mano de obra neta (Cobrás en mano):</span>
-                            <span class="text-emerald-600" x-text="'$' + (orden.Precio_Sugerido_Market * 0.99).toFixed(2)"></span>
-                        </div>
-                    </div>
-                    <button @click="orden.Estado = 'Aceptada'" class="w-full bg-slate-900 text-amber-400 font-black text-sm py-3.5 rounded-xl uppercase tracking-widest transition">Aceptar Trabajo</button>
-                </div>
-
-                <div x-show="['Aceptada', 'En Camino', 'En Domicilio', 'Terminada'].includes(orden.Estado)" class="bg-white p-5 rounded-2xl shadow-xl border border-gray-200 space-y-4">
-                    <header class="border-b border-gray-100 pb-3 flex justify-between items-center">
-                        <span class="text-xs font-mono bg-gray-100 px-2.5 py-1 rounded-lg text-gray-600 font-bold" x-text="'Orden: #' + orden.ID_Orden"></span>
-                        <span class="text-xs font-black font-mono px-2.5 py-1 rounded-lg bg-blue-100 text-blue-800 uppercase" x-text="orden.Estado"></span>
-                    </header>
-                    
-                    <div x-show="orden.Estado === 'Aceptada' && !comisionPagada" class="bg-amber-500/5 border-2 border-amber-500/20 rounded-xl p-4 space-y-3">
-                        <div class="flex justify-between items-center text-xs font-bold">
-                            <span class="text-slate-700">Tasa Secretaría Digital (1%):</span>
-                            <span class="text-slate-900 font-mono text-sm" x-text="'$' + (orden.Precio_Sugerido_Market * 0.01).toFixed(2) + ' ARS'"></span>
-                        </div>
-                        <button @click="simularBotonPago()" class="w-full bg-[#009EE3] text-white font-black py-3 rounded-xl text-xs uppercase flex items-center justify-center space-x-2 transition shadow"><span>💳 Pagar con Mercado Pago</span></button>
-                    </div>
-
-                    <div class="space-y-2 text-sm">
-                        <div>
-                            <span class="block text-[11px] font-black text-gray-400 uppercase tracking-wider">Zona General</span>
-                            <p class="text-sm font-bold text-gray-800" x-text="orden.Zona_Aproximada"></p>
-                        </div>
-                        <div x-show="['En Camino', 'En Domicilio', 'Terminada'].includes(orden.Estado)" class="p-4 bg-emerald-50 border-2 border-emerald-200 rounded-xl shadow-inner">
-                            <p class="text-base font-mono font-black text-emerald-900" x-text="orden.Direccion_Exacta"></p>
-                        </div>
-                    </div>
-
-                    <div x-show="orden.Estado === 'En Camino'" class="p-3 bg-rose-50 border border-rose-200 text-rose-900 text-xs rounded-xl font-medium">
-                        ⚠️ <b>Protocolo Obligatorio de Admisión CCyCN:</b> Al llegar, corroborar que la persona que otorga el acceso sea mayor de 18 años con discernimiento legal. Si es menor, no iniciar tareas y reportar a la central logística.
-                    </div>
-
-                    <div class="pt-1">
-                        <button x-show="orden.Estado === 'Aceptada'" :disabled="!comisionPagada" @click="marcarEnCamino()" :class="!comisionPagada ? 'bg-gray-300 text-gray-500 cursor-not-allowed shadow-none' : 'bg-blue-600 text-white shadow-lg'" class="w-full font-black py-4 rounded-xl text-sm uppercase tracking-widest transition">🚀 Comenzar Viaje</button>
-                        <button x-show="orden.Estado === 'En Camino'" @click="marcarYaLlegue()" class="w-full bg-amber-500 text-slate-950 font-black py-4 rounded-xl text-sm uppercase tracking-widest shadow-lg">🙋‍♂️ Notificar Arribo</button>
-                        <div x-show="orden.Estado === 'En Domicilio'" class="text-center space-y-4"><button @click="orden.Estado = 'Terminada'" class="w-full bg-emerald-600 text-white font-black py-4 rounded-xl text-sm uppercase tracking-widest shadow-lg">✓ Finalizar Reparación</button></div>
-                    </div>
+                
+                <div>
+                    <label class="block text-[11px] font-bold text-slate-400 mb-1.5 uppercase tracking-wide">Correo Electrónico Oficial *</label>
+                    <input type="email" name="Email_Notificaciones" placeholder="ejemplo@correo.com" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-xs font-semibold text-white placeholder-slate-600 font-mono focus:outline-none focus:border-amber-500/80 focus:ring-1 focus:ring-amber-500/30 transition-all" required>
+                    <p class="text-[10px] text-slate-500 mt-2 font-medium">Casilla vinculante donde se remitirán las resoluciones de auditoría y las liquidaciones del canon administrativo.</p>
                 </div>
             </div>
+
+            <!-- BLOQUE 2: ADJUNTOS OBLIGATORIOS -->
+            <div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-6 space-y-5 shadow-lg backdrop-blur-sm">
+                <div class="border-b border-slate-800/80 pb-3">
+                    <h3 class="text-xs font-black text-amber-400 uppercase tracking-wider flex items-center">
+                        <span class="w-1.5 h-3 bg-amber-500 rounded-sm mr-2 block"></span>
+                        Documentación Digital Respaldatoria
+                    </h3>
+                </div>
+
+                <!-- Input 1: AFIP -->
+                <div class="space-y-2">
+                    <label class="block text-xs font-bold text-slate-300">1. Constancia de Opción AFIP (Vigente)</label>
+                    <div class="flex items-center space-x-3 bg-slate-950/40 border border-slate-800/80 rounded-xl p-3 hover:border-slate-700/60 transition-all">
+                        <label class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-4 py-2.5 rounded-lg text-xs cursor-pointer border border-slate-700 shrink-0 transition active:scale-[0.98]">
+                            <span>Seleccionar Archivo</span>
+                            <input type="file" name="Adjunto_AFIP" @change="validarArchivo('afip')" class="hidden" required>
+                        </label>
+                        <span class="text-[11px] font-mono font-bold tracking-wide truncate max-w-xs" :class="files.afip ? 'text-emerald-400' : 'text-slate-500'" x-text="files.afip ? '✓ ' + files.afipName : 'Ningún archivo seleccionado (PDF, JPG, PNG)'"></span>
+                    </div>
+                </div>
+
+                <!-- Input 2: Matrícula -->
+                <div class="space-y-2">
+                    <label class="block text-xs font-bold text-slate-300">2. Matrícula Profesional o Idoneidad Técnica</label>
+                    <div class="flex items-center space-x-3 bg-slate-950/40 border border-slate-800/80 rounded-xl p-3 hover:border-slate-700/60 transition-all">
+                        <label class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-4 py-2.5 rounded-lg text-xs cursor-pointer border border-slate-700 shrink-0 transition active:scale-[0.98]">
+                            <span>Seleccionar Archivo</span>
+                            <input type="file" name="Adjunto_Matricula" @change="validarArchivo('matricula')" class="hidden" required>
+                        </label>
+                        <span class="text-[11px] font-mono font-bold tracking-wide truncate max-w-xs" :class="files.matricula ? 'text-emerald-400' : 'text-slate-500'" x-text="files.matricula ? '✓ ' + files.matriculaName : 'Ningún archivo seleccionado (PDF, JPG, PNG)'"></span>
+                    </div>
+                </div>
+
+                <!-- Input 3: Antecedentes -->
+                <div class="space-y-2">
+                    <label class="block text-xs font-bold text-slate-300">3. Certificado de Antecedentes Penales (RNR Activo)</label>
+                    <div class="flex items-center space-x-3 bg-slate-950/40 border border-slate-800/80 rounded-xl p-3 hover:border-slate-700/60 transition-all">
+                        <label class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-4 py-2.5 rounded-lg text-xs cursor-pointer border border-slate-700 shrink-0 transition active:scale-[0.98]">
+                            <span>Seleccionar Archivo</span>
+                            <input type="file" name="Adjunto_Antecedentes" @change="validarArchivo('antecedentes')" class="hidden" required>
+                        </label>
+                        <span class="text-[11px] font-mono font-bold tracking-wide truncate max-w-xs" :class="files.antecedentes ? 'text-emerald-400' : 'text-slate-500'" x-text="files.antecedentes ? '✓ ' + files.antecedentesName : 'Ningún archivo seleccionado (PDF, JPG, PNG)'"></span>
+                    </div>
+                </div>
+
+                <!-- Alerta de Formato Erróneo -->
+                <div x-show="errorFormato" x-transition class="bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs p-3 rounded-xl font-bold flex items-center">
+                    <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+                    El formato del archivo no es válido. Subí únicamente documentos PDF, JPG o PNG.
+                </div>
+            </div>
+
+            <!-- BLOQUE 3: LEGALES Y FIRMA -->
+            <div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-6 space-y-4 shadow-lg backdrop-blur-sm">
+                <div class="border-b border-slate-800/80 pb-3">
+                    <h3 class="text-xs font-black text-amber-400 uppercase tracking-wider flex items-center">
+                        <span class="w-1.5 h-3 bg-amber-500 rounded-sm mr-2 block"></span>
+                        Resguardo Legal y Marco Regulatorio
+                    </h3>
+                </div>
+                
+                <div class="h-28 overflow-y-auto border border-slate-800 rounded-xl p-3.5 text-[11px] text-slate-400 bg-slate-950/50 leading-relaxed space-y-3 scrollbar-thin scrollbar-thumb-slate-800">
+                    <div>
+                        <p class="font-bold text-slate-200">1. PROTECCIÓN DE DATOS PERSONALES (LEY Nº 25.326)</p>
+                        <p>En estricto cumplimiento de la Ley de Protección de Datos Personales de la República Argentina, se le notifica que toda la información patrimonial, fiscal y documental suministrada en este entorno estático será tratada de manera encriptada y confidencial con el único propósito de validar la idoneidad civil y comercial del perfil del prestador, quedando el canal de transmisión protegido mediante enmascaramiento de servidor.</p>
+                    </div>
+                    <div>
+                        <p class="font-bold text-slate-200">2. AUTONOMÍA DE LA LOCACIÓN DE SERVICIOS</p>
+                        <p>El técnico manifiesta con carácter de declaración jurada que reviste la condición de profesional autónomo independiente, asumiendo de manera directa la custodia y el resguardo de las incidencias multimedia suministradas por los usuarios del ecosistema tecnológico.</p>
+                    </div>
+                </div>
+
+                <label class="flex items-start space-x-3 cursor-pointer pt-2 select-none">
+                    <input type="checkbox" x-model="aceptoTyC" class="w-4 h-4 rounded bg-slate-950 border-slate-800 text-amber-500 focus:ring-amber-500/50 focus:ring-offset-slate-900 mt-0.5 transition-all">
+                    <span class="text-xs font-semibold text-slate-300 leading-normal">Acepto los términos de la Ley 25.326 de Datos Personales y ratifico mi condición fiscal informada.</span>
+                </label>
+
+                <!-- BOTÓN DE ENVÍO PRESTIGIOSO -->
+                <button 
+                    type="submit" 
+                    :disabled="!aceptoTyC || !files.afip || !files.matricula || !files.antecedentes"
+                    :class="(!aceptoTyC || !files.afip || !files.matricula || !files.antecedentes) ? 'bg-slate-800 text-slate-500 cursor-not-allowed shadow-none border-transparent' : 'bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-extrabold shadow-[0_4px_20px_rgba(245,158,11,0.15)] active:scale-[0.99] border-amber-400/20'" 
+                    class="w-full text-xs py-4 rounded-xl uppercase tracking-widest border font-black transition-all duration-200 mt-3"
+                >
+                    Enviar Legajo a Auditoría Activa
+                </button>
+            </div>
+        </form>
+    </main>
+
+    <!-- STICKY FOOTER LEGAL - DISEÑO EDITORIAL -->
+    <footer class="bg-slate-950 border-t border-slate-900 text-[10px] text-slate-500 py-6 px-6 relative z-10 select-none">
+        <div class="max-w-2xl mx-auto text-justify leading-relaxed font-medium space-y-1">
+            <span class="font-bold text-amber-500/70 block tracking-wider uppercase">Aviso de Intermediación y Términos de Plataforma:</span>
+            TUERKA opera estrictamente como un entorno tecnológico de intermediación administrativa bajo la figura locativa de software ("Secretaría Digital"). El uso de las herramientas de gestión devenga un cargo del uno por ciento (1%) sobre los acuerdos privados celebrados de forma autónoma entre el profesional matriculado y el usuario solicitante. La organización no forma parte del vínculo civil o comercial subyacente, no fija aranceles corporativos ni asume responsabilidad por la praxis, daños o resultados derivados del ejercicio profesional.
         </div>
-    </div>
+    </footer>
 
-    <!-- CÓDIGO DE MOTOR CON TRATAMIENTO NATIVO BASE64 -->
+    <!-- LÓGICA ALPINE.JS - NATIVA, ESTABLE Y CONTROLADA -->
     <script>
         function tuerkaApp() {
             return {
                 currentView: 'tecnico',
-                tipoReporte: 'video',
-                clienteFotoCargada: false,
-
-                legajoEnviado: false,
-                comisionPagada: false,
-                checkoutAbierto: false,
-                tecnicoAceptoTyC: false,
+                aceptoTyC: false,
                 errorFormato: false,
+                files: {
+                    afip: false, afipName: '',
+                    matricula: false, matriculaName: '',
+                    antecedentes: false, antecedentesName: ''
+                },
                 
-                formTecnico: { nombre: '', cuit: '', email: '' }, 
-                docs: { afip: false, afipExt: '', matricula: false, matriculaExt: '', antecedentes: false, antecedentesExt: '' },
-                tecnico: { Nombre_Completo: "Carlos Pérez", Estado_Dispo: 'Baja' },
-                orden: { ID_Orden: 3849, Estado: 'Pendiente Peritaje', Pliego_Asesor: 'Se detecta pérdida de presión por fisura en llave de paso.', Precio_Sugerido_Market: 45000, Zona_Aproximada: 'Palermo Soho, CABA', Direccion_Exacta: 'Guatemala 4821, Piso 3B' },
-                asesorForm: { pliego: '', materiales: '', precio: 0 },
-                etapasCliente: [
-                    { label: "Peritaje Técnico", check: (estado) => estado === "Pendiente Peritaje" },
-                    { label: "Técnico Asignado", check: (estado) => ["Publicada", "Aceptada"].includes(estado) },
-                    { label: "En Camino", check: (estado) => estado === "En Camino" },
-                    { label: "En Domicilio", check: (estado) => ["En Domicilio", "Terminada"].includes(estado) }
-                ],
-
-                // Codificador a Base64 nativo del navegador (100% inmune a bloqueos de CORS o caídas de servidores externos)
-                convertirABase64(idInput) {
-                    return new Promise((resolve) => {
-                        const input = document.getElementById(idInput);
-                        if (!input || input.files.length === 0) return resolve(null);
-                        
+                validarArchivo(tipo) {
+                    const input = event.target;
+                    if (input.files.length > 0) {
                         const file = input.files[0];
-                        const reader = new FileReader();
-                        reader.onloadend = () => {
-                            const base64String = reader.result.split(',')[1];
-                            resolve({
-                                filename: file.name,
-                                base64: base64String
-                            });
-                        };
-                        reader.readAsDataURL(file);
-                    });
-                },
-
-                async enviarLegajo() {
-                    const boton = document.getElementById('btnEnviar');
-                    const textoOriginal = boton.innerText;
-                    boton.disabled = true;
-                    
-                    try {
-                        boton.innerText = 'Codificando AFIP...';
-                        const afipData = await this.convertirABase64('file_afip');
-
-                        boton.innerText = 'Codificando Matrícula...';
-                        const matriculaData = await this.convertirABase64('file_matricula');
-
-                        boton.innerText = 'Codificando Antecedentes...';
-                        const antecedentesData = await this.convertirABase64('file_antecedentes');
-
-                        boton.innerText = 'Transmitiendo legajo...';
-
-                        // Los datos se leen directamente desde el estado reactivo de Alpine sin tocar selectores del DOM
-                        const payload = {
-                            evento: "NUEVO_LEGAJO_AUDITORIA",
-                            tecnico_nombre: this.formTecnico.nombre,
-                            tecnico_cuit: this.formTecnico.cuit,
-                            tecnico_email: this.formTecnico.email,
-                            archivo_afip: afipData ? afipData.base64 : '',
-                            nombre_afip: afipData ? afipData.filename : '',
-                            archivo_matricula: matriculaData ? matriculaData.base64 : '',
-                            nombre_matricula: matriculaData ? matriculaData.filename : '',
-                            archivo_antecedentes: antecedentesData ? antecedentesData.base64 : '',
-                            nombre_antecedentes: antecedentesData ? antecedentesData.filename : '',
-                            mensaje: "Se ha cargado un nuevo legajo con Constancia AFIP, Matrícula y Antecedentes en Base64."
-                        };
-
-                        const responseMake = await fetch("https://hook.us2.make.com/bmm7z3g7xmne05x2dbx7ttxtvqelhrdt", {
-                            method: "POST",
-                            headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify(payload)
-                        });
-
-                        if (responseMake.ok) {
-                            this.legajoEnviado = true;
-                            alert('¡Legajo enviado con éxito! La documentación fue resguardada para auditoría.');
-                            document.getElementById('form-legajo-tecnico').reset();
-                            this.formTecnico = { nombre: '', cuit: '', email: '' };
-                            this.docs = { afip: false, afipExt: '', matricula: false, matriculaExt: '', antecedentes: false, antecedentesExt: '' };
-                            this.tecnicoAceptoTyC = false;
-                        } else {
-                            throw new Error('Fallo al impactar en el Webhook de Make');
-                        }
-
-                    } catch (err) {
-                        console.error("Error en flujo de envío:", err);
-                        alert('Hubo un problema de transmisión de datos. Verifique los archivos e intente nuevamente.');
-                    } finally {
-                        boton.innerText = textoOriginal;
-                        boton.disabled = false;
-                    }
-                },
-
-                simularBotonPago() { this.checkoutAbierto = true; this.comisionPagada = true; },
-                manejarCargaArchivo(tipo) {
-                    const fileInput = event.target;
-                    if (fileInput.files.length > 0) {
-                        const extension = fileInput.files[0].name.toLowerCase().split('.').pop();
+                        const extension = file.name.toLowerCase().split('.').pop();
+                        
+                        // Validamos estrictamente formatos seguros de oficina
                         if (['pdf', 'jpg', 'jpeg', 'png'].includes(extension)) {
-                            this.errorFormato = false; this.docs[tipo] = true; this.docs[tipo + 'Ext'] = extension;
+                            this.errorFormato = false;
+                            this.files[tipo] = true;
+                            this.files[tipo + 'Name'] = file.name;
                         } else {
-                            this.errorFormato = true; this.docs[tipo] = false; fileInput.value = '';
+                            this.errorFormato = true;
+                            this.files[tipo] = false;
+                            this.files[tipo + 'Name'] = '';
+                            input.value = ''; // Resetea el input corrupto
                         }
                     }
-                },
-                liberarCartelera() { this.orden.Estado = 'Publicada'; this.currentView = 'tecnico'; },
-                marcarEnCamino() { this.orden.Estado = 'En Camino'; },
-                marcarYaLlegue() { this.orden.Estado = 'En Domicilio'; }
+                }
             }
         }
     </script>
