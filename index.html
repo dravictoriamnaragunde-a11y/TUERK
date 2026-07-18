@@ -32,8 +32,8 @@
             <div class="flex items-center space-x-3">
                 <div class="w-10 h-10 bg-sky-600 rounded-full flex items-center justify-center shadow-inner">
                     <svg class="w-6 h-6 text-white animate-spin-slow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
                 </div>
                 <div>
@@ -52,7 +52,7 @@
                 
                 <div class="border-2 border-dashed border-gray-300 rounded-xl p-8 flex flex-col items-center justify-center bg-gray-50 hover:bg-gray-100 transition cursor-pointer relative">
                     <svg class="w-12 h-12 text-gray-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
                     </svg>
                     <span class="text-sm font-semibold text-gray-700">Video_Cliente.mp4</span>
                     <span class="text-xs text-green-600 mt-1 font-mono font-bold">✓ Cargado exitosamente (24s)</span>
@@ -172,7 +172,7 @@
             <!-- TÉCNICO COMPLETAMENTE VALIDADO -->
             <div x-show="tecnico.Validacion_Admin && tecnico.Estado_Dispo === 'Activo'">
                 
-                <!-- SUB-VISTA A: CARTELERA PÚBLICA (DATOS CLIENTE COMPLETAMENTE OCULTOS) -->
+                <!-- SUB-VISTA A: CARTELERA PÚBLICA -->
                 <div x-show="orden.Estado === 'Publicada'" class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
                     <div class="flex justify-between items-start mb-3">
                         <span class="bg-sky-100 text-sky-800 text-xs font-extrabold px-2.5 py-1 rounded" x-text="'Zona: ' + orden.Zona_Aproximada"></span>
@@ -185,7 +185,7 @@
                     
                     <div class="bg-amber-50 border border-amber-200 p-2.5 rounded-lg mb-4">
                         <p class="text-[11px] text-amber-800 font-semibold leading-tight">
-                            🔒 Anti-Bypass: La dirección exacta y el contacto se revelarán únicamente al iniciar el trayecto logístico in-situ.
+                            🔒 Anti-Bypass: La dirección exacta se revelará únicamente al iniciar el trayecto logístico in-situ.
                         </p>
                     </div>
 
@@ -208,7 +208,6 @@
                             <p class="text-sm font-medium text-gray-800" x-text="orden.Zona_Aproximada"></p>
                         </div>
 
-                        <!-- Condición de renderizado estricta basada en el estado de viaje -->
                         <div x-show="['En Camino', 'En Domicilio', 'Terminada'].includes(orden.Estado)" class="p-3 bg-emerald-50 border border-emerald-200 rounded-xl">
                             <span class="block text-xs font-bold text-emerald-700 uppercase">📍 DIRECCIÓN EXACTA REVELADA</span>
                             <p class="text-sm font-mono font-bold text-emerald-900 mt-1" x-text="orden.Direccion_Exacta"></p>
@@ -220,17 +219,14 @@
 
                     <!-- BOTONERA DE CONTROL SECUENCIAL OBLIGATORIO -->
                     <div class="mt-8">
-                        <!-- PASO A: EN CAMINO -->
                         <button x-show="orden.Estado === 'Aceptada'" @click="marcarEnCamino()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition shadow-md">
                             🚀 Comenzar Viaje ("Estoy en Camino")
                         </button>
 
-                        <!-- PASO B: YA LLEGUE -->
                         <button x-show="orden.Estado === 'En Camino'" @click="marcarYaLlegue()" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 rounded-xl transition shadow-md">
                             🙋‍♂️ Notificar Arribo ("Ya Llegué al Domicilio")
                         </button>
 
-                        <!-- PASO C: EN DOMICILIO / CONTROL CONSERJERÍA + FINALIZACIÓN -->
                         <div x-show="orden.Estado === 'En Domicilio'" class="space-y-6 text-center">
                             <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 flex flex-col items-center">
                                 <div class="w-36 h-36 bg-slate-800 p-2 rounded-lg flex flex-col items-center justify-center text-white text-center shadow-inner">
@@ -248,7 +244,6 @@
                             </button>
                         </div>
 
-                        <!-- PROCESO COMPLETADO -->
                         <div x-show="orden.Estado === 'Terminada'" class="bg-green-50 border border-green-200 p-4 rounded-xl text-center text-green-800 font-medium text-sm">
                             🎉 Orden finalizada con éxito. Datos desindexados de la cartelera activa.
                         </div>
@@ -309,18 +304,30 @@
                     this.currentView = 'tecnico';
                 },
 
-               marcarEnCamino() {
-    this.orden.Timestamp_EnCamino = new Date().toISOString();
-    this.orden.Estado = 'En Camino';
-    
-    // LA MAGIA: Conectamos con Make
-    fetch("TU_ENLACE_COPIADO_DE_MAKE", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            id: this.orden.ID_Orden,
-            estado: this.orden.Estado,
-            zona: this.orden.Zona_Aproximada
-        })
-    });
-},
+                marcarEnCamino() {
+                    this.orden.Timestamp_EnCamino = new Date().toISOString();
+                    this.orden.Estado = 'En Camino';
+                    
+                    // ENVÍO DE DATOS EN VIVO HACIA MAKE
+                    fetch("TU_URL_DE_MAKE_AQUÍ", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            id: this.orden.ID_Orden,
+                            estado: this.orden.Estado,
+                            zona: this.orden.Zona_Aproximada,
+                            direccion: this.orden.Direccion_Exacta,
+                            timestamp: this.orden.Timestamp_EnCamino
+                        })
+                    }).catch(err => console.log('Error de envío'));
+                },
+
+                marcarYaLlegue() {
+                    this.orden.Timestamp_Llegue = new Date().toISOString();
+                    this.orden.Estado = 'En Domicilio';
+                }
+            }
+        }
+    </script>
+</body>
+</html>
