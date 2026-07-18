@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TUERK - Logística Técnica</title>
+    <title>TUERKA - Logística Técnica</title>
     <!-- Tailwind CSS para Estilos -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Alpine.js para la Lógica de Estados y Reactividad -->
@@ -13,7 +13,7 @@
         @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
     </style>
 </head>
-<body class="bg-gray-100 font-sans antialiased text-gray-900" x-data="tuerkApp()">
+<body class="bg-gray-100 font-sans antialiased text-gray-900" x-data="tuerkaApp()">
 
     <!-- SELECTOR DE VISTAS (Solo para desarrollo y testing en el Repo) -->
     <div class="bg-gray-800 text-white p-2 text-xs flex justify-center space-x-4 sticky top-0 z-50">
@@ -32,12 +32,12 @@
             <div class="flex items-center space-x-3">
                 <div class="w-10 h-10 bg-sky-600 rounded-full flex items-center justify-center shadow-inner">
                     <svg class="w-6 h-6 text-white animate-spin-slow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
                 </div>
                 <div>
-                    <h1 class="text-xl font-black tracking-wider text-gray-900">TUERK</h1>
+                    <h1 class="text-xl font-black tracking-wider text-gray-900">TUERKA</h1>
                     <p class="text-xs text-gray-500 font-medium">Logística Técnica de Avanzada</p>
                 </div>
             </div>
@@ -52,7 +52,7 @@
                 
                 <div class="border-2 border-dashed border-gray-300 rounded-xl p-8 flex flex-col items-center justify-center bg-gray-50 hover:bg-gray-100 transition cursor-pointer relative">
                     <svg class="w-12 h-12 text-gray-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
                     </svg>
                     <span class="text-sm font-semibold text-gray-700">Video_Cliente.mp4</span>
                     <span class="text-xs text-green-600 mt-1 font-mono font-bold">✓ Cargado exitosamente (24s)</span>
@@ -80,7 +80,7 @@
         <footer class="fixed bottom-0 left-0 right-0 bg-gray-900 text-[10px] text-gray-400 p-4 border-t border-gray-800 leading-relaxed text-justify z-40 select-none">
             <div class="max-w-md mx-auto">
                 <span class="font-extrabold text-white block mb-1 tracking-wide">AVISO LEGAL DE NEUTRALIDAD (Art. 40 Ley 24.240):</span>
-                TUERK es una plataforma tecnológica de intermediación de datos logísticos operada de forma independiente. TUERK no presta servicios técnicos de reparación ni cuenta con personal de mantenimiento en relación de dependencia. El servicio técnico es ejecutado de forma exclusiva, autónoma y privada por el profesional independiente matriculado o idóneo elegido. TUERK deslinda toda responsabilidad solidaria por daños, resultados o praxis derivada de la locación de servicios privada entre el cliente y el profesional.
+                TUERKA es una plataforma tecnológica de intermediación de datos logísticos operada de forma independiente. TUERKA no presta servicios técnicos de reparación ni cuenta con personal de mantenimiento en relación de dependencia. El servicio técnico es ejecutado de forma exclusiva, autónoma y privada por el profesional independiente matriculado o idóneo elegido. TUERKA deslinda toda responsabilidad solidaria por daños, resultados o praxis derivada de la locación de servicios privada entre el cliente y el profesional.
             </div>
         </footer>
     </div>
@@ -160,12 +160,12 @@
             <div x-show="!tecnico.Validacion_Admin || tecnico.Estado_Dispo !== 'Activo'" class="bg-gray-800 border border-gray-700 rounded-2xl p-6 text-center shadow-xl text-white">
                 <div class="w-16 h-16 bg-amber-500/10 border border-amber-500/30 rounded-full flex items-center justify-center mx-auto mb-4 text-amber-400">
                     <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m0 4h.01M5.938 18h12.124c1.11 0 1.956-1.154 1.41-2.12l-6.062-10.777c-.557-.991-1.957-.991-2.514 0L3.118 15.88c-.546.965.299 2.12 1.41 2.12z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m0 4h.01M5.938 18h12.124c1.11 0 1.956-1.154 1.41-2.12l-6.062-10.777c-.557-.991-1.957-.991-2.514 0L3.118 15.88c-.546.965.299 2.12 1.41 2.12z" />
                     </svg>
                 </div>
                 <h2 class="text-xl font-bold mb-2">Cuenta en Proceso de Auditoría</h2>
                 <p class="text-sm text-gray-400 leading-relaxed">
-                    Tuerk está validando tu documentación técnica y antecedentes legales. Te avisaremos por WhatsApp cuando tu cuenta esté activa en CABA.
+                    TUERKA está validando tu documentación técnica y antecedentes legales. Te avisaremos por WhatsApp cuando tu cuenta esté activa en CABA.
                 </p>
             </div>
 
@@ -236,8 +236,7 @@
                                 <div class="w-36 h-36 bg-slate-800 p-2 rounded-lg flex flex-col items-center justify-center text-white text-center shadow-inner">
                                     <span class="text-[10px] font-mono tracking-widest text-sky-400 font-bold block mb-1">QR AUDITORÍA</span>
                                     <div class="bg-white p-1 rounded">
-                                        <!-- Representación visual estática de un QR de control -->
-                                        <div class="w-20 h-20 bg-black border-4 border-white flex items-center justify-center text-[8px] text-white font-mono">TUERK</div>
+                                        <div class="w-20 h-20 bg-black border-4 border-white flex items-center justify-center text-[8px] text-white font-mono">TUERKA</div>
                                     </div>
                                     <span class="text-[8px] font-mono mt-1 text-slate-300" x-text="'ORDEN_ID_' + orden.ID_Orden"></span>
                                 </div>
@@ -246,7 +245,7 @@
 
                             <button @click="orden.Estado = 'Terminada'" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl transition shadow-md">
                                 ✓ Finalizar y Cerrar Servicio
-                              </button>
+                            </button>
                         </div>
 
                         <!-- PROCESO COMPLETADO -->
@@ -262,19 +261,17 @@
 
     <!-- CÓDIGO DE DATOS COMPORTAMIENTALES (MOCK-DATA / ENGINE) -->
     <script>
-        function tuerkApp() {
+        function tuerkaApp() {
             return {
                 currentView: 'cliente',
                 
-                // Registro base del Técnico simulando las validaciones en CABA
                 tecnico: {
                     Nombre_Completo: "Carlos Pérez",
                     Especialidad: ["Gas", "Plomería"],
-                    Validacion_Admin: false, // Controlado por el Admin en la base de datos
+                    Validacion_Admin: false,
                     Estado_Dispo: 'Baja'
                 },
 
-                // Simulación estricta de una tupla en Airtable (Orden de Trabajo)
                 orden: {
                     ID_Orden: 3849,
                     Estado: 'Pendiente Peritaje',
@@ -287,14 +284,12 @@
                     Timestamp_Llegue: null
                 },
 
-                // Buffer temporal para el formulario de la mesa de peritaje
                 asesorForm: {
                     pliego: 'Se detecta pérdida de presión por fisura en llave de paso general de fluidos combustibles. Requiere sellado y cambio de acople flexible.',
                     materiales: '1 Llave de paso aprobada de 1/2 pulgada, sellador de roscas de alta presión, acople flexible de acero inoxidable.',
                     precio: 45000
                 },
 
-                // Definición del mapa de estados para el rastreador de cara al cliente
                 etapasCliente: [
                     { label: "Peritaje Técnico", check: (estado) => estado === "Pendiente Peritaje" },
                     { label: "Técnico Asignado", check: (estado) => ["Publicada", "Aceptada"].includes(estado) },
@@ -302,21 +297,18 @@
                     { label: "En Domicilio", check: (estado) => ["En Domicilio", "Terminada"].includes(estado) }
                 ],
 
-                // Control reactivo del estado de disponibilidad del técnico
                 checkDispo() {
                     this.tecnico.Estado_Dispo = this.tecnico.Validacion_Admin ? 'Activo' : 'Baja';
                 },
 
-                // Transición operada por el Asesor Técnico
                 liberarCartelera() {
                     this.orden.Pliego_Asesor = this.asesorForm.pliego;
                     this.orden.Materiales_Sugeridos = this.asesorForm.materiales;
                     this.orden.Precio_Sugerido_Market = this.asesorForm.precio;
                     this.orden.Estado = 'Publicada';
-                    this.currentView = 'tecnico'; // Redirección automática para verificar cambio en cartelera
+                    this.currentView = 'tecnico';
                 },
 
-                // Acciones secuenciales del técnico in-situ
                 marcarEnCamino() {
                     this.orden.Timestamp_EnCamino = new Date().toISOString();
                     this.orden.Estado = 'En Camino';
