@@ -1,55 +1,170 @@
-<!-- Formulario estructurado para el control de legajos de técnicos -->
-<form id="form-tuerka">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Técnicos - Validación de Legajos</title>
+    <style>
+        :root {
+            --primary-color: #1a1a1a;
+            --accent-color: #0066cc;
+            --background-gray: #f5f5f7;
+            --border-color: #d2d2d7;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--background-gray);
+            color: var(--primary-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .form-container {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        h2 {
+            margin-top: 0;
+            margin-bottom: 24px;
+            font-size: 24px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        input[type="text"],
+        input[type="email"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: border-color 0.2s;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        input[type="file"] {
+            display: block;
+            width: 100%;
+            padding: 10px 0;
+            font-size: 14px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 14px;
+            background-color: var(--primary-color);
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-top: 10px;
+        }
+
+        .btn-submit:hover {
+            background-color: #333333;
+        }
+
+        .legal-notice {
+            font-size: 12px;
+            color: #6e6e73;
+            text-align: center;
+            margin-top: 20px;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <h2>Registro de Legajo Técnico</h2>
     
-    <input type="hidden" name="evento" value="nuevo_registro_tecnico">
+    <form id="form-tuerka">
+        
+        <input type="hidden" name="evento" value="nuevo_registro_tecnico">
 
-    <div class="form-group">
-        <label for="tecnico_nombre">Nombre Completo</label>
-        <input type="text" id="tecnico_nombre" name="tecnico_nombre" placeholder="Juan Pérez" required>
+        <!-- Datos de Texto Obligatorios -->
+        <div class="form-group">
+            <label for="tecnico_nombre">Nombre Completo</label>
+            <input type="text" id="tecnico_nombre" name="tecnico_nombre" placeholder="Juan Pérez" required>
+        </div>
+
+        <div class="form-group">
+            <label for="tecnico_cuit">CUIT (Sin guiones)</label>
+            <input type="text" id="tecnico_cuit" name="tecnico_cuit" placeholder="20123456789" pattern="[0-9]{11}" title="Por favor, ingrese los 11 dígitos del CUIT sin espacios ni guiones" required>
+        </div>
+
+        <div class="form-group">
+            <label for="tecnico_email">Correo Electrónico</label>
+            <input type="email" id="tecnico_email" name="tecnico_email" placeholder="ejemplo@correo.com" required>
+        </div>
+
+        <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 25px 0;">
+
+        <!-- Carga de Archivos Binarios Reales -->
+        <div class="form-group">
+            <label for="constancia_afip">1. Constancia de Opción AFIP (PDF / Imagen)</label>
+            <input type="file" id="constancia_afip" name="constancia_afip" accept=".pdf,.jpg,.jpeg,.png" required>
+        </div>
+
+        <div class="form-group">
+            <label for="matricula">2. Matrícula Profesional Habilitante (PDF / Imagen)</label>
+            <input type="file" id="matricula" name="matricula" accept=".pdf,.jpg,.jpeg,.png" required>
+        </div>
+
+        <div class="form-group">
+            <label for="antecedentes">3. Certificado de Antecedentes Penales (PDF)</label>
+            <input type="file" id="antecedentes" name="antecedentes" accept=".pdf,.jpg,.jpeg,.png" required>
+        </div>
+
+        <button type="submit" class="btn-submit" id="btnEnviar">Enviar Documentación</button>
+    </form>
+
+    <!-- El Disclaimer Formal Restablecido -->
+    <div class="legal-notice">
+        La documentación se transmite mediante canales cifrados y se almacena en carácter de declaración jurada sujeta a auditoría legal dentro de las 24 horas hábiles.
     </div>
-
-    <div class="form-group">
-        <label for="tecnico_cuit">CUIT (Sin guiones)</label>
-        <input type="text" id="tecnico_cuit" name="tecnico_cuit" placeholder="20123456789" pattern="[0-9]{11}" required>
-    </div>
-
-    <div class="form-group">
-        <label for="tecnico_email">Correo Electrónico</label>
-        <input type="email" id="tecnico_email" name="tecnico_email" placeholder="ejemplo@correo.com" required>
-    </div>
-
-    <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 25px 0;">
-
-    <div class="form-group">
-        <label for="constancia_afip">1. Constancia de Opción AFIP (PDF / Imagen)</label>
-        <input type="file" id="constancia_afip" name="constancia_afip" accept=".pdf,.jpg,.jpeg,.png" required>
-    </div>
-
-    <div class="form-group">
-        <label for="matricula">2. Matrícula Profesional Habilitante (PDF / Imagen)</label>
-        <input type="file" id="matricula" name="matricula" accept=".pdf,.jpg,.jpeg,.png" required>
-    </div>
-
-    <div class="form-group">
-        <label for="antecedentes">3. Certificado de Antecedentes Penales (PDF)</label>
-        <input type="file" id="antecedentes" name="antecedentes" accept=".pdf,.jpg,.jpeg,.png" required>
-    </div>
-
-    <button type="submit" class="btn-submit" id="btnEnviar">Enviar Documentación</button>
-</form>
+</div>
 
 <script>
 document.getElementById('form-tuerka').addEventListener('submit', function(e) {
-    e.preventDefault(); // Evita que la página salte al error 405
+    e.preventDefault(); // Detiene el salto al error 405
     
     const boton = document.getElementById('btnEnviar');
     boton.innerText = 'Enviando legajo...';
     boton.disabled = true;
 
-    // Empaqueta los textos y los archivos binarios juntos de forma transparente
+    // Empaqueta textos y archivos binarios de forma segura
     const formData = new FormData(this);
-
-    // Tu webhook de Make integrado de forma segura
     const urlMake = 'https://hook.us2.make.com/bmm7z3g7xmne05x2dbx7ttxtvqelhrdt'; 
 
     fetch(urlMake, {
@@ -70,3 +185,6 @@ document.getElementById('form-tuerka').addEventListener('submit', function(e) {
     });
 });
 </script>
+
+</body>
+</html>
