@@ -15,7 +15,7 @@
 </head>
 <body class="bg-gray-100 font-sans antialiased text-gray-900 select-none" x-data="tuerkaApp()">
 
-    <!-- SELECTOR DE VISTAS -->
+    <!-- SELECTOR DE VISTAS (Optimizado para Testing) -->
     <div class="bg-slate-900 text-slate-400 p-3 text-xs flex justify-center space-x-4 sticky top-0 z-50 border-b border-slate-800 shadow-md">
         <span class="font-bold text-amber-400 font-mono">Entornos:</span>
         <button @click="currentView = 'cliente'" :class="currentView === 'cliente' ? 'underline font-black text-amber-400' : ''">1. Cliente</button>
@@ -27,6 +27,7 @@
     <!-- PANTALLA 1: VISTA DEL CLIENTE             -->
     <!-- ========================================== -->
     <div x-show="currentView === 'cliente'" class="min-h-screen bg-gray-50 pb-52 flex flex-col justify-between">
+        <!-- Header Corporativo Estilo Premium Dorado -->
         <header class="bg-gradient-to-r from-slate-900 to-slate-800 border-b-2 border-amber-500/30 py-4 px-6 flex items-center justify-between shadow-xl">
             <div class="flex items-center space-x-4">
                 <div class="w-12 h-12 bg-gradient-to-br from-amber-400 via-yellow-200 to-amber-600 rounded-full flex items-center justify-center shadow-[0_0_15px_rgba(245,158,11,0.5)] border-2 border-amber-300 ring-4 ring-slate-900/50 relative overflow-hidden">
@@ -45,20 +46,22 @@
         </header>
 
         <main class="p-4 flex-1 max-w-md mx-auto w-full space-y-4">
+            <!-- Formulario Flexible de Incidencia (Triple Opción) -->
             <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
                 <h2 class="text-lg font-black text-slate-900 mb-1">Reportar Incidencia</h2>
                 <p class="text-xs text-gray-500 mb-4">Seleccioná cómo preferís detallar el problema mecánico o estructural:</p>
                 
+                <!-- Selectores de Tipo de Reporte -->
                 <div class="grid grid-cols-3 gap-2 mb-4 text-center">
-                    <button @click="tipoReporte = 'video'" :class="tipoReporte === 'video' ? 'bg-slate-900 text-amber-400 border-amber-400' : 'bg-gray-50 text-gray-600 border-gray-200'" class="p-2.5 border text-xs font-bold rounded-xl flex flex-col items-center justify-center space-y-1">
+                    <button @click="tipoReporte = 'video'" :class="tipoReporte === 'video' ? 'bg-slate-900 text-amber-400 border-amber-400' : 'bg-gray-50 text-gray-600 border-gray-200'" class="p-2.5 border text-xs font-bold rounded-xl flex flex-col items-center justify-center space-y-1 transition">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
                         <span>Video</span>
                     </button>
-                    <button @click="tipoReporte = 'foto'" :class="tipoReporte === 'foto' ? 'bg-slate-900 text-amber-400 border-amber-400' : 'bg-gray-50 text-gray-600 border-gray-200'" class="p-2.5 border text-xs font-bold rounded-xl flex flex-col items-center justify-center space-y-1">
+                    <button @click="tipoReporte = 'foto'" :class="tipoReporte === 'foto' ? 'bg-slate-900 text-amber-400 border-amber-400' : 'bg-gray-50 text-gray-600 border-gray-200'" class="p-2.5 border text-xs font-bold rounded-xl flex flex-col items-center justify-center space-y-1 transition">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                         <span>Foto</span>
                     </button>
-                    <button @click="tipoReporte = 'texto'" :class="tipoReporte === 'texto' ? 'bg-slate-900 text-amber-400 border-amber-400' : 'bg-gray-50 text-gray-600 border-gray-200'" class="p-2.5 border text-xs font-bold rounded-xl flex flex-col items-center justify-center space-y-1">
+                    <button @click="tipoReporte = 'texto'" :class="tipoReporte === 'texto' ? 'bg-slate-900 text-amber-400 border-amber-400' : 'bg-gray-50 text-gray-600 border-gray-200'" class="p-2.5 border text-xs font-bold rounded-xl flex flex-col items-center justify-center space-y-1 transition">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                         <span>Texto</span>
                     </button>
@@ -77,26 +80,28 @@
                         <span x-show="clienteFotoCargada" class="text-xs text-emerald-600 font-mono font-bold bg-emerald-50 px-2 py-0.5 rounded-full">✓ Imagen lista</span>
                     </div>
                     <div x-show="tipoReporte === 'texto'">
-                        <textarea placeholder="Describí detalladamente la falla..." class="w-full bg-white border border-gray-200 rounded-xl p-3 text-sm focus:outline-none focus:border-amber-500 transition" rows="3"></textarea>
+                        <textarea placeholder="Describí detalladamente la falla que estás experimentando..." class="w-full bg-white border border-gray-200 rounded-xl p-3 text-sm focus:outline-none focus:border-amber-500 transition" rows="3"></textarea>
                     </div>
                 </div>
             </div>
 
+            <!-- Tracker de Progreso en Tiempo Real -->
             <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
                 <h3 class="text-xs font-black uppercase tracking-wider text-slate-400 mb-4">Estado del Servicio</h3>
                 <div class="flex flex-col space-y-4">
                     <template x-for="(etapa, index) in etapasCliente" :key="index">
                         <div class="flex items-center space-x-4">
-                            <div class="w-5 h-5 rounded-full flex items-center justify-center" :class="etapa.check(orden.Estado) ? 'bg-amber-500 ring-4 ring-amber-100' : 'bg-gray-200'">
+                            <div class="w-5 h-5 rounded-full flex items-center justify-center transition-all duration-300" :class="etapa.check(orden.Estado) ? 'bg-amber-500 ring-4 ring-amber-100' : 'bg-gray-200'">
                                 <div x-show="etapa.check(orden.Estado)" class="w-2 h-2 bg-slate-950 rounded-full"></div>
                             </div>
-                            <span class="text-sm font-bold shadow-none" :class="etapa.check(orden.Estado) ? 'text-slate-900 font-black' : 'text-gray-400'" x-text="etapa.label"></span>
+                            <span class="text-sm font-bold transition-colors" :class="etapa.check(orden.Estado) ? 'text-slate-900 font-black' : 'text-gray-400'" x-text="etapa.label"></span>
                         </div>
                     </template>
                 </div>
             </div>
         </main>
 
+        <!-- STICKY FOOTER LEGAL DE NEUTRALIDAD ABSOLUTA -->
         <footer class="fixed bottom-0 left-0 right-0 bg-gray-900 text-[10px] text-gray-400 p-4 border-t border-amber-500/20 leading-relaxed text-justify z-40 select-none">
             <div class="max-w-md mx-auto">
                 <span class="font-extrabold text-amber-400 block mb-1 tracking-wide">AVISO DE NEUTRALIDAD Y CONDICIONES DE PLATAFORMA:</span>
@@ -118,22 +123,22 @@
                     <span class="text-xs font-mono bg-slate-700 px-2.5 py-1 rounded-lg text-slate-300 font-bold" x-text="'ID: #' + orden.ID_Orden"></span>
                 </div>
                 <div class="space-y-3">
-                    <textarea x-model="asesorForm.pliego" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-sm text-white" rows="2"></textarea>
-                    <textarea x-model="asesorForm.materiales" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-sm text-white" rows="2"></textarea>
-                    <input type="number" x-model="asesorForm.precio" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-sm text-white font-mono font-bold">
+                    <textarea x-model="asesorForm.pliego" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-sm text-white focus:outline-none" rows="2"></textarea>
+                    <textarea x-model="asesorForm.materiales" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-sm text-white focus:outline-none" rows="2"></textarea>
+                    <input type="number" x-model="asesorForm.precio" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-sm text-white font-mono font-bold focus:outline-none">
                 </div>
-                <button @click="liberarCartelera()" class="w-full bg-emerald-600 text-white font-black py-3.5 rounded-xl text-sm uppercase">Liberar a Cartelera</button>
+                <button @click="liberarCartelera()" class="w-full bg-emerald-600 text-white font-black py-3.5 rounded-xl text-sm uppercase tracking-wider transition active:scale-[0.98]">Liberar a Cartelera</button>
             </div>
         </div>
     </div>
 
     <!-- ========================================== -->
-    <!-- PANTALLA 3: VISTA DEL TÉCNICO COMPLETA    -->
+    <!-- PANTALLA 3: VISTA DEL TÉCNICO (BLINDADA)  -->
     <!-- ========================================== -->
     <div x-show="currentView === 'tecnico'" class="min-h-screen bg-gray-100 p-4 pb-48">
         <div class="max-w-md mx-auto w-full space-y-4">
             
-            <!-- SIMULADOR INTERNO DE AUDITORÍA -->
+            <!-- SIMULADOR INTERNO DE AUDITORÍA (ADMINISTRACIÓN) -->
             <div class="bg-slate-900 text-white p-4 rounded-2xl shadow-lg border border-slate-800 text-xs">
                 <span class="font-black text-amber-400 block mb-2 border-b border-slate-800 pb-1 uppercase tracking-wider">🛠️ PANEL DE CONTROL DE AUDITORÍA (ADMIN)</span>
                 <div class="space-y-2">
@@ -148,8 +153,9 @@
                 </div>
             </div>
 
-            <!-- SITUACIÓN A: CUENTA EN AUDITORÍA (ONBOARDING FISCAL) -->
+            <!-- SITUACIÓN A: CUENTA EN AUDITORÍA (ONBOARDING) -->
             <div x-show="!tecnico.Validacion_Admin || tecnico.Estado_Dispo !== 'Activo'" class="space-y-4">
+                
                 <div class="bg-white border-2 border-amber-500/20 rounded-2xl p-5 flex items-start space-x-3 shadow-sm">
                     <div class="w-10 h-10 bg-amber-500/10 rounded-full flex items-center justify-center text-amber-600 shrink-0">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m0 4h.01M5.938 18h12.124c1.11 0 1.956-1.154 1.41-2.12l-6.062-10.777c-.557-.991-1.957-.991-2.514 0L3.118 15.88c-.546.965.299 2.12 1.41 2.12z" /></svg>
@@ -157,57 +163,100 @@
                     <div>
                         <h3 class="text-base font-black text-slate-900">Validación de Identidad Fiscal y Comercial</h3>
                         <p class="text-xs text-gray-600 mt-1 leading-normal">
-                            Para evitar relaciones laborales encubiertas, TUERKA opera bajo un esquema estricto de locación de software. Es obligatorio cargar tu condición fiscal activa.
+                            Para operar en la cartelera activa de CABA, es obligatorio cargar tu condición fiscal autónoma y aceptar el manejo de datos personales de acuerdo a la ley vigente.
                         </p>
                     </div>
                 </div>
 
+                <!-- ALERTA DE RECEPCIÓN EXITOSA CON PLAZO DE 24 HS -->
+                <div x-show="legajoEnviado" x-transition class="bg-emerald-50 border-2 border-emerald-500/30 rounded-2xl p-4 text-emerald-900 shadow-sm space-y-1">
+                    <div class="flex items-center space-x-2 text-emerald-700 font-black text-sm">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        <span>¡Legajo Recibido con Éxito!</span>
+                    </div>
+                    <p class="text-xs text-emerald-800 leading-normal font-medium">
+                        Tu documentación ingresó al sistema de auditoría. El plazo de validación técnica es de un <b>máximo de 24 horas hábiles</b> (independientemente de si el envío se realizó de madrugada o fuera de horario). Te notificaremos vía WhatsApp una vez aprobado de forma definitiva.
+                    </p>
+                </div>
+
+                <!-- APARTADO DE DATOS PERSONALES -->
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-200 space-y-3">
+                    <h2 class="text-sm font-black text-slate-900 uppercase tracking-wider border-b pb-1.5">👤 Información y Datos Personales</h2>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-[11px] font-bold text-gray-500 mb-1">Nombre Completo</label>
+                            <input type="text" placeholder="Juan Pérez" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-2.5 text-xs font-bold focus:outline-none focus:border-amber-500">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-bold text-gray-500 mb-1">CUIL / CUIT</label>
+                            <input type="text" placeholder="20-XXXXXXXX-X" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-2.5 text-xs font-bold font-mono focus:outline-none focus:border-amber-500">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FORMULARIO DE CARGA DE ARCHIVOS -->
                 <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-200 space-y-4">
                     <h2 class="text-sm font-black text-slate-900 uppercase tracking-wider border-b pb-2">📂 Documentación Obligatoria</h2>
+                    
+                    <!-- Campo Obligatorio: AFIP (Monotributo) -->
                     <div class="space-y-1.5">
                         <label class="block text-xs font-bold text-gray-800">1. Constancia de Opción AFIP (Monotributo / Responsable Inscripto Vigente)</label>
                         <div class="flex items-center space-x-2">
-                            <label class="bg-gray-100 hover:bg-gray-200 text-slate-800 font-bold px-4 py-2.5 rounded-xl text-xs cursor-pointer border border-gray-300 block">
+                            <label class="bg-gray-100 hover:bg-gray-200 text-slate-800 font-bold px-4 py-2.5 rounded-xl text-xs cursor-pointer border border-gray-300 block transition">
                                 <span>Subir Constancia</span>
                                 <input type="file" accept="application/pdf, image/jpeg, image/png" @change="manejarCargaArchivo('afip')" class="hidden">
                             </label>
                             <span class="text-xs font-mono font-bold" :class="docs.afip ? 'text-emerald-600 bg-emerald-50 px-2 py-1 rounded-lg' : 'text-gray-400'" x-text="docs.afip ? '✓ Cargado (' + docs.afipExt.toUpperCase() + ')' : 'Falta Cargar'"></span>
                         </div>
                     </div>
+
+                    <!-- Matrícula Profesional -->
                     <div class="space-y-1.5">
                         <label class="block text-xs font-bold text-gray-700">2. Matrícula Profesional o Certificado de Idoneidad Técnica</label>
                         <div class="flex items-center space-x-2">
-                            <label class="bg-gray-100 hover:bg-gray-200 text-slate-800 font-bold px-4 py-2.5 rounded-xl text-xs cursor-pointer border border-gray-300 block">
+                            <label class="bg-gray-100 hover:bg-gray-200 text-slate-800 font-bold px-4 py-2.5 rounded-xl text-xs cursor-pointer border border-gray-300 block transition">
                                 <span>Subir Archivo</span>
                                 <input type="file" accept="application/pdf, image/jpeg, image/png" @change="manejarCargaArchivo('matricula')" class="hidden">
                             </label>
                             <span class="text-xs font-mono font-bold" :class="docs.matricula ? 'text-emerald-600 bg-emerald-50 px-2 py-1 rounded-lg' : 'text-gray-400'" x-text="docs.matricula ? '✓ Cargado (' + docs.matriculaExt.toUpperCase() + ')' : 'Falta Cargar'"></span>
                         </div>
                     </div>
+
+                    <!-- Antecedentes Penales -->
                     <div class="space-y-1.5">
                         <label class="block text-xs font-bold text-gray-700">3. Certificado de Antecedentes Penales (RNR actualizado)</label>
                         <div class="flex items-center space-x-2">
-                            <label class="bg-gray-100 hover:bg-gray-200 text-slate-800 font-bold px-4 py-2.5 rounded-xl text-xs cursor-pointer border border-gray-300 block">
+                            <label class="bg-gray-100 hover:bg-gray-200 text-slate-800 font-bold px-4 py-2.5 rounded-xl text-xs cursor-pointer border border-gray-300 block transition">
                                 <span>Subir Archivo</span>
                                 <input type="file" accept="application/pdf, image/jpeg, image/png" @change="manejarCargaArchivo('antecedentes')" class="hidden">
                             </label>
                             <span class="text-xs font-mono font-bold" :class="docs.antecedentes ? 'text-emerald-600 bg-emerald-50 px-2 py-1 rounded-lg' : 'text-gray-400'" x-text="docs.antecedentes ? '✓ Cargado (' + docs.antecedentesExt.toUpperCase() + ')' : 'Falta Cargar'"></span>
                         </div>
                     </div>
-                    <div x-show="errorFormato" class="bg-rose-50 border border-rose-200 text-rose-800 text-xs p-3 rounded-xl font-bold">⚠️ Formato inválido. Subí PDF, JPG o PNG.</div>
+                    <div x-show="errorFormato" class="bg-rose-50 border border-rose-200 text-rose-800 text-xs p-3 rounded-xl font-bold">⚠️ Formato inválido. Subí únicamente PDF, JPG o PNG.</div>
                 </div>
 
+                <!-- POLÍTICA DE MANEJO DE DATOS Y CONTRATO -->
                 <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-200 space-y-3">
-                    <h2 class="text-sm font-black text-slate-900 uppercase tracking-wider border-b pb-2">⚖️ Contrato de Adhesión y Declaración Jurada</h2>
-                    <div class="h-28 overflow-y-scroll border border-gray-200 rounded-xl p-3 text-[11px] text-gray-600 bg-gray-50 leading-relaxed font-medium">
-                        <p class="font-bold text-slate-800">DECLARACIÓN JURADA DE AUTONOMÍA FISCAL (ANTI-FRAUDE LABORAL)</p>
-                        <p>El profesional técnico adhiere manifestando que es un contribuyente autónomo (Monotributo), asume el riesgo económico de su actividad de reparación y exime a la plataforma de toda responsabilidad solidaria derivada de la Ley 24.240.</p>
+                    <h2 class="text-sm font-black text-slate-900 uppercase tracking-wider border-b pb-2">⚖️ Ley de Protección de Datos y Contrato</h2>
+                    <div class="h-32 overflow-y-scroll border border-gray-200 rounded-xl p-3 text-[11px] text-gray-600 bg-gray-50 leading-relaxed font-medium space-y-3">
+                        <div>
+                            <p class="font-bold text-slate-800">1. PROTECCIÓN DE DATOS PERSONALES (LEY Nº 25.326)</p>
+                            <p>En cumplimiento de la Ley de Protección de Datos Personales de la República Argentina, TUERKA informa que todos los datos personales e identificatorios suministrados (nombre, CUIL/CUIT y legajo documental) serán tratados con absoluta confidencialidad. Los datos serán utilizados exclusivamente con fines de auditoría interna, seguridad del entorno e indexación logística, prohibiéndose su cesión, venta o divulgación a terceros sin consentimiento expreso.</p>
+                        </div>
+                        <div>
+                            <p class="font-bold text-slate-800">2. DECLARACIÓN JURADA DE AUTONOMÍA FISCAL (ANTI-FRAUDE LABORAL)</p>
+                            <p>El profesional técnico adhiere manifestando bajo juramento que es un contribuyente autónomo (Monotributo o Inscripto), dueño de su organización de medios personales, y exime a la plataforma de toda responsabilidad laboral o solidaria (Art. 40 Ley 24.240).</p>
+                        </div>
                     </div>
+
                     <label class="flex items-start space-x-3 cursor-pointer pt-1">
                         <input type="checkbox" x-model="tecnicoAceptoTyC" class="w-4 h-4 rounded text-amber-500 focus:ring-amber-400 mt-0.5">
-                        <span class="text-xs font-bold text-slate-700">Declaro mi condición de Monotributista autónomo y acepto los T&C.</span>
+                        <span class="text-xs font-bold text-slate-700">Acepto los términos de la Ley 25.326 de Protección de Datos y mi condición fiscal autónoma.</span>
                     </label>
-                    <button :disabled="!tecnicoAceptoTyC || !docs.afip || !docs.matricula || !docs.antecedentes" :class="(!tecnicoAceptoTyC || !docs.afip || !docs.matricula || !docs.antecedentes) ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-slate-900 text-amber-400 hover:bg-slate-800'" class="w-full font-black text-xs py-3.5 rounded-xl uppercase tracking-widest mt-2">Enviar Legajo a Auditoría</button>
+                    
+                    <!-- Botón que activa la confirmación de envío visual y el Webhook -->
+                    <button @click="enviarLegajo()" :disabled="!tecnicoAceptoTyC || !docs.afip || !docs.matricula || !docs.antecedentes" :class="(!tecnicoAceptoTyC || !docs.afip || !docs.matricula || !docs.antecedentes) ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-slate-900 text-amber-400 hover:bg-slate-800'" class="w-full font-black text-xs py-3.5 rounded-xl uppercase tracking-widest mt-2 transition">Enviar Legajo a Auditoría</button>
                 </div>
             </div>
 
@@ -231,7 +280,7 @@
                             <span class="text-emerald-600" x-text="'$' + (orden.Precio_Sugerido_Market * 0.99).toFixed(2)"></span>
                         </div>
                     </div>
-                    <button @click="orden.Estado = 'Aceptada'" class="w-full bg-slate-900 text-amber-400 font-black text-sm py-3.5 rounded-xl uppercase tracking-widest">Aceptar Trabajo</button>
+                    <button @click="orden.Estado = 'Aceptada'" class="w-full bg-slate-900 text-amber-400 font-black text-sm py-3.5 rounded-xl uppercase tracking-widest active:scale-[0.98] transition">Aceptar Trabajo</button>
                 </div>
 
                 <!-- SUB-VISTA B: INTERFAZ DE FLUJO SECUENCIAL CON GATEWAY DE PAGO INTEGRADO -->
@@ -247,66 +296,39 @@
                             <span class="text-slate-700">Tasa Secretaría Digital (1%):</span>
                             <span class="text-slate-900 font-mono text-sm" x-text="'$' + (orden.Precio_Sugerido_Market * 0.01).toFixed(2) + ' ARS'"></span>
                         </div>
-                        <p class="text-[11px] text-gray-500 leading-normal">
-                            Para liberar la orden y desbloquear la dirección exacta del cliente, es mandatorio abonar los gastos administrativos de software.
-                        </p>
-                        
-                        <!-- Botón de Pago que simula la redirección al Checkout oficial -->
-                        <button @click="simularBotonPago()" class="w-full bg-[#009EE3] hover:bg-[#0087c4] text-white font-black py-3 rounded-xl text-xs uppercase tracking-wider flex items-center justify-center space-x-2 transition shadow">
+                        <p class="text-[11px] text-gray-500 leading-normal">Para liberar la orden y desbloquear la dirección exacta del cliente, es mandatorio abonar los gastos de software.</p>
+                        <button @click="simularBotonPago()" class="w-full bg-[#009EE3] text-white font-black py-3 rounded-xl text-xs uppercase tracking-wider flex items-center justify-center space-x-2 transition shadow">
                             <span>💳 Pagar con Mercado Pago</span>
                         </button>
-
-                        <!-- CONTROL EN ENTORNO DE SIMULACIÓN DE IPN/WEBHOOK -->
                         <div x-show="checkoutAbierto" class="bg-slate-900 text-white p-2.5 rounded-lg text-center space-y-1.5 pt-2">
-                            <p class="text-[10px] font-mono text-amber-400">⚡ Simulador Webhook Pasarela de Pagos (IPN):</p>
-                            <button @click="confirmarPagoExitoso()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-mono text-[9px] font-black px-3 py-1 rounded uppercase tracking-wider">
-                                Simular Pago Exitoso (Acreditación Inmediata)
-                            </button>
+                            <p class="text-[10px] font-mono text-amber-400">⚡ Simulador Webhook Pasarela:</p>
+                            <button @click="confirmarPagoExitoso()" class="bg-emerald-600 text-white font-mono text-[9px] font-black px-3 py-1 rounded uppercase tracking-wider transition">Simular Pago Exitoso</button>
                         </div>
                     </div>
 
-                    <!-- CONTROL DE REVELACIÓN LOGÍSTICA DE DIRECCIÓN (SÓLO TRAS EL PAGO) -->
                     <div class="space-y-2 text-sm">
                         <div>
                             <span class="block text-[11px] font-black text-gray-400 uppercase tracking-wider">Zona General</span>
                             <p class="text-sm font-bold text-gray-800" x-text="orden.Zona_Aproximada"></p>
                         </div>
-
-                        <!-- Bloque de Dirección Exacta: Desbloqueada si pagó y avanzó -->
-                        <div x-show="['En Camino', 'En Domicilio', 'Terminada'].includes(orden.Estado)" class="p-4 bg-emerald-50 border-2 border-emerald-200 rounded-xl">
-                            <span class="block text-[10px] font-black text-emerald-700 uppercase tracking-wider">📍 DIRECCIÓN EXACTA REVELADA</span>
-                            <p class="text-base font-mono font-black text-emerald-900 mt-1" x-text="orden.Direccion_Exacta"></p>
-                        </div>
-                        
-                        <div x-show="orden.Estado === 'Aceptada' && comisionPagada" class="p-3 bg-emerald-500/10 border border-emerald-500/20 text-emerald-800 font-bold text-xs rounded-xl text-center">
-                            ✓ Pago acreditado con éxito. Presioná el botón de abajo para iniciar el trayecto.
+                        <div x-show="['En Camino', 'En Domicilio', 'Terminada'].includes(orden.Estado)" class="p-4 bg-emerald-50 border-2 border-emerald-200 rounded-xl shadow-inner">
+                            <p class="text-base font-mono font-black text-emerald-900" x-text="orden.Direccion_Exacta"></p>
                         </div>
                     </div>
 
-                    <!-- BOTONERA LOGÍSTICA (Condicionada al Pago) -->
                     <div class="pt-1">
-                        <!-- El botón se bloquea de forma estricta hasta que comisionPagada sea TRUE -->
-                        <button x-show="orden.Estado === 'Aceptada'" :disabled="!comisionPagada" @click="marcarEnCamino()" :class="!comisionPagada ? 'bg-gray-300 text-gray-500 cursor-not-allowed shadow-none' : 'bg-blue-600 hover:bg-blue-700 text-white shadow-lg'" class="w-full font-black py-4 rounded-xl text-sm uppercase tracking-widest transition">
-                            🚀 Comenzar Viaje ("Estoy en Camino")
-                        </button>
-
-                        <button x-show="orden.Estado === 'En Camino'" @click="marcarYaLlegue()" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-black py-4 rounded-xl text-sm uppercase tracking-widest">🙋‍♂️ Notificar Arribo</button>
-                        
-                        <div x-show="orden.Estado === 'En Domicilio'" class="text-center space-y-4">
-                            <button @click="orden.Estado = 'Terminada'" class="w-full bg-emerald-600 text-white font-black py-4 rounded-xl text-sm uppercase tracking-widest">✓ Finalizar Reparación</button>
-                        </div>
-                        
-                        <div x-show="orden.Estado === 'Terminada'" class="bg-emerald-50 border border-emerald-200 p-4 rounded-xl text-center text-emerald-800 font-bold text-sm">
-                            🎉 Orden finalizada con éxito. Comisión de secretaría registrada.
-                        </div>
+                        <button x-show="orden.Estado === 'Aceptada'" :disabled="!comisionPagada" @click="marcarEnCamino()" :class="!comisionPagada ? 'bg-gray-300 text-gray-500 cursor-not-allowed shadow-none' : 'bg-blue-600 text-white shadow-lg'" class="w-full font-black py-4 rounded-xl text-sm uppercase tracking-widest transition">🚀 Comenzar Viaje</button>
+                        <button x-show="orden.Estado === 'En Camino'" @click="marcarYaLlegue()" class="w-full bg-amber-500 text-slate-950 font-black py-4 rounded-xl text-sm uppercase tracking-widest shadow-lg">🙋‍♂️ Notificar Arribo</button>
+                        <div x-show="orden.Estado === 'En Domicilio'" class="text-center space-y-4"><button @click="orden.Estado = 'Terminada'" class="w-full bg-emerald-600 text-white font-black py-4 rounded-xl text-sm uppercase tracking-widest shadow-lg">✓ Finalizar Reparación</button></div>
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- CÓDIGO DE MOTOR / LOGICA COMPORTAMIENTAL -->
+    <!-- ========================================== -->
+    <!-- CÓDIGO DE MOTOR / LOGICA COMPORTAMIENTAL   -->
+    <!-- ========================================== -->
     <script>
         function tuerkaApp() {
             return {
@@ -314,35 +336,24 @@
                 tipoReporte: 'video',
                 clienteFotoCargada: false,
 
-                // Estado de Cobro Pasarela
+                // Control Onboarding Técnico
+                legajoEnviado: false,
                 comisionPagada: false,
                 checkoutAbierto: false,
-
                 tecnicoAceptoTyC: false,
                 errorFormato: false,
                 docs: {
-                    afip: false,
-                    afipExt: '',
-                    matricula: false,
-                    matriculaExt: '',
-                    antecedentes: false,
-                    antecedentesExt: ''
+                    afip: false, afipExt: '',
+                    matricula: false, matriculaExt: '',
+                    antecedentes: false, antecedentesExt: ''
                 },
                 
-                tecnico: {
-                    Nombre_Completo: "Carlos Pérez",
-                    Validacion_Admin: false,
-                    Estado_Dispo: 'Baja'
-                },
-
+                tecnico: { Nombre_Completo: "Carlos Pérez", Validacion_Admin: false, Estado_Dispo: 'Baja' },
                 orden: {
-                    ID_Orden: 3849,
-                    Estado: 'Pendiente Peritaje',
+                    ID_Orden: 3849, Estado: 'Pendiente Peritaje',
                     Pliego_Asesor: 'Se detecta pérdida de presión por fisura en llave de paso general de fluidos combustibles.',
-                    Materiales_Sugeridos: '1 Llave de paso aprobada de 1/2 pulgada, sellador de alta presión.',
-                    Precio_Sugerido_Market: 45000,
-                    Zona_Aproximada: 'Palermo Soho, CABA',
-                    Direccion_Exacta: 'Guatemala 4821, Piso 3B'
+                    Materiales_Sugeridos: '1 Llave de paso aprobada de 1/2 pulgada.', Precio_Sugerido_Market: 45000,
+                    Zona_Aproximada: 'Palermo Soho, CABA', Direccion_Exacta: 'Guatemala 4821, Piso 3B'
                 },
 
                 asesorForm: { pliego: '', materiales: '', precio: 0 },
@@ -353,16 +364,23 @@
                     { label: "En Domicilio", check: (estado) => ["En Domicilio", "Terminada"].includes(estado) }
                 ],
 
-                // Simulación del comportamiento del Checkout
-                simularBotonPago() {
-                    this.checkoutAbierto = true;
+                // FUNCIÓN CLAVE: ENVÍO SEGURO DE NOTIFICACIÓN DE LEGAJO A MAKE
+                enviarLegajo() {
+                    this.legajoEnviado = true;
+                    
+                    fetch("https://hook.us2.make.com/bmm7z3g7xmne05x2dbx7ttxtvqelhrdt", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            evento: "NUEVO_LEGAJO_AUDITORIA",
+                            tecnico_nombre: "Registro Técnico Autónomo",
+                            mensaje: "Se ha cargado un nuevo legajo con Constancia AFIP, Matrícula y Antecedentes para revisión legal de 24 hs."
+                        })
+                    }).catch(err => console.log('Error de notificación de legajo'));
                 },
 
-                // Simulación del disparo de la IPN de Mercado Pago hacia el Servidor/Make
-                confirmarPagoExitoso() {
-                    this.comisionPagada = true;
-                    this.checkoutAbierto = false;
-                },
+                simularBotonPago() { this.checkoutAbierto = true; },
+                confirmarPagoExitoso() { this.comisionPagada = true; this.checkoutAbierto = false; },
 
                 manejarCargaArchivo(tipo) {
                     const fileInput = event.target;
@@ -378,35 +396,14 @@
                         } else {
                             this.errorFormato = true;
                             this.docs[tipo] = false;
-                            this.docs[tipo + 'Ext'] = '';
                             fileInput.value = '';
                         }
                     }
                 },
 
-                checkDispo() {
-                    this.tecnico.Estado_Dispo = this.tecnico.Validacion_Admin ? 'Activo' : 'Baja';
-                },
-
-                liberarCartelera() {
-                    this.orden.Estado = 'Publicada';
-                    this.currentView = 'tecnico';
-                },
-
-                marcarEnCamino() {
-                    this.orden.Estado = 'En Camino';
-                    fetch("https://hook.us2.make.com/bmm7z3g7xmne05x2dbx7ttxtvqelhrdt", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({
-                            id: this.orden.ID_Orden,
-                            estado: this.orden.Estado,
-                            zona: this.orden.Zona_Aproximada,
-                            direccion: this.orden.Direccion_Exacta
-                        })
-                    }).catch(err => console.log('Error de envío'));
-                },
-
+                checkDispo() { this.tecnico.Estado_Dispo = this.tecnico.Validacion_Admin ? 'Activo' : 'Baja'; },
+                liberarCartelera() { this.orden.Estado = 'Publicada'; this.currentView = 'tecnico'; },
+                marcarEnCamino() { this.orden.Estado = 'En Camino'; },
                 marcarYaLlegue() { this.orden.Estado = 'En Domicilio'; }
             }
         }
