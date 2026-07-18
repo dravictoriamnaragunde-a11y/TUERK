@@ -309,17 +309,18 @@
                     this.currentView = 'tecnico';
                 },
 
-                marcarEnCamino() {
-                    this.orden.Timestamp_EnCamino = new Date().toISOString();
-                    this.orden.Estado = 'En Camino';
-                },
-
-                marcarYaLlegue() {
-                    this.orden.Timestamp_Llegue = new Date().toISOString();
-                    this.orden.Estado = 'En Domicilio';
-                }
-            }
-        }
-    </script>
-</body>
-</html>
+               marcarEnCamino() {
+    this.orden.Timestamp_EnCamino = new Date().toISOString();
+    this.orden.Estado = 'En Camino';
+    
+    // LA MAGIA: Conectamos con Make
+    fetch("TU_ENLACE_COPIADO_DE_MAKE", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            id: this.orden.ID_Orden,
+            estado: this.orden.Estado,
+            zona: this.orden.Zona_Aproximada
+        })
+    });
+},
