@@ -179,10 +179,8 @@
                     </p>
                 </div>
 
-                <!-- ENVOLTORIO FORMULARIO CON ENCTYPE MULTIPART (CORRECCIÓN CLAVE) -->
-                <form id="form-legajo-tecnico" @submit.prevent="enviarLegajo()">
-                    <input type="hidden" name="evento" value="NUEVO_LEGAJO_AUDITORIA">
-                    
+                <!-- ENVOLTORIO FORMULARIO VINCULADO AL SCRIPT ASÍNCRONO -->
+                <form id="form-legajo-tecnico">
                     <div class="space-y-4">
                         <!-- APARTADO DE DATOS PERSONALES -->
                         <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-200 space-y-3">
@@ -191,16 +189,16 @@
                                 <div class="grid grid-cols-2 gap-3">
                                     <div>
                                         <label class="block text-[11px] font-bold text-gray-500 mb-1">Nombre Completo *</label>
-                                        <input type="text" name="tecnico_nombre" x-model="formTecnico.nombre" placeholder="Juan Pérez" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-2.5 text-xs font-bold focus:outline-none focus:border-amber-500" required>
+                                        <input type="text" id="input_nombre" placeholder="Juan Pérez" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-2.5 text-xs font-bold focus:outline-none focus:border-amber-500" required>
                                     </div>
                                     <div>
                                         <label class="block text-[11px] font-bold text-gray-500 mb-1">CUIL / CUIT *</label>
-                                        <input type="text" name="tecnico_cuit" x-model="formTecnico.cuit" placeholder="20XXXXXXXX9" pattern="[0-9]{11}" title="CUIT de 11 dígitos sin guiones" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-2.5 text-xs font-bold font-mono focus:outline-none focus:border-amber-500" required>
+                                        <input type="text" id="input_cuit" placeholder="20XXXXXXXX9" pattern="[0-9]{11}" title="CUIT de 11 dígitos sin guiones" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-2.5 text-xs font-bold font-mono focus:outline-none focus:border-amber-500" required>
                                     </div>
                                 </div>
                                 <div>
                                     <label class="block text-[11px] font-bold text-gray-500 mb-1">Correo Electrónico (Notificaciones Oficiales) *</label>
-                                    <input type="email" name="tecnico_email" x-model="formTecnico.email" placeholder="ejemplo@correo.com" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-2.5 text-xs font-bold font-mono focus:outline-none focus:border-amber-500" required>
+                                    <input type="email" id="input_email" placeholder="ejemplo@correo.com" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-2.5 text-xs font-bold font-mono focus:outline-none focus:border-amber-500" required>
                                     <p class="text-[10px] text-gray-400 mt-1 font-medium">En este email recibirás la resolución técnica del legajo y los avisos de liquidación del 1%.</p>
                                 </div>
                             </div>
@@ -214,7 +212,7 @@
                                 <div class="flex items-center space-x-2">
                                     <label class="bg-gray-100 hover:bg-gray-200 text-slate-800 font-bold px-4 py-2.5 rounded-xl text-xs cursor-pointer border border-gray-300 block transition">
                                         <span>Subir Constancia</span>
-                                        <input type="file" name="constancia_afip" id="file_afip" accept="application/pdf, image/jpeg, image/png" @change="manejarCargaArchivo('afip')" class="hidden">
+                                        <input type="file" id="file_afip" accept="application/pdf, image/jpeg, image/png" @change="manejarCargaArchivo('afip')" class="hidden">
                                     </label>
                                     <span class="text-xs font-mono font-bold" :class="docs.afip ? 'text-emerald-600 bg-emerald-50 px-2 py-1 rounded-lg' : 'text-gray-400'" x-text="docs.afip ? '✓ Cargado (' + docs.afipExt.toUpperCase() + ')' : 'Falta Cargar'"></span>
                                 </div>
@@ -224,7 +222,7 @@
                                 <div class="flex items-center space-x-2">
                                     <label class="bg-gray-100 hover:bg-gray-200 text-slate-800 font-bold px-4 py-2.5 rounded-xl text-xs cursor-pointer border border-gray-300 block transition">
                                         <span>Subir Archivo</span>
-                                        <input type="file" name="matricula" id="file_matricula" accept="application/pdf, image/jpeg, image/png" @change="manejarCargaArchivo('matricula')" class="hidden">
+                                        <input type="file" id="file_matricula" accept="application/pdf, image/jpeg, image/png" @change="manejarCargaArchivo('matricula')" class="hidden">
                                     </label>
                                     <span class="text-xs font-mono font-bold" :class="docs.matricula ? 'text-emerald-600 bg-emerald-50 px-2 py-1 rounded-lg' : 'text-gray-400'" x-text="docs.matricula ? '✓ Cargado (' + docs.matriculaExt.toUpperCase() + ')' : 'Falta Cargar'"></span>
                                 </div>
@@ -234,7 +232,7 @@
                                 <div class="flex items-center space-x-2">
                                     <label class="bg-gray-100 hover:bg-gray-200 text-slate-800 font-bold px-4 py-2.5 rounded-xl text-xs cursor-pointer border border-gray-300 block transition">
                                         <span>Subir Archivo</span>
-                                        <input type="file" name="antecedentes" id="file_antecedentes" accept="application/pdf, image/jpeg, image/png" @change="manejarCargaArchivo('antecedentes')" class="hidden">
+                                        <input type="file" id="file_antecedentes" accept="application/pdf, image/jpeg, image/png" @change="manejarCargaArchivo('antecedentes')" class="hidden">
                                     </label>
                                     <span class="text-xs font-mono font-bold" :class="docs.antecedentes ? 'text-emerald-600 bg-emerald-50 px-2 py-1 rounded-lg' : 'text-gray-400'" x-text="docs.antecedentes ? '✓ Cargado (' + docs.antecedentesExt.toUpperCase() + ')' : 'Falta Cargar'"></span>
                                 </div>
@@ -248,7 +246,7 @@
                             <div class="h-32 overflow-y-scroll border border-gray-200 rounded-xl p-3 text-[11px] text-gray-600 bg-gray-50 leading-relaxed font-medium space-y-3">
                                 <div>
                                     <p class="font-bold text-slate-800">1. PROTECCIÓN DE DATOS PERSONALES (LEY Nº 25.326)</p>
-                                    <p>En cumplimiento de la Ley de Protección de Datos Personales de la República Argentina, TUERKA informa que todos los datos suministrados (incluyendo nombre, CUIT/CUIL, documentation adjunta y casilla de correo electrónico) serán tratados con absoluta confidencialidad para auditoría interna de legajos, validación de antecedentes y despacho de notificaciones operativas vía email.</p>
+                                    <p>En cumplimiento de la Ley de Protección de Datos Personales de la República Argentina, TUERKA informa que todos los datos suministrados (incluyendo nombre, CUIT/CUIL, documentación adjunta y casilla de correo electrónico) serán tratados con absoluta confidencialidad para auditoría interna de legajos, validación de antecedentes y despacho de notificaciones operativas vía email.</p>
                                 </div>
                                 <div>
                                     <p class="font-bold text-slate-800">2. CUSTODIA Y PODER DE DATOS MULTIMEDIA DE INCIDENCIAS</p>
@@ -260,8 +258,7 @@
                                 <span class="text-xs font-bold text-slate-700">Acepto los términos de la Ley 25.326 de Protección de Datos y mi condición fiscal autónoma.</span>
                             </label>
                             
-                            <!-- Cambiado a type="submit" para disparar la lógica nativa segura -->
-                            <button type="submit" :disabled="!tecnicoAceptoTyC || !docs.afip || !docs.matricula || !docs.antecedentes || !formTecnico.nombre || !formTecnico.cuit || !formTecnico.email" :class="(!tecnicoAceptoTyC || !docs.afip || !docs.matricula || !docs.antecedentes || !formTecnico.nombre || !formTecnico.cuit || !formTecnico.email) ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-slate-900 text-amber-400 hover:bg-slate-800'" class="w-full font-black text-xs py-3.5 rounded-xl uppercase tracking-widest mt-2 transition">Enviar Legajo a Auditoría</button>
+                            <button type="submit" id="btnEnviar" :disabled="!tecnicoAceptoTyC || !docs.afip || !docs.matricula || !docs.antecedentes || !formTecnico.nombre || !formTecnico.cuit || !formTecnico.email" :class="(!tecnicoAceptoTyC || !docs.afip || !docs.matricula || !docs.antecedentes || !formTecnico.nombre || !formTecnico.cuit || !formTecnico.email) ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-slate-900 text-amber-400 hover:bg-slate-800'" class="w-full font-black text-xs py-3.5 rounded-xl uppercase tracking-widest mt-2 transition">Enviar Legajo a Auditoría</button>
                         </div>
                     </div>
                 </form>
@@ -323,7 +320,7 @@
         </div>
     </div>
 
-    <!-- CÓDIGO DE MOTOR -->
+    <!-- CÓDIGO DE MOTOR CON MANEJO DE ESTADOS Y SUBIDA PREVIA -->
     <script>
         function tuerkaApp() {
             return {
@@ -349,27 +346,74 @@
                     { label: "En Domicilio", check: (estado) => ["En Domicilio", "Terminada"].includes(estado) }
                 ],
 
-                enviarLegajo() {
-                    this.legajoEnviado = true;
+                // Manejo asíncronico unificado del formulario
+                async enviarLegajo() {
+                    const boton = document.getElementById('btnEnviar');
+                    boton.disabled = true;
                     
-                    // MODIFICACIÓN CLAVE: Empaquetamos el formulario real con FormData para capturar los archivos binarios puros
-                    const formularioHtml = document.getElementById('form-legajo-tecnico');
-                    const formData = new FormData(formularioHtml);
-                    
-                    // Inyectamos el mensaje dinámico para mantener la consistencia legal que tenías en Make
-                    formData.append('mensaje', 'Se ha cargado un nuevo legajo con Constancia AFIP, Matrícula y Antecedentes para revisión de 24 hs.');
+                    try {
+                        // Función helper para transformar el archivo binario a una URL https real mediante file.io
+                        async function procesarArchivoUrl(idInput) {
+                            const input = document.getElementById(idInput);
+                            if (!input || input.files.length === 0) return '';
+                            
+                            const fileData = new FormData();
+                            fileData.append('file', input.files[0]);
+                            
+                            const res = await fetch('https://file.io/?expires=1d', {
+                                method: 'POST',
+                                body: fileData
+                            });
+                            const json = await res.json();
+                            return json.success ? json.link : '';
+                        }
 
-                    fetch("https://hook.us2.make.com/bmm7z3g7xmne05x2dbx7ttxtvqelhrdt", {
-                        method: "POST",
-                        body: formData // Viaja el objeto multimedia multipart directo al webhook rosa
-                    })
-                    .then(res => {
-                        console.log('Transmisión multimedia exitosa');
-                    })
-                    .catch(err => {
-                        console.log('Error de transmisión');
-                        this.legajoEnviado = false;
-                    });
+                        boton.innerText = 'Procesando AFIP...';
+                        const urlAfip = await procesarArchivoUrl('file_afip');
+
+                        boton.innerText = 'Procesando Matrícula...';
+                        const urlMatricula = await procesarArchivoUrl('file_matricula');
+
+                        boton.innerText = 'Procesando Antecedentes...';
+                        const urlAntecedentes = await procesarArchivoUrl('file_antecedentes');
+
+                        boton.innerText = 'Registrando Legajo...';
+
+                        // Armamos el JSON limpio con las URLs estructuradas como texto
+                        const payload = {
+                            evento: "NUEVO_LEGAJO_AUDITORIA",
+                            tecnico_nombre: this.formTecnico.nombre,
+                            tecnico_cuit: this.formTecnico.cuit,
+                            tecnico_email: this.formTecnico.email,
+                            url_afip: urlAfip,
+                            url_matricula: urlMatricula,
+                            url_antecedentes: urlAntecedentes,
+                            mensaje: "Se ha cargado un nuevo legajo con Constancia AFIP, Matrícula y Antecedentes para revisión de 24 hs."
+                        };
+
+                        const responseMake = await fetch("https://hook.us2.make.com/bmm7z3g7xmne05x2dbx7ttxtvqelhrdt", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify(payload)
+                        });
+
+                        if (responseMake.ok) {
+                            this.legajoEnviado = true;
+                            alert('¡Legajo enviado con éxito! La documentación fue resguardada para auditoría.');
+                            document.getElementById('form-legajo-tecnico').reset();
+                            this.formTecnico = { nombre: '', cuit: '', email: '' };
+                            this.docs = { afip: false, afipExt: '', matricula: false, matriculaExt: '', antecedentes: false, antecedentesExt: '' };
+                        } else {
+                            throw new Error('Fallo en el servidor de automatización');
+                        }
+
+                    } catch (err) {
+                        console.error(err);
+                        alert('Hubo un problema de transmisión de archivos. Por favor, verifique los formatos e intente nuevamente.');
+                    } finally {
+                        boton.innerText = 'Enviar Legajo a Auditoría';
+                        boton.disabled = false;
+                    }
                 },
 
                 simularBotonPago() { this.checkoutAbierto = true; this.comisionPagada = true; },
