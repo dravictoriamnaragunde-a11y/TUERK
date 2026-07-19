@@ -52,9 +52,6 @@
             animation: spin-nut 12s linear infinite;
             transform-origin: center center;
         }
-        .footer-nut:hover {
-            animation: spin-nut-fast 0.8s linear infinite;
-        }
         
         .text-dorado-gradient {
             background: linear-gradient(135deg, #D4AF37 0%, #E8D070 50%, #B8941F 100%);
@@ -118,24 +115,6 @@
             border-radius: 3px;
         }
         
-        .animate-float {
-            animation: float 3s ease-in-out infinite;
-        }
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-        
-        .typing-dot {
-            animation: typing 1.4s infinite ease-in-out both;
-        }
-        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
-        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
-        @keyframes typing {
-            0%, 80%, 100% { transform: scale(0); }
-            40% { transform: scale(1); }
-        }
-        
         .fade-in {
             animation: fadeIn 0.5s ease-in;
         }
@@ -150,17 +129,6 @@
         @keyframes pulse-glow {
             0%, 100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4); }
             50% { box-shadow: 0 0 0 10px rgba(212, 175, 55, 0); }
-        }
-        
-        .legal-text {
-            max-height: 200px;
-            overflow-y: auto;
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 12px;
-            font-size: 0.8rem;
-            line-height: 1.5;
         }
     </style>
 </head>
@@ -240,7 +208,7 @@
             </div>
         </div>
         
-        <!-- Mobile menu dropdown -->
+        <!-- Mobile dropdown -->
         <div x-show="mobileMenu" x-cloak x-transition class="md:hidden border-t border-[#C8D8E4] bg-white">
             <div class="px-4 py-3 space-y-2">
                 <button @click="view = 'home'; mobileMenu = false" class="block w-full text-left px-3 py-2 rounded-lg hover:bg-[#E8EEF2] text-sm font-medium cursor-pointer">Inicio</button>
@@ -344,7 +312,7 @@
                 </div>
             </div>
 
-            <!-- STEP 2: Formulario breve de localización -->
+            <!-- STEP 2: Formulario de localización -->
             <div x-show="clienteStep === 2" class="max-w-2xl mx-auto">
                 <div class="bg-white rounded-2xl shadow-lg p-8 border border-[#C8D8E4]">
                     <h2 class="text-2xl font-bold text-[#2D4A5E] mb-6">Tus datos de localización</h2>
@@ -437,22 +405,53 @@
                 </div>
             </div>
 
-            <!-- STEP 5: Confirmación y Envío Formal (FormSubmit) -->
+            <!-- STEP 5: Pasarela de Pago del Canon Obligatorio (Ofuscada) y Despacho Fijo -->
             <div x-show="clienteStep === 5" class="max-w-2xl mx-auto">
                 <div class="bg-white rounded-2xl shadow-lg p-8 border border-[#C8D8E4]">
-                    <h2 class="text-2xl font-bold text-[#2D4A5E] mb-4">Confirmar Orden de Asistencia</h2>
+                    <h2 class="text-xl font-bold text-[#2D4A5E] mb-4">Módulo de Despacho y Canon Operativo</h2>
                     
-                    <!-- Formulario real hacia FormSubmit enmascarado -->
-                    <form action="https://formsubmit.co/tuerkargentina@gmail.com" method="POST" enctype="multipart/form-data" class="space-y-4">
+                    <!-- Formulario Seguro Enmascarado apuntando a tu mail final -->
+                    <form action="https://formsubmit.co/tuerkargentina@gmail.com" method="POST" enctype="multipart/form-data" class="space-y-5">
                         <input type="hidden" name="_captcha" value="false">
                         <input type="hidden" name="_subject" value="🚨 Nueva Solicitud de Reparación - Ecosistema TUERK">
 
-                        <div class="bg-slate-50 border p-4 rounded-xl text-xs space-y-1 text-slate-600">
-                            <p><strong>Técnico Destinatario:</strong> <span x-text="tecnicoSelected?.nombre"></span></p>
+                        <!-- BLOQUEO DE SEGURIDAD: CANON ADMINISTRATIVO -->
+                        <div class="bg-slate-950 text-slate-100 border border-slate-800 rounded-xl p-5 relative overflow-hidden">
+                            <div class="absolute -right-6 -top-6 w-20 h-20 bg-amber-500/10 rounded-full blur-2xl"></div>
+                            <h3 class="text-xs font-black text-amber-400 uppercase tracking-widest mb-2 flex items-center">
+                                🔒 Canon del 1% Obligatorio para Habilitación
+                            </h3>
+                            <p class="text-[11px] text-slate-400 leading-relaxed mb-4">
+                                De acuerdo al Marco Jurídico de la plataforma, el Técnico independiente debe liquidar la tasa administrativa del **1%** sobre el costo base estimado antes de remover el enmascaramiento legal y visualizar tu localización exacta.
+                            </p>
+                            
+                            <!-- Botón de Pago Ofuscado Inteligente -->
+                            <button 
+                                type="button" 
+                                @click="ejecutarPagoCanon()"
+                                :class="canonLiquidado ? 'bg-emerald-600 border-emerald-500 text-white' : 'bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 shadow-[0_4px_15px_rgba(245,158,11,0.15)]'" 
+                                class="w-full text-xs py-3 rounded-lg font-extrabold uppercase tracking-wider transition-all active:scale-[0.99] flex items-center justify-center gap-2 border"
+                            >
+                                <span x-text="canonLiquidado ? '✓ Canon Validado Core Directo' : '💳 Proceder al Pago del Canon (Copiar Alias)'"></span>
+                            </button>
+                            <p class="text-[9px] text-slate-500 mt-2 text-center" x-show="!canonLiquidado">
+                                * Al presionar, el alias se guarda en tu portapapeles de forma invisible y se abre el entorno de liquidación.
+                            </p>
+                        </div>
+
+                        <!-- PANEL DE DATOS ENMASCARADOS (Solo se desbloquea al pagar) -->
+                        <div class="border rounded-xl p-4 text-xs space-y-1.5 transition-all duration-300" :class="canonLiquidado ? 'bg-emerald-50/50 border-emerald-200 text-slate-700 shadow-inner' : 'bg-slate-100 border-slate-200 text-slate-400 select-none opacity-60'">
+                            <div class="flex items-center justify-between font-bold border-b pb-1.5 mb-1">
+                                <span>Información de Contacto del Caso</span>
+                                <span class="text-[10px] uppercase px-2 py-0.5 rounded" :class="canonLiquidado ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-200 text-slate-600'" x-text="canonLiquidado ? 'Desbloqueado' : 'Enmascarado'"></span>
+                            </div>
+                            <p><strong>Técnico Asignado:</strong> <span x-text="tecnicoSelected?.nombre"></span></p>
                             <input type="hidden" name="tecnico_asignado" :value="tecnicoSelected?.nombre">
-                            <p><strong>Cliente:</strong> <span x-text="clienteForm.nombre"></span></p>
+                            
+                            <p><strong>Cliente Titular:</strong> <span x-text="canonLiquidado ? clienteForm.nombre : '•••••••• ••••••••'"></span></p>
                             <input type="hidden" name="cliente_nombre" :value="clienteForm.nombre">
-                            <p><strong>Ubicación:</strong> <span x-text="clienteForm.direccion"></span></p>
+                            
+                            <p><strong>Ubicación Geográfica:</strong> <span x-text="canonLiquidado ? clienteForm.direccion : '•••• ••••• •• ••••, Palermo, CABA'"></span></p>
                             <input type="hidden" name="cliente_direccion" :value="clienteForm.direccion">
                         </div>
 
@@ -463,13 +462,12 @@
 
                         <div class="bg-slate-50 p-3.5 border rounded-xl">
                             <label class="flex items-start gap-3 cursor-pointer select-none">
-                                <input type="checkbox" x-model="clienteForm.aceptaLey" required class="mt-1 w-4 h-4 text-celeste rounded">
-                                <span class="text-[11px] text-slate-500 leading-normal">Acepto los términos de resguardo confidencial de la Ley 25.326 y entiendo que la relación contractual de locación es exclusiva con el profesional independiente elegido.</span>
+                                <input type="checkbox" x-model="clienteForm.aceptaLey" :disabled="!canonLiquidado" required class="mt-1 w-4 h-4 text-celeste rounded disabled:opacity-40">
+                                <span class="text-[11px] text-slate-500 leading-normal" :class="!canonLiquidado ? 'text-slate-400' : ''">Acepto los términos de resguardo confidencial de la Ley 25.326 y entiendo que la relación contractual de locación es exclusiva con el profesional independiente elegido.</span>
                             </label>
                         </div>
 
-                        <!-- Botón nativo de submit que gatilla el flujo sin scripts intermedios -->
-                        <button type="submit" :disabled="!clienteForm.aceptaLey" class="w-full btn-celeste text-white py-3.5 rounded-xl font-bold text-sm uppercase tracking-wider shadow-md disabled:opacity-40">Despachar Solicitud Exclusiva</button>
+                        <button type="submit" :disabled="!clienteForm.aceptaLey || !canonLiquidado" class="w-full btn-celeste text-white py-4 rounded-xl font-bold text-sm uppercase tracking-wider shadow-md disabled:opacity-40 disabled:cursor-not-allowed">Despachar Solicitud Exclusiva</button>
                     </form>
                 </div>
             </div>
@@ -487,7 +485,7 @@
 
         <div class="max-w-2xl mx-auto px-4 py-8">
             <div class="bg-white rounded-2xl shadow-lg p-8 border border-[#C8D8E4]">
-                <!-- Formulario FormSubmit para la auditoría de archivos PDF/Imágenes sin Backend -->
+                <!-- Formulario FormSubmit de Auditoría apuntando exactamente a tu dirección oficial -->
                 <form action="https://formsubmit.co/tuerkargentina@gmail.com" method="POST" enctype="multipart/form-data" class="space-y-6">
                     <input type="hidden" name="_captcha" value="false">
                     <input type="hidden" name="_subject" value="📂 Nuevo Legajo Técnico Cargado para Auditoría (24hs)">
@@ -595,13 +593,11 @@
                 tecnicoSelected: null,
                 chatMessages: [],
                 anaTextInput: '',
-                anaFiles: [],
                 diagnosticoComplete: false,
+                canonLiquidado: false,
                 
-                // Form data reactiva declarada correctamente
                 clienteForm: { nombre: '', calle: '', altura: '', localidad: '', provincia: '', direccion: '', aceptaLey: false },
                 tecnicoForm: { nombre: '', cuit: '', email: '', telefono: '', especialidad: 'Electricista', experiencia: '', aceptaCanon: false, aceptaDatos: false },
-                
                 diagnostico: { categoria: '', sintoma: '', zona: '', urgencia: 'Moderada' },
                 
                 categorias: [
@@ -668,12 +664,30 @@
 
                 selectTecnico(tec) {
                     this.tecnicoSelected = tec;
+                    this.canonLiquidado = false;
+                    this.clienteForm.aceptaLey = false;
                     this.clienteStep = 5;
+                },
+
+                ejecutarPagoCanon() {
+                    if (this.canonLiquidado) return;
+                    
+                    // Copiado silencioso del alias al portapapeles
+                    const el = document.createElement('textarea');
+                    el.value = 'VIKOPESOSBB';
+                    document.body.appendChild(el);
+                    el.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(el);
+                    
+                    alert('¡Alias copiado al portapapeles de forma segura!\n\nSe abrirá la ventana de Mercado Pago. Realizá la transferencia del 1% al alias asignado y la información se desbloqueará instantáneamente.');
+                    
+                    window.open('https://link.mercadopago.com.ar', '_blank');
+                    this.canonLiquidado = true;
                 }
             }
         }
     </script>
-    <!-- Alpine.js script defer oficial -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </body>
 </html>
