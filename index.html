@@ -185,7 +185,6 @@
         }
     </style>
 <base target="_blank">
-<base target="_blank">
 </head>
 <body class="font-sans bg-[#EEF1F4] text-[#3A5A6A] antialiased">
 
@@ -302,10 +301,10 @@
                 
                 <!-- Nav -->
                 <nav class="hidden md:flex items-center gap-6">
-                    <button @click="view = 'home'" class="text-sm font-medium text-[#5A7A8A] hover:text-[#3B6E8F]-dark transition-colors">Inicio</button>
-                    <button @click="view = 'cliente'" class="text-sm font-medium text-[#5A7A8A] hover:text-[#3B6E8F]-dark transition-colors">Soy Cliente</button>
-                    <button @click="view = 'tecnico'" class="text-sm font-medium text-[#5A7A8A] hover:text-[#3B6E8F]-dark transition-colors">Soy Técnico</button>
-                    <button @click="view = 'tyc'" class="text-sm font-medium text-[#5A7A8A] hover:text-[#3B6E8F]-dark transition-colors">Términos</button>
+                    <button @click="view = 'home'" class="text-sm font-medium text-[#5A7A8A] hover:text-[#1E3A4C] transition-colors cursor-pointer">Inicio</button>
+                    <button @click="view = 'cliente'" class="text-sm font-medium text-[#5A7A8A] hover:text-[#1E3A4C] transition-colors cursor-pointer">Soy Cliente</button>
+                    <button @click="view = 'tecnico'" class="text-sm font-medium text-[#5A7A8A] hover:text-[#1E3A4C] transition-colors cursor-pointer">Soy Técnico</button>
+                    <button @click="view = 'tyc'" class="text-sm font-medium text-[#5A7A8A] hover:text-[#1E3A4C] transition-colors cursor-pointer">Términos</button>
                 </nav>
                 
                 <!-- Mobile menu -->
@@ -318,10 +317,10 @@
         <!-- Mobile dropdown -->
         <div x-show="mobileMenu" x-transition class="md:hidden border-t border-[#C8D8E4] bg-white">
             <div class="px-4 py-3 space-y-2">
-                <button @click="view = 'home'; mobileMenu = false" class="block w-full text-left px-3 py-2 rounded-lg hover:bg-[#E8EEF2] text-sm font-medium">Inicio</button>
-                <button @click="view = 'cliente'; mobileMenu = false" class="block w-full text-left px-3 py-2 rounded-lg hover:bg-[#E8EEF2] text-sm font-medium">Soy Cliente</button>
-                <button @click="view = 'tecnico'; mobileMenu = false" class="block w-full text-left px-3 py-2 rounded-lg hover:bg-[#E8EEF2] text-sm font-medium">Soy Técnico</button>
-                <button @click="view = 'tyc'; mobileMenu = false" class="block w-full text-left px-3 py-2 rounded-lg hover:bg-[#E8EEF2] text-sm font-medium">Términos y Condiciones</button>
+                <button @click="view = 'home'; mobileMenu = false" class="block w-full text-left px-3 py-2 rounded-lg hover:bg-[#E8EEF2] text-sm font-medium cursor-pointer">Inicio</button>
+                <button @click="view = 'cliente'; mobileMenu = false" class="block w-full text-left px-3 py-2 rounded-lg hover:bg-[#E8EEF2] text-sm font-medium cursor-pointer">Soy Cliente</button>
+                <button @click="view = 'tecnico'; mobileMenu = false" class="block w-full text-left px-3 py-2 rounded-lg hover:bg-[#E8EEF2] text-sm font-medium cursor-pointer">Soy Técnico</button>
+                <button @click="view = 'tyc'; mobileMenu = false" class="block w-full text-left px-3 py-2 rounded-lg hover:bg-[#E8EEF2] text-sm font-medium cursor-pointer">Términos y Condiciones</button>
             </div>
         </div>
     </header>
@@ -539,8 +538,8 @@
                     </button>
                 </div>
                 
-                <p class="mt-8 text-sm text-white/60">
-                    Al usar TUERK, aceptás nuestros <button @click="view = 'tyc'" class="text-[#3B6E8F] hover:underline">Términos y Condiciones</button> y la <button @click="view = 'tyc'" class="text-[#3B6E8F] hover:underline">Ley 25.326 de Protección de Datos Personales</button>.
+                <p class="mt-8 text-sm text-white">
+                    Al usar TUERK, aceptás nuestros <button @click="view = 'tyc'" class="text-white hover:underline font-medium">Términos y Condiciones</button> y la <button @click="view = 'tyc'" class="text-white hover:underline font-medium">Ley 25.326 de Protección de Datos Personales</button>.
                 </p>
             </div>
         </section>
@@ -733,7 +732,7 @@
                     <!-- Upload de archivos para Ana -->
                     <div x-show="clienteStep === 3 && !diagnosticoComplete" class="p-4 border-t border-[#C8D8E4] bg-white">
                         <div class="flex items-center gap-3">
-                            <button @click="$refs.anaFileInput.click()" class="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#E8EEF2] hover:bg-[#3B6E8F]/10 border border-[#C8D8E4] hover:border-[#3B6E8F] transition-all text-sm text-[#5A7A8A] hover:text-[#3B6E8F]-dark">
+                            <button @click="$refs.anaFileInput.click()" class="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#E8EEF2] hover:bg-[#3B6E8F]/10 border border-[#C8D8E4] hover:border-[#3B6E8F] transition-all text-sm text-[#5A7A8A] hover:text-[#1E3A4C]">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/></svg>
                                 <span>Adjuntar foto o video</span>
                             </button>
@@ -792,7 +791,7 @@
                         <h2 class="text-xl font-bold text-[#2D4A5E]">Técnicos disponibles</h2>
                         <p class="text-sm text-[#5A7A8A] mt-1">Buscando en: <span class="font-medium text-[#3B6E8F]" x-text="clienteForm.localidad + ', ' + clienteForm.provincia"></span></p>
                     </div>
-                    <button @click="clienteStep = 3" class="text-sm text-[#3B6E8F] hover:text-[#3B6E8F]-dark font-medium">← Volver a mis datos</button>
+                    <button @click="clienteStep = 3" class="text-sm text-[#3B6E8F] hover:text-[#1E3A4C] font-medium">← Volver a mis datos</button>
                 </div>
                 
                 <div class="bg-amber-50/80 border-l-4 border-amber-300 p-4 rounded-r-lg mb-6">
@@ -1026,7 +1025,10 @@
                     Hacer otra solicitud
                 </button>
             </div>
-        <!-- VIEW: TECNICO -->
+        </div>
+    </div>
+
+    <!-- VIEW: TECNICO -->
     <div x-show="view === 'tecnico'" x-transition x-cloak class="min-h-screen bg-[#EEF1F4] pb-20">
         
         <div class="bg-white border-b border-[#C8D8E4]">
