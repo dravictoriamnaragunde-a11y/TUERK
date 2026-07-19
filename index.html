@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="es-AR" x-data="tuerkApp()" x-init="initApp()">
+<html lang="es-AR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TUERK — Técnicos que hablan tu idioma</title>
     <meta name="description" content="TUERK es profesionalismo técnico, acortando procesos. Conectamos clientes con técnicos independientes verificados. Vos elegís quién y a qué precio.">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
@@ -186,7 +186,7 @@
     </style>
 <base target="_blank">
 </head>
-<body class="font-sans bg-[#EEF1F4] text-[#3A5A6A] antialiased">
+<body class="font-sans bg-[#EEF1F4] text-[#3A5A6A] antialiased" x-data="tuerkApp()" x-init="initApp()">
 
     <!-- HEADER -->
     <header class="fixed top-0 left-0 right-0 z-50 glass-panel shadow-sm border-b border-celeste-light/30">
@@ -546,7 +546,7 @@
     </div>
 
     <!-- VIEW: CLIENTE -->
-    <div x-show="view === 'cliente'" x-transition x-cloak class="min-h-screen bg-[#EEF1F4] pb-20">
+    <div x-show="view === 'cliente'" x-transition.opacity.duration.300ms class="min-h-screen bg-[#EEF1F4] pb-20" x-effect="console.log('clienteStep cambió a:', clienteStep)">
 
         <div class="bg-white border-b border-[#C8D8E4]">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
@@ -574,7 +574,7 @@
             </div>
 
             <!-- STEP 1: Categorías -->
-            <div x-show="clienteStep === 1" x-transition>
+            <div x-show="clienteStep === 1" x-transition x-cloak>
                 <h2 class="text-xl font-bold text-[#2D4A5E] mb-6">Seleccioná una categoría</h2>
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <template x-for="cat in categorias" :key="cat.id">
@@ -588,7 +588,7 @@
             </div>
 
             <!-- STEP 2: Formulario breve de contacto -->
-            <div x-show="clienteStep === 2" x-transition class="max-w-2xl mx-auto">
+            <div x-show="clienteStep === 2" x-transition.opacity.duration.300ms x-cloak class="max-w-2xl mx-auto">
                 <div class="bg-white rounded-2xl shadow-lg p-8 border border-[#C8D8E4]">
                     <div class="flex items-center gap-3 mb-6">
                         <button @click="clienteStep = 1" class="text-[#4A6572] hover:text-[#5A7A8A]">
@@ -691,7 +691,7 @@
                 </div>
             </div>
 <!-- STEP 3: Analista Ana - Diagnóstico -->
-            <div x-show="clienteStep === 3" x-transition class="max-w-2xl mx-auto">
+            <div x-show="clienteStep === 3" x-transition x-cloak class="max-w-2xl mx-auto">
                 <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-[#C8D8E4]">
                     <div class="bg-gradient-to-r from-[#3B6E8F] to-[#1E3A4C] p-5 text-white">
                         <div class="flex items-center gap-4">
@@ -785,7 +785,7 @@
             </div>
 
             <!-- STEP 4: Técnicos disponibles -->
-            <div x-show="clienteStep === 4" x-transition>
+            <div x-show="clienteStep === 4" x-transition x-cloak>
                 <div class="flex items-center justify-between mb-6">
                     <div>
                         <h2 class="text-xl font-bold text-[#2D4A5E]">Técnicos disponibles</h2>
@@ -863,7 +863,7 @@
             </div>
 
             <!-- STEP 5: Confirmar solicitud -->
-            <div x-show="clienteStep === 5" x-transition class="max-w-2xl mx-auto">
+            <div x-show="clienteStep === 5" x-transition x-cloak class="max-w-2xl mx-auto">
                 <div class="bg-white rounded-2xl shadow-lg p-8 border border-[#C8D8E4]">
                     <div class="flex items-center gap-3 mb-6">
                         <button @click="clienteStep = 4" class="text-[#4A6572] hover:text-[#5A7A8A]">
@@ -999,7 +999,7 @@
             </div>
 
             <!-- STEP 6: Confirmación -->
-            <div x-show="clienteStep === 6" x-transition class="max-w-2xl mx-auto text-center py-20">
+            <div x-show="clienteStep === 6" x-transition x-cloak class="max-w-2xl mx-auto text-center py-20">
                 <div class="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6 text-5xl pulse-glow">✅</div>
                 <h2 class="text-3xl font-display font-bold text-[#2D4A5E] mb-4">¡Solicitud enviada!</h2>
                 <p class="text-[#5A7A8A] mb-2">El técnico <strong x-text="tecnicoSelected?.nombre"></strong> recibió tu caso.</p>
@@ -1573,6 +1573,7 @@
                 // ============ ANA: CHAT INTELIGENTE ============
 
                 iniciarChat() {
+                    console.log('iniciarChat llamado, form:', this.clienteForm);
                     // Guardar dirección completa
                     this.clienteForm.direccion = this.clienteForm.calle + ' ' + this.clienteForm.altura + ', ' + this.clienteForm.localidad + ', ' + this.clienteForm.provincia;
 
