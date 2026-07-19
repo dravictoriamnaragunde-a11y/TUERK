@@ -548,7 +548,7 @@
 
     <!-- VIEW: CLIENTE -->
     <div x-show="view === 'cliente'" x-transition x-cloak class="min-h-screen bg-[#EEF1F4] pb-20">
-        
+
         <div class="bg-white border-b border-[#C8D8E4]">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
                 <button @click="view = 'home'" class="text-sm text-[#6A8A9A] hover:text-[#4A6A7A] flex items-center gap-1 mb-4">
@@ -556,12 +556,12 @@
                     Volver al inicio
                 </button>
                 <h1 class="text-2xl sm:text-3xl font-display font-bold text-[#2D4A5E]">¿Qué necesitás arreglar?</h1>
-                <p class="text-[#5A7A8A] mt-2">Contanos el problema y te ayudamos a encontrar el técnico ideal.</p>
+                <p class="text-[#5A7A8A] mt-2">Elegí el tipo de servicio y te conectamos con el técnico ideal.</p>
             </div>
         </div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            
+
             <div class="bg-amber-50/80 border-l-4 border-amber-300 p-4 rounded-r-lg mb-8">
                 <div class="flex items-start gap-3">
                     <svg class="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -569,7 +569,7 @@
                     </svg>
                     <div class="text-sm text-amber-800">
                         <p class="font-semibold mb-1">Aviso legal importante</p>
-                        <p>TUERK no es proveedor de servicios técnicos. Los profesionales que aparecen en esta plataforma son terceros independientes. No verificamos antecedentes más allá de la documentación autopresentada. El contrato de servicio se celebra directamente entre el cliente y el técnico elegido. No nos responsabilizamos por la calidad, puntualidad ni resultado del servicio.</p>
+                        <p>TUERK es un entorno tecnológico de intermediación y negociación operado exclusivamente bajo la modalidad de locación de software de gestión administrativa ("Secretaría Digital"). Los profesionales que aparecen en esta plataforma son terceros independientes. No verificamos antecedentes más allá de la documentación autopresentada. El contrato de servicio se celebra directamente entre el cliente y el técnico elegido.</p>
                     </div>
                 </div>
             </div>
@@ -588,8 +588,111 @@
                 </div>
             </div>
 
-            <!-- STEP 2: Analista Ana -->
+            <!-- STEP 2: Formulario breve de contacto -->
             <div x-show="clienteStep === 2" x-transition class="max-w-2xl mx-auto">
+                <div class="bg-white rounded-2xl shadow-lg p-8 border border-[#C8D8E4]">
+                    <div class="flex items-center gap-3 mb-6">
+                        <button @click="clienteStep = 1" class="text-[#4A6572] hover:text-[#5A7A8A]">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                        </button>
+                        <h2 class="text-2xl font-bold text-[#2D4A5E]">Tus datos</h2>
+                    </div>
+
+                    <div class="bg-amber-50/80 border-l-4 border-amber-300 p-4 rounded-r-lg mb-6">
+                        <div class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                            </svg>
+                            <div class="text-sm text-amber-800">
+                                <p class="font-semibold mb-1">Completá tus datos para continuar</p>
+                                <p>Esta información nos permite ubicar técnicos en tu zona y que Ana pueda orientarte mejor.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form @submit.prevent="iniciarChat()" class="space-y-5">
+                        <div>
+                            <label class="block text-sm font-medium text-[#4A6A7A] mb-1">Nombre completo *</label>
+                            <input type="text" x-model="clienteForm.nombre" required class="input-tuerk w-full px-4 py-3 rounded-xl bg-white text-sm" placeholder="Ej: Juan Pérez">
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-[#4A6A7A] mb-1">Calle *</label>
+                                <input type="text" x-model="clienteForm.calle" required class="input-tuerk w-full px-4 py-3 rounded-xl bg-white text-sm" placeholder="Ej: Av. Santa Fe">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-[#4A6A7A] mb-1">Altura *</label>
+                                <input type="text" x-model="clienteForm.altura" required class="input-tuerk w-full px-4 py-3 rounded-xl bg-white text-sm" placeholder="Ej: 1234">
+                            </div>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-[#4A6A7A] mb-1">Localidad *</label>
+                                <input type="text" x-model="clienteForm.localidad" required class="input-tuerk w-full px-4 py-3 rounded-xl bg-white text-sm" placeholder="Ej: Palermo">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-[#4A6A7A] mb-1">Provincia *</label>
+                                <select x-model="clienteForm.provincia" required class="input-tuerk w-full px-4 py-3 rounded-xl bg-white text-sm">
+                                    <option value="">Seleccioná provincia</option>
+                                    <option value="CABA">Ciudad Autónoma de Buenos Aires</option>
+                                    <option value="Buenos Aires">Buenos Aires</option>
+                                    <option value="Córdoba">Córdoba</option>
+                                    <option value="Santa Fe">Santa Fe</option>
+                                    <option value="Mendoza">Mendoza</option>
+                                    <option value="Tucumán">Tucumán</option>
+                                    <option value="Salta">Salta</option>
+                                    <option value="Entre Ríos">Entre Ríos</option>
+                                    <option value="Misiones">Misiones</option>
+                                    <option value="Chaco">Chaco</option>
+                                    <option value="Corrientes">Corrientes</option>
+                                    <option value="San Juan">San Juan</option>
+                                    <option value="Jujuy">Jujuy</option>
+                                    <option value="Río Negro">Río Negro</option>
+                                    <option value="Neuquén">Neuquén</option>
+                                    <option value="Formosa">Formosa</option>
+                                    <option value="San Luis">San Luis</option>
+                                    <option value="Catamarca">Catamarca</option>
+                                    <option value="La Rioja">La Rioja</option>
+                                    <option value="Santiago del Estero">Santiago del Estero</option>
+                                    <option value="Chubut">Chubut</option>
+                                    <option value="Santa Cruz">Santa Cruz</option>
+                                    <option value="Tierra del Fuego">Tierra del Fuego</option>
+                                    <option value="La Pampa">La Pampa</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-[#4A6A7A] mb-1">Teléfono *</label>
+                            <input type="tel" x-model="clienteForm.telefono" required class="input-tuerk w-full px-4 py-3 rounded-xl bg-white text-sm" placeholder="Ej: 11 2345-6789">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-[#4A6A7A] mb-1">Email *</label>
+                            <input type="email" x-model="clienteForm.email" required class="input-tuerk w-full px-4 py-3 rounded-xl bg-white text-sm" placeholder="Ej: juan@email.com">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-[#4A6A7A] mb-1">Horario preferido *</label>
+                            <select x-model="clienteForm.horario" required class="input-tuerk w-full px-4 py-3 rounded-xl bg-white text-sm">
+                                <option value="">Seleccioná un horario</option>
+                                <option value="manana">Mañana (8:00 - 12:00)</option>
+                                <option value="tarde">Tarde (12:00 - 17:00)</option>
+                                <option value="noche">Noche (17:00 - 20:00)</option>
+                                <option value="finde">Fin de semana</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn-celeste w-full text-white py-4 rounded-xl font-bold text-lg shadow-lg">
+                            Continuar con Ana →
+                        </button>
+                    </form>
+                </div>
+            </div>
+<!-- STEP 3: Analista Ana - Diagnóstico -->
+            <div x-show="clienteStep === 3" x-transition class="max-w-2xl mx-auto">
                 <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-[#C8D8E4]">
                     <div class="bg-gradient-to-r from-[#3B6E8F] to-[#1E3A4C] p-5 text-white">
                         <div class="flex items-center gap-4">
@@ -628,7 +731,7 @@
                     </div>
 
                     <!-- Upload de archivos para Ana -->
-                    <div x-show="clienteStep === 2 && !diagnosticoComplete" class="p-4 border-t border-[#C8D8E4] bg-white">
+                    <div x-show="clienteStep === 3 && !diagnosticoComplete" class="p-4 border-t border-[#C8D8E4] bg-white">
                         <div class="flex items-center gap-3">
                             <button @click="$refs.anaFileInput.click()" class="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#E8EEF2] hover:bg-[#3B6E8F]/10 border border-[#C8D8E4] hover:border-[#3B6E8F] transition-all text-sm text-[#5A7A8A] hover:text-[#3B6E8F]-dark">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/></svg>
@@ -675,180 +778,21 @@
                             <p class="text-amber-800 text-xs"><strong>Nota importante:</strong> Este diagnóstico es orientativo y automatizado. No constituye opinión técnica profesional. El técnico elegido deberá confirmar el diagnóstico y presupuesto en persona.</p>
                         </div>
                         
-                        <button @click="clienteStep = 2.5" class="btn-celeste w-full text-white py-3 rounded-xl font-bold">
-                            Continuar con mis datos →
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- STEP 2.5: Datos del Cliente -->
-            <div x-show="clienteStep === 2.5" x-transition class="max-w-2xl mx-auto">
-                <div class="bg-white rounded-2xl shadow-lg p-8 border border-[#C8D8E4]">
-                    <div class="flex items-center gap-3 mb-6">
-                        <button @click="clienteStep = 2" class="text-[#4A6572] hover:text-[#5A7A8A]">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-                        </button>
-                        <h2 class="text-2xl font-bold text-[#2D4A5E]">Tus datos de contacto</h2>
-                    </div>
-
-                    <div class="bg-amber-50/80 border-l-4 border-amber-300 p-4 rounded-r-lg mb-6">
-                        <div class="flex items-start gap-3">
-                            <svg class="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
-                            </svg>
-                            <div class="text-sm text-amber-800">
-                                <p class="font-semibold mb-1">Requisitos legales de admisión (CCyCN)</p>
-                                <p>Para poder contratar un servicio técnico a domicilio, debés ser mayor de 18 años con plena capacidad civil para consentir actos jurídicos. Si el acceso al inmueble va a ser otorgado por otra persona, esa persona debe cumplir con el mismo requisito.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <form @submit.prevent="validarYAvanzar()" class="space-y-5">
-                        <div class="grid md:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-sm font-medium text-[#4A6A7A] mb-1">Nombre completo *</label>
-                                <input type="text" x-model="clienteForm.nombre" required class="input-tuerk w-full px-4 py-3 rounded-xl bg-white text-sm">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-[#4A6A7A] mb-1">DNI (sin puntos) *</label>
-                                <input type="text" x-model="clienteForm.dni" required placeholder="12345678" pattern="[0-9]{7,9}" class="input-tuerk w-full px-4 py-3 rounded-xl bg-white text-sm">
-                                <p class="text-xs text-[#4A6572] mt-1">Solo números, sin puntos ni espacios</p>
-                            </div>
-                        </div>
-
-                        <div class="grid md:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-sm font-medium text-[#4A6A7A] mb-1">Fecha de nacimiento *</label>
-                                <input type="date" x-model="clienteForm.fechaNacimiento" required :max="fechaMaximaNacimiento" class="input-tuerk w-full px-4 py-3 rounded-xl bg-white text-sm">
-                                <p class="text-xs text-[#4A6572] mt-1">Debes ser mayor de 18 años</p>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-[#4A6A7A] mb-1">Teléfono *</label>
-                                <input type="tel" x-model="clienteForm.telefono" required placeholder="11 2345-6789" class="input-tuerk w-full px-4 py-3 rounded-xl bg-white text-sm">
-                            </div>
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-medium text-[#4A6A7A] mb-1">Email *</label>
-                            <input type="email" x-model="clienteForm.email" required class="input-tuerk w-full px-4 py-3 rounded-xl bg-white text-sm">
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-medium text-[#4A6A7A] mb-1">Dirección completa del servicio *</label>
-                            <input type="text" x-model="clienteForm.direccion" required placeholder="Calle, número, piso, depto, barrio, CABA/GBA" class="input-tuerk w-full px-4 py-3 rounded-xl bg-white text-sm">
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-medium text-[#4A6A7A] mb-1">Horario preferido *</label>
-                            <select x-model="clienteForm.horario" required class="input-tuerk w-full px-4 py-3 rounded-xl bg-white text-sm">
-                                <option value="">Seleccioná un horario</option>
-                                <option value="manana">Mañana (8:00 - 12:00)</option>
-                                <option value="tarde">Tarde (12:00 - 17:00)</option>
-                                <option value="noche">Noche (17:00 - 20:00)</option>
-                                <option value="finde">Fin de semana</option>
-                            </select>
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-medium text-[#4A6A7A] mb-1">Notas adicionales</label>
-                            <textarea x-model="clienteForm.notas" rows="3" class="input-tuerk w-full px-4 py-3 rounded-xl bg-white text-sm" placeholder="Cualquier detalle adicional que quieras agregar..."></textarea>
-                        </div>
-
-                        <!-- Adjuntar archivos -->
-                        <div>
-                            <label class="block text-sm font-medium text-[#4A6A7A] mb-3">Adjuntar fotos o videos del problema</label>
-                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                                <template x-for="(file, index) in clienteFiles" :key="index">
-                                    <div class="relative group">
-                                        <div class="aspect-square rounded-xl border-2 border-dashed border-[#A0B8C8] flex items-center justify-center bg-[#EEF1F4] overflow-hidden">
-                                            <template x-if="file.type.startsWith('image/')">
-                                                <img :src="file.preview" class="w-full h-full object-cover" alt="Vista previa">
-                                            </template>
-                                            <template x-if="file.type.startsWith('video/')">
-                                                <div class="flex flex-col items-center text-[#4A6572]">
-                                                    <svg class="w-8 h-8 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-                                                    <span class="text-xs" x-text="file.name.substring(0,10) + '...'"></span>
-                                                </div>
-                                            </template>
-                                        </div>
-                                        <button @click.prevent="removeClienteFile(index)" class="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center text-xs hover:bg-red-600 shadow-md">
-                                            ✕
-                                        </button>
-                                    </div>
-                                </template>
-
-                                <div x-show="clienteFiles.length < 4" class="aspect-square rounded-xl border-2 border-dashed border-[#A0B8C8] hover:border-[#3B6E8F] hover:bg-[#3B6E8F]/5 flex items-center justify-center cursor-pointer transition-colors" @click="$refs.clienteFileInput.click()">
-                                    <div class="text-center text-[#4A6572]">
-                                        <svg class="w-8 h-8 mx-auto mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                                        <span class="text-xs">Agregar</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <input type="file" x-ref="clienteFileInput" @change="addClienteFile($event)" accept="image/*,video/*" multiple class="hidden">
-                            <p class="text-xs text-[#4A6572] mt-2">Podés adjuntar hasta 4 archivos (fotos o videos). Máximo 10 MB cada uno.</p>
-                        </div>
-
-                        <!-- Declaración de mayoría de edad y capacidad -->
-                        <div class="bg-[#EEF1F4] p-4 rounded-xl border border-[#C8D8E4]">
-                            <h4 class="font-semibold text-[#2D4A5E] mb-3 flex items-center gap-2 text-sm">
-                                <svg class="w-5 h-5 text-[#3B6E8F]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                                Declaración jurada de admisión civil
-                            </h4>
-                            <div class="space-y-3">
-                                <label class="flex items-start gap-3 cursor-pointer">
-                                    <input type="checkbox" x-model="clienteForm.mayorEdad" required class="mt-1 w-5 h-5 text-[#3B6E8F] rounded border-[#A0B8C8] focus:ring-[#3B6E8F]">
-                                    <span class="text-sm text-[#4A6A7A]">Soy mayor de 18 años con plena capacidad civil para consentir actos jurídicos y contratar servicios técnicos. *</span>
-                                </label>
-                                <label class="flex items-start gap-3 cursor-pointer">
-                                    <input type="checkbox" x-model="clienteForm.accesoMayorEdad" required class="mt-1 w-5 h-5 text-[#3B6E8F] rounded border-[#A0B8C8] focus:ring-[#3B6E8F]">
-                                    <span class="text-sm text-[#4A6A7A]">La persona que otorgará acceso al domicilio es mayor de 18 años con plena capacidad civil. *</span>
-                                </label>
-                            </div>
-                            <p class="text-xs text-[#4A6572] mt-3">Si el acceso es pretendido por un menor de edad o persona sin discernimiento legal, el técnico no iniciará tareas y se cancelará el servicio.</p>
-                        </div>
-
-                        <!-- Ley 25.326 -->
-                        <div class="bg-[#EEF1F4] p-4 rounded-xl border border-[#C8D8E4]">
-                            <h4 class="font-semibold text-[#2D4A5E] mb-3 flex items-center gap-2 text-sm">
-                                <svg class="w-5 h-5 text-[#3B6E8F]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-                                Protección de Datos Personales — Ley 25.326
-                            </h4>
-                            <div class="legal-text text-[#5A7A8A] mb-3">
-                                <p class="mb-2"><strong>LEY 25.326 — PROTECCIÓN DE LOS DATOS PERSONALES</strong></p>
-                                <p class="mb-2">El titular de los datos personales tiene la facultad de ejercer el derecho de acceso a los mismos en forma gratuita a intervalos no inferiores a seis meses, salvo que se acredite un interés legítimo al efecto conforme lo establecido en el artículo 14, inciso 3 de la Ley Nº 25.326.</p>
-                                <p class="mb-2">La DIRECCIÓN NACIONAL DE PROTECCIÓN DE DATOS PERSONALES, Órgano de Control de la Ley Nº 25.326, tiene la atribución de atender las denuncias y reclamos que se interpongan con relación al incumplimiento de las normas sobre protección de datos personales.</p>
-                                <p class="mb-2">Sarmiento 1118, piso 5º, C1041AAX CABA. Tel: (011) 4383-8512. datospersonales@jus.gov.ar</p>
-                                <p class="mb-2"><strong>CONSENTIMIENTO:</strong> Al completar este formulario, usted presta su consentimiento libre, expreso e informado para que TUERK trate sus datos personales con la finalidad de ponerlo en contacto con técnicos independientes. Los datos serán tratados con estricta confidencialidad y no serán cedidos a terceros ajenos al proceso de intermediación.</p>
-                                <p class="mb-2"><strong>DERECHOS DEL TITULAR:</strong> Usted podrá ejercer los derechos de acceso, rectificación, supresión, actualización y confidencialidad de sus datos personales comunicándose con nosotros a través de los canales indicados en esta plataforma.</p>
-                                <p><strong>ENCARGADO DE TRATAMIENTO:</strong> TUERK actúa como encargado del tratamiento de datos para la finalidad específica de intermediación entre clientes y técnicos independientes.</p>
-                            </div>
-                            <label class="flex items-start gap-3 cursor-pointer">
-                                <input type="checkbox" x-model="clienteForm.aceptaLey" required class="mt-1 w-5 h-5 text-[#3B6E8F] rounded border-[#A0B8C8] focus:ring-[#3B6E8F]">
-                                <span class="text-sm text-[#4A6A7A]">He leído y acepto el tratamiento de mis datos personales conforme la Ley 25.326 y los Términos y Condiciones de TUERK. *</span>
-                            </label>
-                        </div>
-
-                        <!-- Disclaimer -->
-                        <div class="bg-[#EEF1F4] p-4 rounded-xl border border-[#C8D8E4]">
-                            <label class="flex items-start gap-3 cursor-pointer">
-                                <input type="checkbox" x-model="clienteForm.aceptaDisclaimer" required class="mt-1 w-5 h-5 text-[#3B6E8F] rounded border-[#A0B8C8] focus:ring-[#3B6E8F]">
-                                <span class="text-sm text-[#4A6A7A]">Entiendo que TUERK es un entorno tecnológico de intermediación y negociación operado exclusivamente bajo la modalidad de locación de software de gestión administrativa ("Secretaría Digital"). No emplea a los técnicos, no garantiza sus servicios, y el contrato de servicio se celebra directamente entre el técnico y yo. *</span>
-                            </label>
-                        </div>
-
-                        <button type="submit" class="btn-celeste w-full text-white py-4 rounded-xl font-bold text-lg shadow-lg disabled:opacity-50 disabled:cursor-not-allowed" :disabled="!clienteForm.mayorEdad || !clienteForm.accesoMayorEdad || !clienteForm.aceptaLey || !clienteForm.aceptaDisclaimer">
+                        <button @click="clienteStep = 4" class="btn-celeste w-full text-white py-3 rounded-xl font-bold">
                             Ver técnicos disponibles →
                         </button>
-                    </form>
+                    </div>
                 </div>
             </div>
 
-            <!-- STEP 3: Técnicos -->
-            <div x-show="clienteStep === 3" x-transition>
+            <!-- STEP 4: Técnicos disponibles -->
+            <div x-show="clienteStep === 4" x-transition>
                 <div class="flex items-center justify-between mb-6">
-                    <h2 class="text-xl font-bold text-[#2D4A5E]">Técnicos disponibles</h2>
-                    <button @click="clienteStep = 2.5" class="text-sm text-[#3B6E8F] hover:text-[#3B6E8F]-dark font-medium">← Volver a mis datos</button>
+                    <div>
+                        <h2 class="text-xl font-bold text-[#2D4A5E]">Técnicos disponibles</h2>
+                        <p class="text-sm text-[#5A7A8A] mt-1">Buscando en: <span class="font-medium text-[#3B6E8F]" x-text="clienteForm.localidad + ', ' + clienteForm.provincia"></span></p>
+                    </div>
+                    <button @click="clienteStep = 3" class="text-sm text-[#3B6E8F] hover:text-[#3B6E8F]-dark font-medium">← Volver a mis datos</button>
                 </div>
                 
                 <div class="bg-amber-50/80 border-l-4 border-amber-300 p-4 rounded-r-lg mb-6">
@@ -860,7 +804,21 @@
                     </div>
                 </div>
 
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Mensaje si no hay técnicos en la zona exacta -->
+                <div x-show="tecnicosFiltrados.length === 0" class="bg-amber-50 border border-amber-200 rounded-xl p-6 mb-6">
+                    <div class="flex items-start gap-3">
+                        <svg class="w-6 h-6 text-amber-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        <div>
+                            <h3 class="font-bold text-amber-800 mb-1">No encontramos técnicos en <span x-text="clienteForm.localidad"></span></h3>
+                            <p class="text-sm text-amber-700 mb-3">Te mostramos técnicos de zonas cercanas que podrían atenderte.</p>
+                            <button @click="mostrarTecnicosCercanos()" class="text-sm bg-amber-100 hover:bg-amber-200 text-amber-800 px-4 py-2 rounded-lg font-medium transition-colors">
+                                Ver técnicos de zonas cercanas
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div x-show="tecnicosFiltrados.length > 0 || mostrandoCercanos" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <template x-for="tec in tecnicosFiltrados" :key="tec.id">
                         <div class="bg-white rounded-xl shadow-sm border border-[#C8D8E4] overflow-hidden card-hover">
                             <div class="p-6">
@@ -905,11 +863,11 @@
                 </div>
             </div>
 
-            <!-- STEP 4: Confirmar solicitud -->
-            <div x-show="clienteStep === 4" x-transition class="max-w-2xl mx-auto">
+            <!-- STEP 5: Confirmar solicitud -->
+            <div x-show="clienteStep === 5" x-transition class="max-w-2xl mx-auto">
                 <div class="bg-white rounded-2xl shadow-lg p-8 border border-[#C8D8E4]">
                     <div class="flex items-center gap-3 mb-6">
-                        <button @click="clienteStep = 3" class="text-[#4A6572] hover:text-[#5A7A8A]">
+                        <button @click="clienteStep = 4" class="text-[#4A6572] hover:text-[#5A7A8A]">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
                         </button>
                         <h2 class="text-2xl font-bold text-[#2D4A5E]">Confirmar solicitud</h2>
@@ -1041,8 +999,8 @@
                 </div>
             </div>
 
-            <!-- STEP 5: Confirmación -->
-            <div x-show="clienteStep === 5" x-transition class="max-w-2xl mx-auto text-center py-20">
+            <!-- STEP 6: Confirmación -->
+            <div x-show="clienteStep === 6" x-transition class="max-w-2xl mx-auto text-center py-20">
                 <div class="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6 text-5xl pulse-glow">✅</div>
                 <h2 class="text-3xl font-display font-bold text-[#2D4A5E] mb-4">¡Solicitud enviada!</h2>
                 <p class="text-[#5A7A8A] mb-2">El técnico <strong x-text="tecnicoSelected?.nombre"></strong> recibió tu caso.</p>
@@ -1068,10 +1026,7 @@
                     Hacer otra solicitud
                 </button>
             </div>
-        </div>
-    </div>
-
-    <!-- VIEW: TECNICO -->
+        <!-- VIEW: TECNICO -->
     <div x-show="view === 'tecnico'" x-transition x-cloak class="min-h-screen bg-[#EEF1F4] pb-20">
         
         <div class="bg-white border-b border-[#C8D8E4]">
@@ -1532,6 +1487,7 @@
                 },
 
                 tecnicoSelected: null,
+                mostrandoCercanos: false,
                 clienteForm: {
                     nombre: '',
                     dni: '',
@@ -1539,6 +1495,10 @@
                     email: '',
                     telefono: '',
                     direccion: '',
+                    calle: '',
+                    altura: '',
+                    localidad: '',
+                    provincia: '',
                     horario: '',
                     notas: '',
                     mayorEdad: false,
@@ -1611,14 +1571,22 @@
                 // ============ ANA: CHAT INTELIGENTE ============
 
                 iniciarChat() {
+                    // Guardar dirección completa
+                    this.clienteForm.direccion = this.clienteForm.calle + ' ' + this.clienteForm.altura + ', ' + this.clienteForm.localidad + ', ' + this.clienteForm.provincia;
+
                     this.chatMessages = [];
                     this.diagnosticoComplete = false;
                     this.anaTextInput = '';
                     this.anaFiles = [];
-                    this.diagnostico = { categoria: '', sintoma: '', zona: '', urgencia: '' };
+                    this.diagnostico = { categoria: this.categoriaSelected?.nombre || '', sintoma: '', zona: this.clienteForm.localidad, urgencia: '' };
+
+                    this.clienteStep = 3; // Ir al chat con Ana
 
                     setTimeout(() => {
-                        this.addAnaMessage('¡Hola! Soy Ana, tu analista de caso. 🛠️<br><br>Contame qué te pasó con el "cosito". Podés escribir libremente, subir fotos o videos, o ambos.<br><br><em>Por ejemplo: "Se me rompió la heladera en Palermo, hace un ruido raro" o "Necesito un plomero urgente en Chacarita"</em>');
+                        const nombreCliente = this.clienteForm.nombre ? this.clienteForm.nombre.split(' ')[0] : 'there';
+                        const localidad = this.clienteForm.localidad || 'tu zona';
+                        const categoria = this.categoriaSelected?.nombre || 'el servicio';
+                        this.addAnaMessage('¡Hola <strong>' + nombreCliente + '</strong>! Soy Ana, tu analista de caso para <strong>' + categoria + '</strong>. 🛠️<br><br>Ya tengo tu ubicación en <strong>' + localidad + '</strong>. Ahora contame qué te pasó con el "cosito".<br><br>Podés escribir libremente, subir <strong>fotos</strong> o <strong>videos cortos</strong> (máx. 30 segundos), o ambos. Cuanto más me cuentes, mejor te puedo orientar.<br><br><em>Por ejemplo: "Se me rompió la heladera, hace un ruido raro y no enfría" o "Tengo una filtración en el baño"</em>');
                     }, 500);
                 },
 
@@ -1835,15 +1803,19 @@
                     const filtro = catMap[this.categoriaSelected.id];
                     let filtrados = this.tecnicos.filter(t => t.especialidad.toLowerCase().includes(filtro.toLowerCase()));
 
-                    // Si hay zona detectada, ordenar por cercanía (simulado)
-                    if (this.diagnostico.zona && this.diagnostico.zona !== 'No especificada') {
-                        filtrados = filtrados.map(t => {
-                            const zonaMatch = t.zona.toLowerCase().includes(this.diagnostico.zona.toLowerCase()) ? 20 : 0;
-                            return { ...t, match: Math.min(99, t.match + zonaMatch) };
-                        }).sort((a, b) => b.match - a.match);
+                    // Filtrar por zona del cliente (localidad)
+                    const zonaCliente = (this.clienteForm.localidad || '').toLowerCase();
+                    if (zonaCliente) {
+                        const enZona = filtrados.filter(t => t.zona.toLowerCase().includes(zonaCliente));
+                        if (enZona.length > 0) {
+                            filtrados = enZona.map(t => ({ ...t, match: Math.min(99, t.match + 25), cercano: false }));
+                        } else {
+                            // Si no hay en la zona exacta, marcar como cercanos
+                            filtrados = filtrados.map(t => ({ ...t, match: Math.max(50, t.match - 15), cercano: true }));
+                        }
                     }
 
-                    return filtrados;
+                    return filtrados.sort((a, b) => b.match - a.match);
                 },
 
                 selectTecnico(tec) {
@@ -1865,10 +1837,15 @@
                     this.anaTextInput = '';
                     this.clienteForm = {
                         nombre: '', dni: '', fechaNacimiento: '', email: '', telefono: '', direccion: '',
+                        calle: '', altura: '', localidad: '', provincia: '',
                         horario: '', notas: '', mayorEdad: false, accesoMayorEdad: false,
                         aceptaLey: false, aceptaDisclaimer: false
                     };
                     this.clienteFiles = [];
+                },
+
+                mostrarTecnicosCercanos() {
+                    this.mostrandoCercanos = true;
                 },
 
                 // ============ ARCHIVOS CLIENTE ============
