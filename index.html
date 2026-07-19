@@ -729,15 +729,43 @@
                         </div>
                     </div>
 
-                    <!-- Upload de archivos para Ana -->
+                    <!-- Input de texto y archivos para Ana -->
                     <div x-show="clienteStep === 3 && !diagnosticoComplete" class="p-4 border-t border-[#C8D8E4] bg-white">
+                        <!-- Input de texto -->
+                        <div class="flex items-end gap-2 mb-3">
+                            <div class="flex-1">
+                                <textarea 
+                                    x-model="anaTextInput" 
+<!-- Input de texto y archivos para Ana -->
+                    <div x-show="clienteStep === 3 && !diagnosticoComplete" class="p-4 border-t border-[#C8D8E4] bg-white">
+                        <!-- Input de texto -->
+                        <div class="flex items-end gap-2 mb-3">
+                            <div class="flex-1">
+                                <textarea 
+                                    x-model="anaTextInput" 
+                                    @keydown.enter.prevent="enviarTextoAna()"
+                                    rows="2"
+                                    class="input-tuerk w-full px-4 py-3 rounded-xl bg-white text-sm resize-none"
+                                    placeholder="Describí el problema con el cosito..."
+                                ></textarea>
+                            </div>
+                            <button 
+                                @click="enviarTextoAna()" 
+                                :disabled="!anaTextInput.trim() && !anaFiles.length"
+                                class="btn-celeste text-white px-5 py-3 rounded-xl font-semibold disabled:opacity-40 disabled:cursor-not-allowed flex-shrink-0"
+                            >
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
+                            </button>
+                        </div>
+
+                        <!-- Adjuntar archivos -->
                         <div class="flex items-center gap-3">
-                            <button @click="$refs.anaFileInput.click()" class="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#E8EEF2] hover:bg-[#3B6E8F]/10 border border-[#C8D8E4] hover:border-[#3B6E8F] transition-all text-sm text-[#5A7A8A] hover:text-[#1E3A4C]">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/></svg>
-                                <span>Adjuntar foto o video</span>
+                            <button @click="$refs.anaFileInput.click()" class="flex items-center gap-2 px-3 py-2 rounded-lg bg-[#E8EEF2] hover:bg-[#3B6E8F]/10 border border-[#C8D8E4] hover:border-[#3B6E8F] transition-all text-xs text-[#5A7A8A] hover:text-[#1E3A4C]">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/></svg>
+                                <span>Foto o video</span>
                             </button>
                             <input type="file" x-ref="anaFileInput" @change="addAnaFile($event)" accept="image/*,video/*" class="hidden">
-                            <span class="text-xs text-[#4A6572]" x-show="!anaFiles.length">Podés subir hasta 2 archivos (máx. 10 MB cada uno)</span>
+                            <span class="text-xs text-[#4A6572]" x-show="!anaFiles.length">Podés subir hasta 2 archivos</span>
                         </div>
 
                         <!-- Preview de archivos adjuntos a Ana -->
@@ -757,8 +785,7 @@
                             </template>
                         </div>
                     </div>
-
-                    <div x-show="diagnosticoComplete" x-transition class="p-5 border-t border-[#C8D8E4] bg-white">
+<div x-show="diagnosticoComplete" x-transition class="p-5 border-t border-[#C8D8E4] bg-white">
                         <div class="bg-[#EEF1F4] p-4 rounded-xl border border-[#C8D8E4] mb-4">
                             <h4 class="font-bold text-[#2D4A5E] mb-3 flex items-center gap-2">
                                 <svg class="w-5 h-5 text-[#3B6E8F]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
@@ -772,17 +799,6 @@
                                 <p><span class="text-[#4A6572]">Estimación interna:</span> <span class="text-[#4A6572] italic text-xs">No visible para el cliente</span></p>
                             </div>
                         </div>
-                        
-                        <div class="bg-amber-50/70 border border-amber-200/60 rounded-lg p-3 mb-4">
-                            <p class="text-amber-800 text-xs"><strong>Nota importante:</strong> Este diagnóstico es orientativo y automatizado. No constituye opinión técnica profesional. El técnico elegido deberá confirmar el diagnóstico y presupuesto en persona.</p>
-                        </div>
-                        
-                        <button @click="clienteStep = 4" class="btn-celeste w-full text-white py-3 rounded-xl font-bold">
-                            Ver técnicos disponibles →
-                        </button>
-                    </div>
-                </div>
-            </div>
 
             <!-- STEP 4: Técnicos disponibles -->
             <div x-show="clienteStep === 4" x-transition x-cloak>
@@ -1488,6 +1504,158 @@
                     urgencia: ''
                 },
 
+                // ============ ANA: CHAT INTELIGENTE ============
+
+                enviarTextoAna() {
+                    const texto = this.anaTextInput.trim();
+                    if (!texto && !this.anaFiles.length) return;
+
+                    const filesCopy = this.anaFiles.length ? JSON.parse(JSON.stringify(this.anaFiles)) : null;
+                    this.addUserMessage(texto || '(Archivo adjunto)', filesCopy);
+                    this.anaTextInput = '';
+                    this.anaFiles = [];
+
+                    this.anaTyping = true;
+                    setTimeout(() => {
+                        this.anaTyping = false;
+                        this.analizarConsulta(texto);
+                    }, 1200 + Math.random() * 800);
+                },
+
+                analizarConsulta(texto) {
+                    const lower = texto.toLowerCase();
+                    let categoriaDetectada = null;
+                    let zonaDetectada = null;
+                    let urgenciaDetectada = 'Moderada';
+
+                    // Detectar categoría por palabras clave
+                    for (const cat of this.categorias) {
+                        for (const kw of cat.keywords) {
+                            if (lower.includes(kw.toLowerCase())) {
+                                categoriaDetectada = cat;
+                                break;
+                            }
+                        }
+                        if (categoriaDetectada) break;
+                    }
+
+                    // Detectar zona del cliente (ya la tenemos del formulario)
+                    zonaDetectada = this.clienteForm.localidad || 'No especificada';
+
+                    // Detectar urgencia
+                    const urgWords = ['urgente', 'ya', 'ahora', 'emergencia', 'inundado', 'exploto', 'corto', 'quemó', 'prendió fuego', 'no funciona nada'];
+                    const lowWords = ['cuando puedas', 'tranqui', 'no apura', 'proxima semana', 'despues'];
+                    if (urgWords.some(w => lower.includes(w))) urgenciaDetectada = 'Alta';
+                    else if (lowWords.some(w => lower.includes(w))) urgenciaDetectada = 'Baja';
+
+                    // Guardar diagnóstico
+                    this.diagnostico.sintoma = texto;
+                    this.diagnostico.zona = zonaDetectada;
+                    this.diagnostico.urgencia = urgenciaDetectada;
+
+                    if (this.categoriaSelected) {
+                        this.diagnostico.categoria = this.categoriaSelected.nombre;
+
+                        let respuesta = '✅ <strong>Detecté tu problema:</strong><br><br>• <strong>Categoría:</strong> ' + this.categoriaSelected.nombre + ' ' + this.categoriaSelected.icon + '<br>';
+                        respuesta += '• <strong>Zona:</strong> ' + zonaDetectada + '<br>';
+                        respuesta += '• <strong>Urgencia:</strong> ' + urgenciaDetectada + '<br>';
+                        respuesta += '• <strong>Descripción:</strong> "' + texto.substring(0, 80) + (texto.length > 80 ? '...' : '') + '"<br><br>';
+                        respuesta += '¿Querés que te muestre los técnicos disponibles en tu zona?';
+
+                        this.addAnaMessage(respuesta, ['Sí, mostrar técnicos', 'No, quiero cambiar algo']);
+                    } else {
+                        this.addAnaMessage('🤔 No estoy segura de qué tipo de técnico necesitás. ¿Podés darme más detalles?<br><br>Por ejemplo: "se cortó la luz", "tengo una filtración", "la heladera no enfría", etc.<br><br>O elegí una categoría:', ['Electricidad ⚡', 'Plomería / Gas 🔧', 'Refrigeración ❄️', 'Carpintería 🪵', 'Construcción 🧱', 'PC / Redes 💻']);
+                    }
+                },
+
+                responderAna(respuesta) {
+                    this.addUserMessage(respuesta);
+                    this.anaTyping = true;
+
+                    setTimeout(() => {
+                        this.anaTyping = false;
+
+                        const lower = respuesta.toLowerCase();
+
+                        // Si quiere ver técnicos
+                        if (lower.includes('sí') || lower.includes('si') || lower.includes('mostrar') || lower.includes('tecnicos')) {
+                            this.addAnaMessage('¡Perfecto! Preparando tu diagnóstico y buscando los mejores técnicos para tu caso...');
+                            setTimeout(() => {
+                                this.diagnosticoComplete = true;
+                            }, 1000);
+                            return;
+                        }
+
+                        // Si quiere cambiar algo
+                        if (lower.includes('no') || lower.includes('cambiar')) {
+                            this.addAnaMessage('Ok, contame qué querés cambiar o dame más detalles del problema.');
+                            return;
+                        }
+
+                        // Si eligió categoría manual
+                        const catMap = {
+                            'electricidad': 'electricidad', 'plomería': 'plomeria', 'refrigeración': 'refrigeracion',
+                            'carpintería': 'carpinteria', 'construcción': 'construccion', 'pc': 'tecnico_pc'
+                        };
+                        for (const [key, val] of Object.entries(catMap)) {
+                            if (lower.includes(key)) {
+                                this.categoriaSelected = this.categorias.find(c => c.id === val);
+                                this.diagnostico.categoria = this.categoriaSelected.nombre;
+                                this.addAnaMessage('✅ Categoría seleccionada: <strong>' + this.categoriaSelected.nombre + '</strong> ' + this.categoriaSelected.icon + '<br><br>¿En qué zona necesitás el servicio?', ['Palermo', 'Recoleta', 'Belgrano', 'Caballito', 'Almagro', 'San Telmo', 'Nuñez', 'Flores', 'Villa Crespo', 'Otro']);
+                                return;
+                            }
+                        }
+
+                        // Fallback: reanalizar
+                        this.analizarConsulta(respuesta);
+                    }, 800);
+                },
+
+                // ============ FUNCIONES AUXILIARES DEL CHAT ============
+
+                addAnaMessage(text, options = null) {
+                    this.chatMessages.push({ from: 'ana', text: text, options: options, files: null });
+                    this.scrollChat();
+                },
+
+                addUserMessage(text, files = null) {
+                    this.chatMessages.push({ from: 'user', text: text, files: files });
+                    this.scrollChat();
+                },
+
+                scrollChat() {
+                    this.$nextTick(() => {
+                        const container = document.getElementById('chat-container');
+                        if (container) container.scrollTop = container.scrollHeight;
+                    });
+                },
+
+                addAnaFile(event) {
+                    const files = Array.from(event.target.files);
+                    files.forEach(file => {
+                        if (this.anaFiles.length >= 2) return;
+                        if (file.size > 10 * 1024 * 1024) {
+                            alert('El archivo "' + file.name + '" supera los 10 MB.');
+                            return;
+                        }
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            this.anaFiles.push({
+                                name: file.name,
+                                type: file.type,
+                                size: file.size,
+                                preview: e.target.result
+                            });
+                        };
+                        reader.readAsDataURL(file);
+                    });
+                    event.target.value = '';
+                },
+
+                removeAnaFile(index) {
+                    this.anaFiles.splice(index, 1);
+                },
+
                 tecnicoSelected: null,
                 mostrandoCercanos: false,
                 clienteForm: {
@@ -1576,8 +1744,9 @@
                     this.categoriaSelected = cat;
                     this.clienteStep = 2;
                 },
-
-                // ============ ANA: CHAT INTELIGENTE ============
+                    }, 1200 + Math.random() * 800);
+                },
+// ============ ANA: CHAT INTELIGENTE ============
 
                 iniciarChat() {
                     // Guardar dirección completa
@@ -1628,11 +1797,7 @@
                     this.anaTyping = true;
                     setTimeout(() => {
                         this.anaTyping = false;
-                        this.analizarConsulta(texto);
-                    }, 1200 + Math.random() * 800);
-                },
-
-                analizarConsulta(texto) {
+                        this.analizarConsulta(texto) {
                     const lower = texto.toLowerCase();
                     let categoriaDetectada = null;
                     let zonaDetectada = null;
