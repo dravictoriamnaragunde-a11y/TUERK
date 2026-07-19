@@ -1,230 +1,1596 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es-AR" x-data="tuerkApp()" x-init="initApp()">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TUERKA - Portal de Legajos Técnicos</title>
-    <!-- Tailwind CSS para Estilos de Alta Calidad -->
+    <title>TUERK — Técnicos que hablan tu idioma</title>
+    <meta name="description" content="TUERK es intermediación pasiva. No empleamos, no seleccionamos, no fijamos tarifas. Conectamos clientes con técnicos independientes.">
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Alpine.js para la Lógica de Estados Internos -->
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; }
-        .animate-spin-slow { animation: spin 12s linear infinite; }
-        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-    </style>
-</head>
-<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col antialiased selection:bg-amber-500 selection:text-slate-950" x-data="tuerkaApp()">
-
-    <!-- HEADER PREMIUM CORPORATIVO -->
-    <header class="bg-slate-900/50 backdrop-blur-md border-b border-slate-800/80 sticky top-0 z-50 px-6 py-4 transition-all duration-300">
-        <div class="max-w-2xl mx-auto flex items-center justify-between">
-            <div class="flex items-center space-x-4">
-                <div class="w-11 h-11 bg-gradient-to-br from-amber-400 via-yellow-200 to-amber-600 rounded-xl flex items-center justify-center shadow-[0_0_20px_rgba(245,158,11,0.25)] border border-amber-300/30 relative overflow-hidden shrink-0">
-                    <svg class="w-6 h-6 text-slate-950 animate-spin-slow drop-shadow-md" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                </div>
-                <div>
-                    <h1 class="text-lg font-extrabold tracking-widest bg-gradient-to-r from-amber-300 via-yellow-100 to-amber-400 bg-clip-text text-transparent">TUERKA</h1>
-                    <p class="text-[9px] text-slate-400 font-bold uppercase tracking-widest">Logística Técnica de Avanzada</p>
-                </div>
-            </div>
-            <div class="flex items-center space-x-2">
-                <span class="w-2.5 h-2.5 bg-amber-500 rounded-full animate-pulse"></span>
-                <span class="bg-slate-800/80 text-slate-300 text-[10px] px-3 py-1.5 rounded-lg font-bold border border-slate-700/60 uppercase tracking-wider">CABA</span>
-            </div>
-        </div>
-    </header>
-
-    <!-- CONTENIDO PRINCIPAL REESTRUCTURADO -->
-    <main class="flex-1 max-w-2xl mx-auto w-full px-4 pt-8 pb-48">
-        
-        <!-- TARJETA INFORMATIVA CON EL NUEVO ESLOGAN -->
-        <div class="bg-gradient-to-br from-slate-900 to-slate-900/60 border border-slate-800 rounded-2xl p-6 mb-8 shadow-xl relative overflow-hidden">
-            <div class="absolute -right-10 -top-10 w-32 h-32 bg-amber-500/5 rounded-full blur-3xl"></div>
-            <div class="flex items-start space-x-4">
-                <div class="w-10 h-10 bg-amber-500/10 rounded-xl flex items-center justify-center text-amber-400 shrink-0 border border-amber-500/20">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                </div>
-                <div>
-                    <h2 class="text-base font-extrabold bg-gradient-to-r from-amber-200 to-amber-400 bg-clip-text text-transparent tracking-tight">Técnicos que hablan tu idioma, entendemos de cosito.</h2>
-                    <p class="text-xs text-slate-400 mt-2 leading-relaxed">
-                        Para habilitar tu perfil en la cartelera activa y recibir órdenes de reparación, completá tu declaración jurada fiscal y adjuntá la documentación obligatoria requerida para la auditoría técnica de alta.
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <!-- FORMULARIO ESTÉTICO CONECTADO DIRECTO A FORMSUBMIT -->
-        <form id="form-legajo-tecnico" action="https://formsubmit.co/bmm7z3g7xmne05x2dbx7ttxtvqelhrdt" method="POST" enctype="multipart/form-data" class="space-y-6">
-            
-            <!-- Configuraciones Internas de FormSubmit (Invisibles para el usuario) -->
-            <input type="hidden" name="_captcha" value="false">
-            <input type="hidden" name="_subject" value="🚨 Nuevo Legajo Técnico Recibido para Auditoría">
-            <input type="hidden" name="_next" value="https://dravictoriamnaragunde-a11y.github.io/tuerka-success.html">
-
-            <!-- BLOQUE 1: DATOS GENERALES -->
-            <div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-6 space-y-4 shadow-lg backdrop-blur-sm">
-                <div class="border-b border-slate-800/80 pb-3">
-                    <h3 class="text-xs font-black text-amber-400 uppercase tracking-wider flex items-center">
-                        <span class="w-1.5 h-3 bg-amber-500 rounded-sm mr-2 block"></span>
-                        Información Fiscal y de Contacto
-                    </h3>
-                </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-[11px] font-bold text-slate-400 mb-1.5 uppercase tracking-wide">Nombre Completo *</label>
-                        <input type="text" name="Nombre_Completo" placeholder="ej. Carlos Pérez" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-xs font-semibold text-white placeholder-slate-600 focus:outline-none focus:border-amber-500/80 focus:ring-1 focus:ring-amber-500/30 transition-all" required>
-                    </div>
-                    <div>
-                        <label class="block text-[11px] font-bold text-slate-400 mb-1.5 uppercase tracking-wide">CUIT / CUIL (Sin Guiones) *</label>
-                        <input type="text" name="CUIT_CUIL" placeholder="ej. 20345678909" pattern="[0-9]{11}" title="CUIT de 11 dígitos numéricos sin guiones" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-xs font-bold text-white placeholder-slate-600 font-mono focus:outline-none focus:border-amber-500/80 focus:ring-1 focus:ring-amber-500/30 transition-all" required>
-                    </div>
-                </div>
-                
-                <div>
-                    <label class="block text-[11px] font-bold text-slate-400 mb-1.5 uppercase tracking-wide">Correo Electrónico Oficial *</label>
-                    <input type="email" name="Email_Notificaciones" placeholder="ejemplo@correo.com" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-xs font-semibold text-white placeholder-slate-600 font-mono focus:outline-none focus:border-amber-500/80 focus:ring-1 focus:ring-amber-500/30 transition-all" required>
-                    <p class="text-[10px] text-slate-500 mt-2 font-medium">Casilla vinculante donde se remitirán las resoluciones de auditoría y las liquidaciones del canon administrativo.</p>
-                </div>
-            </div>
-
-            <!-- BLOQUE 2: ADJUNTOS OBLIGATORIOS -->
-            <div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-6 space-y-5 shadow-lg backdrop-blur-sm">
-                <div class="border-b border-slate-800/80 pb-3">
-                    <h3 class="text-xs font-black text-amber-400 uppercase tracking-wider flex items-center">
-                        <span class="w-1.5 h-3 bg-amber-500 rounded-sm mr-2 block"></span>
-                        Documentación Digital Respaldatoria
-                    </h3>
-                </div>
-
-                <!-- Input 1: AFIP -->
-                <div class="space-y-2">
-                    <label class="block text-xs font-bold text-slate-300">1. Constancia de Opción AFIP (Vigente)</label>
-                    <div class="flex items-center space-x-3 bg-slate-950/40 border border-slate-800/80 rounded-xl p-3 hover:border-slate-700/60 transition-all">
-                        <label class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-4 py-2.5 rounded-lg text-xs cursor-pointer border border-slate-700 shrink-0 transition active:scale-[0.98]">
-                            <span>Seleccionar Archivo</span>
-                            <input type="file" name="Adjunto_AFIP" @change="validarArchivo('afip')" class="hidden" required>
-                        </label>
-                        <span class="text-[11px] font-mono font-bold tracking-wide truncate max-w-xs" :class="files.afip ? 'text-emerald-400' : 'text-slate-500'" x-text="files.afip ? '✓ ' + files.afipName : 'Ningún archivo seleccionado (PDF, JPG, PNG)'"></span>
-                    </div>
-                </div>
-
-                <!-- Input 2: Matrícula -->
-                <div class="space-y-2">
-                    <label class="block text-xs font-bold text-slate-300">2. Matrícula Profesional o Idoneidad Técnica</label>
-                    <div class="flex items-center space-x-3 bg-slate-950/40 border border-slate-800/80 rounded-xl p-3 hover:border-slate-700/60 transition-all">
-                        <label class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-4 py-2.5 rounded-lg text-xs cursor-pointer border border-slate-700 shrink-0 transition active:scale-[0.98]">
-                            <span>Seleccionar Archivo</span>
-                            <input type="file" name="Adjunto_Matricula" @change="validarArchivo('matricula')" class="hidden" required>
-                        </label>
-                        <span class="text-[11px] font-mono font-bold tracking-wide truncate max-w-xs" :class="files.matricula ? 'text-emerald-400' : 'text-slate-500'" x-text="files.matricula ? '✓ ' + files.matriculaName : 'Ningún archivo seleccionado (PDF, JPG, PNG)'"></span>
-                    </div>
-                </div>
-
-                <!-- Input 3: Antecedentes -->
-                <div class="space-y-2">
-                    <label class="block text-xs font-bold text-slate-300">3. Certificado de Antecedentes Penales (RNR Activo)</label>
-                    <div class="flex items-center space-x-3 bg-slate-950/40 border border-slate-800/80 rounded-xl p-3 hover:border-slate-700/60 transition-all">
-                        <label class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-4 py-2.5 rounded-lg text-xs cursor-pointer border border-slate-700 shrink-0 transition active:scale-[0.98]">
-                            <span>Seleccionar Archivo</span>
-                            <input type="file" name="Adjunto_Antecedentes" @change="validarArchivo('antecedentes')" class="hidden" required>
-                        </label>
-                        <span class="text-[11px] font-mono font-bold tracking-wide truncate max-w-xs" :class="files.antecedentes ? 'text-emerald-400' : 'text-slate-500'" x-text="files.antecedentes ? '✓ ' + files.antecedentesName : 'Ningún archivo seleccionado (PDF, JPG, PNG)'"></span>
-                    </div>
-                </div>
-
-                <!-- Alerta de Formato Erróneo -->
-                <div x-show="errorFormato" x-transition class="bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs p-3 rounded-xl font-bold flex items-center">
-                    <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
-                    El formato del archivo no es válido. Subí únicamente documentos PDF, JPG o PNG.
-                </div>
-            </div>
-
-            <!-- BLOQUE 3: LEGALES Y FIRMA -->
-            <div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-6 space-y-4 shadow-lg backdrop-blur-sm">
-                <div class="border-b border-slate-800/80 pb-3">
-                    <h3 class="text-xs font-black text-amber-400 uppercase tracking-wider flex items-center">
-                        <span class="w-1.5 h-3 bg-amber-500 rounded-sm mr-2 block"></span>
-                        Resguardo Legal y Marco Regulatorio
-                    </h3>
-                </div>
-                
-                <div class="h-28 overflow-y-auto border border-slate-800 rounded-xl p-3.5 text-[11px] text-slate-400 bg-slate-950/50 leading-relaxed space-y-3 scrollbar-thin scrollbar-thumb-slate-800">
-                    <div>
-                        <p class="font-bold text-slate-200">1. PROTECCIÓN DE DATOS PERSONALES (LEY Nº 25.326)</p>
-                        <p>En estricto cumplimiento de la Ley de Protección de Datos Personales de la República Argentina, se le notifica que toda la información patrimonial, fiscal y documental suministrada en este entorno estático será tratada de manera encriptada y confidencial con el único propósito de validar la idoneidad civil y comercial del perfil del prestador, quedando el canal de transmisión protegido mediante enmascaramiento de servidor.</p>
-                    </div>
-                    <div>
-                        <p class="font-bold text-slate-200">2. AUTONOMÍA DE LA LOCACIÓN DE SERVICIOS</p>
-                        <p>El técnico manifiesta con carácter de declaración jurada que reviste la condición de profesional autónomo independiente, asumiendo de manera directa la custodia y el resguardo de las incidencias multimedia suministradas por los usuarios del ecosistema tecnológico.</p>
-                    </div>
-                </div>
-
-                <label class="flex items-start space-x-3 cursor-pointer pt-2 select-none">
-                    <input type="checkbox" x-model="aceptoTyC" class="w-4 h-4 rounded bg-slate-950 border-slate-800 text-amber-500 focus:ring-amber-500/50 focus:ring-offset-slate-900 mt-0.5 transition-all">
-                    <span class="text-xs font-semibold text-slate-300 leading-normal">Acepto los términos de la Ley 25.326 de Datos Personales y ratifico mi condición fiscal informada.</span>
-                </label>
-
-                <!-- BOTÓN DE ENVÍO PRESTIGIOSO -->
-                <button 
-                    type="submit" 
-                    :disabled="!aceptoTyC || !files.afip || !files.matricula || !files.antecedentes"
-                    :class="(!aceptoTyC || !files.afip || !files.matricula || !files.antecedentes) ? 'bg-slate-800 text-slate-500 cursor-not-allowed shadow-none border-transparent' : 'bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-extrabold shadow-[0_4px_20px_rgba(245,158,11,0.15)] active:scale-[0.99] border-amber-400/20'" 
-                    class="w-full text-xs py-4 rounded-xl uppercase tracking-widest border font-black transition-all duration-200 mt-3"
-                >
-                    Enviar Legajo a Auditoría Activa
-                </button>
-            </div>
-        </form>
-    </main>
-
-    <!-- STICKY FOOTER LEGAL - DISEÑO EDITORIAL -->
-    <footer class="bg-slate-950 border-t border-slate-900 text-[10px] text-slate-500 py-6 px-6 relative z-10 select-none">
-        <div class="max-w-2xl mx-auto text-justify leading-relaxed font-medium space-y-1">
-            <span class="font-bold text-amber-500/70 block tracking-wider uppercase">Aviso de Intermediación y Términos de Plataforma:</span>
-            TUERKA opera estrictamente como un entorno tecnológico de intermediación administrativa bajo la figura locativa de software ("Secretaría Digital"). El uso de las herramientas de gestión devenga un cargo del uno por ciento (1%) sobre los acuerdos privados celebrados de forma autónoma entre el profesional matriculado y el usuario solicitante. La organización no forma parte del vínculo civil o comercial subyacente, no fija aranceles corporativos ni asume responsabilidad por la praxis, daños o resultados derivados del ejercicio profesional.
-        </div>
-    </footer>
-
-    <!-- LÓGICA ALPINE.JS - NATIVA, ESTABLE Y CONTROLADA -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
     <script>
-        function tuerkaApp() {
-            return {
-                currentView: 'tecnico',
-                aceptoTyC: false,
-                errorFormato: false,
-                files: {
-                    afip: false, afipName: '',
-                    matricula: false, matriculaName: '',
-                    antecedentes: false, antecedentesName: ''
-                },
-                
-                validarArchivo(tipo) {
-                    const input = event.target;
-                    if (input.files.length > 0) {
-                        const file = input.files[0];
-                        const extension = file.name.toLowerCase().split('.').pop();
-                        
-                        // Validamos estrictamente formatos seguros de oficina
-                        if (['pdf', 'jpg', 'jpeg', 'png'].includes(extension)) {
-                            this.errorFormato = false;
-                            this.files[tipo] = true;
-                            this.files[tipo + 'Name'] = file.name;
-                        } else {
-                            this.errorFormato = true;
-                            this.files[tipo] = false;
-                            this.files[tipo + 'Name'] = '';
-                            input.value = ''; // Resetea el input corrupto
-                        }
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        celeste: '#75AADB',
+                        'celeste-dark': '#4A90C2',
+                        'celeste-light': '#A8D0F0',
+                        dorado: '#D4AF37',
+                        'dorado-dark': '#B8941F',
+                        'dorado-light': '#E8D070',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Nunito', 'sans-serif'],
                     }
                 }
             }
         }
     </script>
+    <style>
+        [x-cloak] { display: none !important; }
+        
+        .logo-tuerca {
+            filter: drop-shadow(0px 4px 8px rgba(0,0,0,0.25));
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+        .logo-tuerca:hover {
+            transform: rotate(15deg) scale(1.1);
+            filter: drop-shadow(0px 6px 12px rgba(74, 144, 194, 0.4));
+        }
+        
+        .text-dorado-gradient {
+            background: linear-gradient(135deg, #D4AF37 0%, #E8D070 50%, #B8941F 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .bg-celeste-gradient {
+            background: linear-gradient(180deg, #75AADB 0%, #4A90C2 100%);
+        }
+        
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(117, 170, 219, 0.3);
+        }
+        
+        .glass-dark {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(117, 170, 219, 0.2);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        .card-hover:hover {
+            border-color: #D4AF37;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.15);
+        }
+        
+        .btn-celeste {
+            background: linear-gradient(135deg, #75AADB 0%, #4A90C2 100%);
+            transition: all 0.3s ease;
+        }
+        .btn-celeste:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(74, 144, 194, 0.4);
+        }
+        
+        .btn-dorado {
+            background: linear-gradient(135deg, #D4AF37 0%, #B8941F 100%);
+            transition: all 0.3s ease;
+        }
+        .btn-dorado:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+        }
+        
+        .input-tuerk {
+            transition: all 0.3s ease;
+            border: 2px solid #e2e8f0;
+        }
+        .input-tuerk:focus {
+            border-color: #75AADB;
+            box-shadow: 0 0 0 3px rgba(117, 170, 219, 0.2);
+            outline: none;
+        }
+        
+        .scrollbar-thin::-webkit-scrollbar {
+            width: 6px;
+        }
+        .scrollbar-thin::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        .scrollbar-thin::-webkit-scrollbar-thumb {
+            background: #75AADB;
+            border-radius: 3px;
+        }
+        
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .typing-dot {
+            animation: typing 1.4s infinite ease-in-out both;
+        }
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes typing {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .pulse-glow {
+            animation: pulse-glow 2s infinite;
+        }
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4); }
+            50% { box-shadow: 0 0 0 10px rgba(212, 175, 55, 0); }
+        }
+        
+        .diagonal-stripes {
+            background: repeating-linear-gradient(
+                45deg,
+                #f8fafc,
+                #f8fafc 10px,
+                #e2e8f0 10px,
+                #e2e8f0 20px
+            );
+        }
+        
+        .legal-text {
+            max-height: 200px;
+            overflow-y: auto;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 0.8rem;
+            line-height: 1.5;
+        }
+    </style>
+<base target="_blank">
+</head>
+<body class="font-sans bg-slate-50 text-slate-800 antialiased">
+
+    <!-- HEADER -->
+    <header class="fixed top-0 left-0 right-0 z-50 glass-panel shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex items-center gap-3 cursor-pointer" @click="view = 'home'">
+                    <svg class="w-10 h-10 logo-tuerca" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="celesteRing" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#A8D0F0"/>
+                                <stop offset="50%" stop-color="#75AADB"/>
+                                <stop offset="100%" stop-color="#4A90C2"/>
+                            </linearGradient>
+                            <!-- Gradiente 3D dorado para facetas superiores -->
+                            <linearGradient id="goldTop" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stop-color="#FFF5C3"/>
+                                <stop offset="40%" stop-color="#E8D070"/>
+                                <stop offset="100%" stop-color="#D4AF37"/>
+                            </linearGradient>
+                            <!-- Gradiente dorado para facetas laterales (más oscuro) -->
+                            <linearGradient id="goldSide" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#D4AF37"/>
+                                <stop offset="50%" stop-color="#B8941F"/>
+                                <stop offset="100%" stop-color="#8B6914"/>
+                            </linearGradient>
+                            <!-- Gradiente para facetas inferiores (más oscuro aún) -->
+                            <linearGradient id="goldBottom" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stop-color="#B8941F"/>
+                                <stop offset="100%" stop-color="#6B4F0A"/>
+                            </linearGradient>
+                            <!-- Gradiente para el agujero/rosca -->
+                            <radialGradient id="hole3D" cx="50%" cy="50%" r="50%">
+                                <stop offset="0%" stop-color="#3D2E05"/>
+                                <stop offset="70%" stop-color="#6B4F0A"/>
+                                <stop offset="100%" stop-color="#B8941F"/>
+                            </radialGradient>
+                            <!-- Gradiente para roscas -->
+                            <linearGradient id="threadGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#E8D070"/>
+                                <stop offset="100%" stop-color="#8B6914"/>
+                            </linearGradient>
+                            <!-- Sombra proyectada -->
+                            <filter id="dropShadow3D" x="-30%" y="-30%" width="160%" height="160%">
+                                <feDropShadow dx="3" dy="5" stdDeviation="4" flood-color="#000" flood-opacity="0.35"/>
+                            </filter>
+                            <!-- Brillo especular -->
+                            <filter id="specular">
+                                <feGaussianBlur in="SourceAlpha" stdDeviation="1"/>
+                                <feSpecularLighting surfaceScale="3" specularConstant="1.2" specularExponent="20" lighting-color="#FFF5C3" result="specular">
+                                    <fePointLight x="30" y="-20" z="40"/>
+                                </feSpecularLighting>
+                                <feComposite in="specular" in2="SourceAlpha" operator="in" result="specular"/>
+                                <feComposite in="SourceGraphic" in2="specular" operator="arithmetic" k1="0" k2="1" k3="1" k4="0"/>
+                            </filter>
+                        </defs>
+
+                        <!-- Anillo celeste exterior (corona) -->
+                        <circle cx="60" cy="60" r="56" fill="none" stroke="url(#celesteRing)" stroke-width="3" opacity="0.9"/>
+                        <circle cx="60" cy="60" r="52" fill="none" stroke="#A8D0F0" stroke-width="1" opacity="0.4"/>
+
+                        <!-- Sombra de fondo -->
+                        <ellipse cx="60" cy="108" rx="35" ry="8" fill="#000" opacity="0.15"/>
+
+                        <!-- Cara superior (top) de la tuerca - hexágono con efecto 3D -->
+                        <polygon points="60,8 106,34.5 106,85.5 60,112 14,85.5 14,34.5" 
+                                 fill="url(#goldTop)" stroke="#B8941F" stroke-width="1.5" filter="url(#dropShadow3D)"/>
+
+                        <!-- Caras laterales (simulación de grosor/extrusión) -->
+                        <!-- Lado derecho-arriba -->
+                        <polygon points="106,34.5 106,85.5 100,82 100,37" fill="url(#goldSide)" opacity="0.9"/>
+                        <!-- Lado derecho-abajo -->
+                        <polygon points="106,85.5 60,112 60,106 100,82" fill="url(#goldBottom)" opacity="0.85"/>
+                        <!-- Lado izquierdo-abajo -->
+                        <polygon points="60,112 14,85.5 20,82 60,106" fill="url(#goldBottom)" opacity="0.8"/>
+                        <!-- Lado izquierdo-arriba -->
+                        <polygon points="14,85.5 14,34.5 20,37 20,82" fill="url(#goldSide)" opacity="0.9"/>
+                        <!-- Lado superior-izquierdo -->
+                        <polygon points="14,34.5 60,8 60,14 20,37" fill="url(#goldSide)" opacity="0.95"/>
+                        <!-- Lado superior-derecho -->
+                        <polygon points="60,8 106,34.5 100,37 60,14" fill="url(#goldTop)" opacity="0.95"/>
+
+                        <!-- Borde interior facetado (chamfer) -->
+                        <polygon points="60,18 93.3,37.2 93.3,82.8 60,102 26.7,82.8 26.7,37.2" 
+                                 fill="none" stroke="#E8D070" stroke-width="1.2" opacity="0.7"/>
+
+                        <!-- Agujero central con profundidad 3D -->
+                        <circle cx="60" cy="60" r="20" fill="url(#hole3D)" stroke="#D4AF37" stroke-width="2.5"/>
+
+                        <!-- Roscas internas (líneas concéntricas con efecto 3D) -->
+                        <circle cx="60" cy="60" r="16" fill="none" stroke="url(#threadGrad)" stroke-width="1" opacity="0.6"/>
+                        <circle cx="60" cy="60" r="12" fill="none" stroke="url(#threadGrad)" stroke-width="1" opacity="0.5"/>
+                        <circle cx="60" cy="60" r="8" fill="none" stroke="url(#threadGrad)" stroke-width="0.8" opacity="0.4"/>
+
+                        <!-- Brillo especular en faceta superior (efecto metal pulido) -->
+                        <polygon points="60,8 75,17.5 60,27 45,17.5" fill="#FFF5C3" opacity="0.6"/>
+                        <polygon points="60,8 68,12.5 60,17 52,12.5" fill="#FFFFFF" opacity="0.8"/>
+
+                        <!-- Reflejos secundarios en otras facetas -->
+                        <polygon points="106,34.5 106,50 96,44" fill="#E8D070" opacity="0.3"/>
+                        <polygon points="14,34.5 24,40 14,46" fill="#E8D070" opacity="0.3"/>
+
+                        <!-- Línea de bisel en el borde exterior -->
+                        <polygon points="60,8 106,34.5 106,85.5 60,112 14,85.5 14,34.5" 
+                                 fill="none" stroke="#E8D070" stroke-width="0.8" opacity="0.5"/>
+                    </svg>
+                    <div>
+                        <span class="text-2xl font-display font-black text-dorado-gradient tracking-tight">TUERK</span>
+                        <span class="hidden sm:inline text-xs text-slate-500 ml-2">Argentina</span>
+                    </div>
+                </div>
+                
+                <!-- Nav -->
+                <nav class="hidden md:flex items-center gap-6">
+                    <button @click="view = 'home'" class="text-sm font-medium text-slate-600 hover:text-celeste-dark transition-colors">Inicio</button>
+                    <button @click="view = 'cliente'" class="text-sm font-medium text-slate-600 hover:text-celeste-dark transition-colors">Soy Cliente</button>
+                    <button @click="view = 'tecnico'" class="text-sm font-medium text-slate-600 hover:text-celeste-dark transition-colors">Soy Técnico</button>
+                    <button @click="view = 'tyc'" class="text-sm font-medium text-slate-600 hover:text-celeste-dark transition-colors">Términos</button>
+                </nav>
+                
+                <!-- Mobile menu -->
+                <button @click="mobileMenu = !mobileMenu" class="md:hidden p-2 rounded-lg hover:bg-slate-100">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile dropdown -->
+        <div x-show="mobileMenu" x-transition class="md:hidden border-t border-slate-200 bg-white">
+            <div class="px-4 py-3 space-y-2">
+                <button @click="view = 'home'; mobileMenu = false" class="block w-full text-left px-3 py-2 rounded-lg hover:bg-slate-50 text-sm font-medium">Inicio</button>
+                <button @click="view = 'cliente'; mobileMenu = false" class="block w-full text-left px-3 py-2 rounded-lg hover:bg-slate-50 text-sm font-medium">Soy Cliente</button>
+                <button @click="view = 'tecnico'; mobileMenu = false" class="block w-full text-left px-3 py-2 rounded-lg hover:bg-slate-50 text-sm font-medium">Soy Técnico</button>
+                <button @click="view = 'tyc'; mobileMenu = false" class="block w-full text-left px-3 py-2 rounded-lg hover:bg-slate-50 text-sm font-medium">Términos y Condiciones</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- SPACER -->
+    <div class="h-16"></div>
+
+    <!-- VIEW: HOME -->
+    <div x-show="view === 'home'" x-transition class="fade-in">
+        
+        <!-- HERO -->
+        <section class="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
+            <div class="absolute inset-0 opacity-10">
+                <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                    <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
+                        <path d="M 10 0 L 0 0 0 10" fill="none" stroke="white" stroke-width="0.5"/>
+                    </pattern>
+                    <rect width="100" height="100" fill="url(#grid)"/>
+                </svg>
+            </div>
+            
+            <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
+                <div class="text-center max-w-4xl mx-auto">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 mb-8">
+                        <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+                        <span class="text-sm font-medium text-slate-300">Intermediación Pasiva · Argentina</span>
+                    </div>
+                    
+                    <h1 class="text-4xl sm:text-5xl lg:text-7xl font-display font-black mb-6 leading-tight">
+                        <span class="text-dorado-gradient">TUERK</span>
+                        <span class="block text-white mt-2">Técnicos que hablan</span>
+                        <span class="block text-celeste mt-2">tu idioma</span>
+                    </h1>
+                    
+                    <p class="text-xl sm:text-2xl text-slate-300 mb-4 font-light italic">
+                        "Entendemos de cosito"
+                    </p>
+                    
+                    <p class="text-base text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+                        Conectamos clientes con técnicos independientes. No empleamos, no seleccionamos, 
+                        no fijamos tarifas. Vos elegís a quién contratar y a qué precio.
+                    </p>
+                    
+                    <!-- Disclaimer Hero -->
+                    <div class="bg-white/5 border border-white/10 rounded-xl p-4 mb-10 max-w-2xl mx-auto">
+                        <div class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-amber-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                            </svg>
+                            <p class="text-sm text-slate-300 text-left">
+                                <strong class="text-white">Aviso importante:</strong> TUERK es una plataforma de intermediación pasiva. 
+                                No somos empleadores, no seleccionamos técnicos, no verificamos antecedentes más allá de lo autopresentado, 
+                                no supervisamos trabajos, no garantizamos idoneidad y no fijamos tarifas. 
+                                La relación contractual es exclusivamente entre el cliente y el técnico.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <button @click="view = 'cliente'" class="btn-celeste text-white px-8 py-4 rounded-xl font-semibold text-lg flex items-center justify-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                            Necesito un técnico
+                        </button>
+                        <button @click="view = 'tecnico'" class="btn-dorado text-white px-8 py-4 rounded-xl font-semibold text-lg flex items-center justify-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                            Soy técnico
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Wave separator -->
+            <div class="absolute bottom-0 left-0 right-0">
+                <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 120L60 110C120 100 240 80 360 70C480 60 600 60 720 65C840 70 960 80 1080 85C1200 90 1320 90 1380 90L1440 90V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z" fill="#f8fafc"/>
+                </svg>
+            </div>
+        </section>
+
+        <!-- HOW IT WORKS -->
+        <section class="py-20 bg-slate-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl sm:text-4xl font-display font-bold text-slate-900 mb-4">¿Cómo funciona?</h2>
+                    <p class="text-slate-600 max-w-2xl mx-auto">Simple, transparente y sin intermediarios abusivos.</p>
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-200 card-hover text-center">
+                        <div class="w-16 h-16 bg-celeste/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                            <span class="text-3xl font-black text-celeste">1</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3">Contanos el problema</h3>
+                        <p class="text-slate-600">Nuestra analista Ana te guía con preguntas simples. No hace falta que sepas los términos técnicos.</p>
+                    </div>
+                    
+                    <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-200 card-hover text-center">
+                        <div class="w-16 h-16 bg-dorado/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                            <span class="text-3xl font-black text-dorado">2</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3">Elegí tu técnico</h3>
+                        <p class="text-slate-600">Vemos técnicos disponibles en tu zona. Vos elegís a quién contactar basado en su perfil autopresentado.</p>
+                    </div>
+                    
+                    <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-200 card-hover text-center">
+                        <div class="w-16 h-16 bg-green-500/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                            <span class="text-3xl font-black text-green-600">3</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3">Acordás directo</h3>
+                        <p class="text-slate-600">El técnico te contacta, ven el problema, presupuestan y acuerdan. Nosotros no nos metemos en el precio.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FEATURES -->
+        <section class="py-20 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h2 class="text-3xl sm:text-4xl font-display font-bold text-slate-900 mb-6">
+                            ¿Por qué <span class="text-dorado-gradient">TUERK</span>?
+                        </h2>
+                        
+                        <div class="space-y-6">
+                            <div class="flex gap-4">
+                                <div class="w-12 h-12 bg-celeste/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                                    <svg class="w-6 h-6 text-celeste" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-slate-900 mb-1">Hablamos tu idioma</h3>
+                                    <p class="text-slate-600 text-sm">No hace falta que sepas qué es un "capacitor" o una "válvula de retención". Describí el problema como lo sentís.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex gap-4">
+                                <div class="w-12 h-12 bg-dorado/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                                    <svg class="w-6 h-6 text-dorado" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-slate-900 mb-1">Datos protegidos</h3>
+                                    <p class="text-slate-600 text-sm">Tu dirección y teléfono solo se revelan al técnico que vos elegís, y solo después de que abone el canon de contacto. Ley 25.326.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex gap-4">
+                                <div class="w-12 h-12 bg-green-500/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                                    <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-slate-900 mb-1">Sin comisiones ocultas</h3>
+                                    <p class="text-slate-600 text-sm">El técnico paga un canon del 1% para acceder a tus datos. Eso es todo. No hay markup en el precio del servicio.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex gap-4">
+                                <div class="w-12 h-12 bg-purple-500/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                                    <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/></svg>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-slate-900 mb-1">Vos ponés el precio</h3>
+                                    <p class="text-slate-600 text-sm">Negociás directo con el técnico. Nosotros no imponemos tarifas ni nos llevamos comisión del trabajo.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-gradient-to-r from-celeste/20 to-dorado/20 rounded-3xl transform rotate-3"></div>
+                        <div class="relative bg-white rounded-3xl p-8 shadow-xl border border-slate-200">
+                            <div class="flex items-center gap-3 mb-6">
+                                <div class="w-10 h-10 bg-celeste rounded-full flex items-center justify-center">
+                                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-slate-900">Ana</p>
+                                    <p class="text-xs text-slate-500">Analista de Caso · TUERK</p>
+                                </div>
+                                <span class="ml-auto text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">Online</span>
+                            </div>
+                            
+                            <div class="space-y-4">
+                                <div class="bg-slate-100 rounded-2xl rounded-tl-none p-4 max-w-[85%]">
+                                    <p class="text-sm text-slate-700">¡Hola! Soy Ana, tu analista de caso. ¿Qué te está pasando con el cosito? 😊</p>
+                                </div>
+                                <div class="bg-celeste/10 rounded-2xl rounded-tr-none p-4 max-w-[85%] ml-auto border border-celeste/20">
+                                    <p class="text-sm text-slate-700">Se me rompió la heladera, hace un ruido raro y no enfría bien.</p>
+                                </div>
+                                <div class="bg-slate-100 rounded-2xl rounded-tl-none p-4 max-w-[85%]">
+                                    <p class="text-sm text-slate-700">Entiendo, "hace ruido y no enfría". ¿Hace cuánto tiempo la tenés? Esto me ayuda a estimar si conviene reparar o cambiar.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-6 pt-4 border-t border-slate-200">
+                                <p class="text-xs text-slate-500 text-center">El diagnóstico de Ana es orientativo y automatizado. No reemplaza la opinión de un técnico profesional.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA SECTION -->
+        <section class="py-20 bg-gradient-to-br from-slate-900 to-slate-800 text-white">
+            <div class="max-w-4xl mx-auto px-4 text-center">
+                <h2 class="text-3xl sm:text-4xl font-display font-bold mb-6">¿Listo para empezar?</h2>
+                <p class="text-slate-300 mb-10 text-lg">Elegí tu perfil y comenzá ahora. Sin registro previo, sin complicaciones.</p>
+                
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button @click="view = 'cliente'" class="btn-celeste text-white px-10 py-5 rounded-xl font-bold text-lg">
+                        Necesito un técnico →
+                    </button>
+                    <button @click="view = 'tecnico'" class="bg-white/10 border border-white/20 hover:bg-white/20 text-white px-10 py-5 rounded-xl font-bold text-lg transition-all">
+                        Quiero ofrecer mis servicios →
+                    </button>
+                </div>
+                
+                <p class="mt-8 text-sm text-slate-500">
+                    Al usar TUERK, aceptás nuestros <button @click="view = 'tyc'" class="text-celeste hover:underline">Términos y Condiciones</button> y la <button @click="view = 'tyc'" class="text-celeste hover:underline">Ley 25.326 de Protección de Datos Personales</button>.
+                </p>
+            </div>
+        </section>
+    </div>
+
+    <!-- VIEW: CLIENTE -->
+    <div x-show="view === 'cliente'" x-transition x-cloak class="min-h-screen bg-slate-50 pb-20">
+        
+        <div class="bg-white border-b border-slate-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                <button @click="view = 'home'" class="text-sm text-slate-500 hover:text-slate-700 flex items-center gap-1 mb-4">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                    Volver al inicio
+                </button>
+                <h1 class="text-2xl sm:text-3xl font-display font-bold text-slate-900">¿Qué necesitás arreglar?</h1>
+                <p class="text-slate-600 mt-2">Contanos el problema y te ayudamos a encontrar el técnico ideal.</p>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            
+            <div class="bg-amber-50 border-l-4 border-amber-400 p-4 rounded-r-lg mb-8">
+                <div class="flex items-start gap-3">
+                    <svg class="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                    </svg>
+                    <div class="text-sm text-amber-800">
+                        <p class="font-semibold mb-1">Aviso legal importante</p>
+                        <p>TUERK no es proveedor de servicios técnicos. Los profesionales que aparecen en esta plataforma son terceros independientes. No verificamos antecedentes más allá de la documentación autopresentada. El contrato de servicio se celebra directamente entre el cliente y el técnico elegido. No nos responsabilizamos por la calidad, puntualidad ni resultado del servicio.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 1: Categorías -->
+            <div x-show="clienteStep === 1" x-transition>
+                <h2 class="text-xl font-bold text-slate-900 mb-6">Seleccioná una categoría</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <template x-for="cat in categorias" :key="cat.id">
+                        <button @click="selectCategoria(cat)" class="card-hover bg-white p-6 rounded-xl text-left shadow-sm">
+                            <div class="text-4xl mb-4" x-text="cat.icon"></div>
+                            <h3 class="text-lg font-bold text-slate-900 mb-2" x-text="cat.nombre"></h3>
+                            <p class="text-slate-600 text-sm" x-text="cat.descripcion"></p>
+                        </button>
+                    </template>
+                </div>
+            </div>
+
+            <!-- STEP 2: Analista Ana -->
+            <div x-show="clienteStep === 2" x-transition class="max-w-2xl mx-auto">
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-slate-200">
+                    <div class="bg-gradient-to-r from-celeste to-celeste-dark p-5 text-white">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center text-2xl animate-float">👩‍💻</div>
+                            <div>
+                                <h2 class="text-lg font-bold">Ana — Analista de Caso</h2>
+                                <p class="text-celeste-light text-sm">Te ayudo a describir el problema con palabras simples</p>
+                            </div>
+                            <span class="ml-auto bg-white/20 px-3 py-1 rounded-full text-xs">Online</span>
+                        </div>
+                    </div>
+                    
+                    <div class="h-[400px] overflow-y-auto p-4 space-y-4 scrollbar-thin bg-slate-50" id="chat-container">
+                        <template x-for="(msg, index) in chatMessages" :key="index">
+                            <div :class="msg.from === 'ana' ? 'flex items-start gap-3' : 'flex items-start gap-3 flex-row-reverse'" class="fade-in">
+                                <div :class="msg.from === 'ana' ? 'w-8 h-8 bg-celeste/10 rounded-full flex items-center justify-center flex-shrink-0 text-sm border border-celeste/20' : 'w-8 h-8 bg-dorado/10 rounded-full flex items-center justify-center flex-shrink-0 text-sm border border-dorado/20'" x-text="msg.from === 'ana' ? '👩‍💻' : '🙂'"></div>
+                                <div :class="msg.from === 'ana' ? 'bg-white border border-slate-200 rounded-2xl rounded-tl-none p-4 max-w-[80%] shadow-sm' : 'bg-celeste text-white rounded-2xl rounded-tr-none p-4 max-w-[80%] shadow-sm'">
+                                    <p class="text-sm" x-html="msg.text"></p>
+                                    <div x-show="msg.options" class="mt-3 space-y-2">
+                                        <template x-for="opt in msg.options" :key="opt">
+                                            <button @click="responderAna(opt)" class="block w-full text-left px-4 py-2 rounded-lg bg-slate-50 border border-slate-200 hover:border-celeste hover:bg-celeste/5 transition text-sm text-slate-700" x-text="opt"></button>
+                                        </template>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                        
+                        <div x-show="anaTyping" class="flex items-center gap-2 text-slate-400 text-sm pl-12">
+                            <div class="flex gap-1">
+                                <div class="w-2 h-2 bg-slate-400 rounded-full typing-dot"></div>
+                                <div class="w-2 h-2 bg-slate-400 rounded-full typing-dot"></div>
+                                <div class="w-2 h-2 bg-slate-400 rounded-full typing-dot"></div>
+                            </div>
+                            <span class="text-xs">Ana está escribiendo...</span>
+                        </div>
+                    </div>
+
+                    <!-- Upload de archivos para Ana -->
+                    <div x-show="clienteStep === 2 && !diagnosticoComplete" class="p-4 border-t border-slate-200 bg-white">
+                        <div class="flex items-center gap-3">
+                            <button @click="$refs.anaFileInput.click()" class="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-celeste/10 border border-slate-200 hover:border-celeste transition-all text-sm text-slate-600 hover:text-celeste-dark">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/></svg>
+                                <span>Adjuntar foto o video</span>
+                            </button>
+                            <input type="file" x-ref="anaFileInput" @change="addAnaFile($event)" accept="image/*,video/*" class="hidden">
+                            <span class="text-xs text-slate-400" x-show="!anaFiles.length">Podés subir hasta 2 archivos (máx. 10 MB cada uno)</span>
+                        </div>
+
+                        <!-- Preview de archivos adjuntos a Ana -->
+                        <div x-show="anaFiles.length" class="mt-3 flex gap-2">
+                            <template x-for="(file, index) in anaFiles" :key="index">
+                                <div class="relative group">
+                                    <div class="w-16 h-16 rounded-lg border border-slate-200 overflow-hidden bg-slate-50 flex items-center justify-center">
+                                        <template x-if="file.type.startsWith('image/')">
+                                            <img :src="file.preview" class="w-full h-full object-cover" alt="">
+                                        </template>
+                                        <template x-if="file.type.startsWith('video/')">
+                                            <svg class="w-6 h-6 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                                        </template>
+                                    </div>
+                                    <button @click="removeAnaFile(index)" class="absolute -top-1.5 -right-1.5 w-4 h-4 bg-red-500 text-white rounded-full flex items-center justify-center text-[10px] hover:bg-red-600">✕</button>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+
+                    <div x-show="diagnosticoComplete" x-transition class="p-5 border-t border-slate-200 bg-white">
+                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 mb-4">
+                            <h4 class="font-bold text-slate-900 mb-3 flex items-center gap-2">
+                                <svg class="w-5 h-5 text-celeste" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                                Diagnóstico Preliminar
+                            </h4>
+                            <div class="space-y-2 text-sm">
+                                <p><span class="text-slate-500">Categoría:</span> <span class="font-medium text-slate-900" x-text="diagnostico.categoria"></span></p>
+                                <p><span class="text-slate-500">Síntoma:</span> <span class="font-medium text-slate-900" x-text="diagnostico.sintoma"></span></p>
+                                <p><span class="text-slate-500">Antigüedad:</span> <span class="font-medium text-slate-900" x-text="diagnostico.antiguedad"></span></p>
+                                <p><span class="text-slate-500">Urgencia:</span> <span class="font-medium text-slate-900" x-text="diagnostico.urgencia"></span></p>
+                                <p><span class="text-slate-500">Estimación interna:</span> <span class="text-slate-400 italic text-xs">No visible para el cliente</span></p>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-amber-50 border border-amber-200 rounded-lg p-3 mb-4">
+                            <p class="text-amber-800 text-xs"><strong>Nota importante:</strong> Este diagnóstico es orientativo y automatizado. No constituye opinión técnica profesional. El técnico elegido deberá confirmar el diagnóstico y presupuesto en persona.</p>
+                        </div>
+                        
+                        <button @click="clienteStep = 3" class="btn-celeste w-full text-white py-3 rounded-xl font-bold">
+                            Ver técnicos disponibles →
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 3: Técnicos -->
+            <div x-show="clienteStep === 3" x-transition>
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-xl font-bold text-slate-900">Técnicos disponibles</h2>
+                    <button @click="clienteStep = 2" class="text-sm text-celeste hover:text-celeste-dark font-medium">← Volver al diagnóstico</button>
+                </div>
+                
+                <div class="bg-amber-50 border-l-4 border-amber-400 p-4 rounded-r-lg mb-6">
+                    <div class="flex items-start gap-3">
+                        <svg class="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                        </svg>
+                        <p class="text-sm text-amber-800">No empleamos, no supervisamos ni garantizamos la idoneidad de los técnicos listados. La información presentada es autoprovista por cada profesional. El contrato de servicio se celebra directamente entre vos y el técnico que elijas. Verificá siempre matrícula y seguro antes de contratar.</p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <template x-for="tec in tecnicosFiltrados" :key="tec.id">
+                        <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden card-hover">
+                            <div class="p-6">
+                                <div class="flex items-start justify-between mb-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-12 h-12 bg-celeste/10 rounded-full flex items-center justify-center text-2xl">👨‍🔧</div>
+                                        <div>
+                                            <h3 class="font-bold text-slate-900" x-text="tec.nombre"></h3>
+                                            <p class="text-sm text-slate-500" x-text="tec.especialidad"></p>
+                                        </div>
+                                    </div>
+                                    <div class="bg-dorado/10 text-dorado text-xs font-bold px-3 py-1 rounded-full border border-dorado/20" x-text="tec.match + '% match'"></div>
+                                </div>
+                                
+                                <div class="space-y-2 mb-4 text-sm">
+                                    <div class="flex items-center gap-2 text-slate-600">
+                                        <svg class="w-4 h-4 text-celeste" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                                        <span x-text="tec.zona"></span>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-slate-600">
+                                        <svg class="w-4 h-4 text-dorado" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                        <span x-text="tec.experiencia + ' años de experiencia'"></span>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-green-600">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                        <span class="text-xs font-medium">Matrícula verificada</span>
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <template x-for="tag in tec.tags" :key="tag">
+                                        <span class="bg-slate-100 text-slate-600 text-xs px-2 py-1 rounded-full" x-text="tag"></span>
+                                    </template>
+                                </div>
+
+                                <button @click="selectTecnico(tec)" class="w-full btn-celeste text-white py-2.5 rounded-lg font-semibold text-sm">
+                                    Solicitar contacto
+                                </button>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+            <!-- STEP 4: Formulario -->
+            <div x-show="clienteStep === 4" x-transition class="max-w-2xl mx-auto">
+                <div class="bg-white rounded-2xl shadow-lg p-8 border border-slate-200">
+                    <div class="flex items-center gap-3 mb-6">
+                        <button @click="clienteStep = 3" class="text-slate-400 hover:text-slate-600">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                        </button>
+                        <h2 class="text-2xl font-bold text-slate-900">Confirmar solicitud</h2>
+                    </div>
+
+                    <div class="bg-slate-50 p-4 rounded-xl mb-6 border border-slate-200">
+                        <h4 class="font-semibold text-slate-900 mb-2 text-sm">Resumen de tu caso</h4>
+                        <div class="space-y-1 text-sm">
+                            <p class="text-slate-600"><span class="text-slate-500">Técnico:</span> <span class="font-medium text-slate-900" x-text="tecnicoSelected?.nombre"></span></p>
+                            <p class="text-slate-600"><span class="text-slate-500">Especialidad:</span> <span class="font-medium text-slate-900" x-text="tecnicoSelected?.especialidad"></span></p>
+                            <p class="text-slate-600"><span class="text-slate-500">Problema:</span> <span class="font-medium text-slate-900" x-text="diagnostico.sintoma"></span></p>
+                        </div>
+                    </div>
+
+                    <div class="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-6">
+                        <p class="text-amber-800 text-sm">
+                            <strong>Acerca del canon del 1%:</strong> El técnico deberá abonar un canon del 1% sobre el costo estimado del arreglo para acceder a tus datos de contacto y dirección. Este monto <strong>no se te muestra a vos</strong> como cliente. El técnico puede cobrarte más o menos de lo estimado — el canon ya está pago y no se modifica. Este sistema garantiza que solo técnicos realmente interesados te contacten.
+                        </p>
+                    </div>
+
+                    <form @submit.prevent="submitClienteForm()" class="space-y-5">
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Nombre completo *</label>
+                                <input type="text" x-model="clienteForm.nombre" required class="input-tuerk w-full px-4 py-3 rounded-xl bg-white text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Email *</label>
+                                <input type="email" x-model="clienteForm.email" required class="input-tuerk w-full px-4 py-3 rounded-xl bg-white text-sm">
+                            </div>
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Teléfono *</label>
+                                <input type="tel" x-model="clienteForm.telefono" required class="input-tuerk w-full px-4 py-3 rounded-xl bg-white text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Dirección completa *</label>
+                                <input type="text" x-model="clienteForm.direccion" required class="input-tuerk w-full px-4 py-3 rounded-xl bg-white text-sm">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Horario preferido *</label>
+                            <select x-model="clienteForm.horario" required class="input-tuerk w-full px-4 py-3 rounded-xl bg-white text-sm">
+                                <option value="">Seleccioná un horario</option>
+                                <option value="manana">Mañana (8:00 - 12:00)</option>
+                                <option value="tarde">Tarde (12:00 - 17:00)</option>
+                                <option value="noche">Noche (17:00 - 20:00)</option>
+                                <option value="finde">Fin de semana</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Notas adicionales</label>
+                            <textarea x-model="clienteForm.notas" rows="3" class="input-tuerk w-full px-4 py-3 rounded-xl bg-white text-sm" placeholder="Cualquier detalle adicional que quieras agregar..."></textarea>
+                        </div>
+
+                        <!-- Adjuntar archivos -->
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-3">Adjuntar fotos o videos del problema</label>
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                                <template x-for="(file, index) in clienteFiles" :key="index">
+                                    <div class="relative group">
+                                        <div class="aspect-square rounded-xl border-2 border-dashed border-slate-300 flex items-center justify-center bg-slate-50 overflow-hidden">
+                                            <template x-if="file.type.startsWith('image/')">
+                                                <img :src="file.preview" class="w-full h-full object-cover" alt="Vista previa">
+                                            </template>
+                                            <template x-if="file.type.startsWith('video/')">
+                                                <div class="flex flex-col items-center text-slate-400">
+                                                    <svg class="w-8 h-8 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                                                    <span class="text-xs" x-text="file.name.substring(0,10) + '...'"></span>
+                                                </div>
+                                            </template>
+                                        </div>
+                                        <button @click.prevent="removeClienteFile(index)" class="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center text-xs hover:bg-red-600 shadow-md">
+                                            ✕
+                                        </button>
+                                    </div>
+                                </template>
+
+                                <!-- Botón para agregar más archivos -->
+                                <div x-show="clienteFiles.length < 4" class="aspect-square rounded-xl border-2 border-dashed border-slate-300 hover:border-celeste hover:bg-celeste/5 flex items-center justify-center cursor-pointer transition-colors" @click="$refs.clienteFileInput.click()">
+                                    <div class="text-center text-slate-400">
+                                        <svg class="w-8 h-8 mx-auto mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                                        <span class="text-xs">Agregar</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="file" x-ref="clienteFileInput" @change="addClienteFile($event)" accept="image/*,video/*" multiple class="hidden">
+                            <p class="text-xs text-slate-500 mt-2">Podés adjuntar hasta 4 archivos (fotos o videos). Máximo 10 MB cada uno.</p>
+                        </div>
+
+                        <!-- Ley 25.326 -->
+                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                            <h4 class="font-semibold text-slate-900 mb-3 flex items-center gap-2 text-sm">
+                                <svg class="w-5 h-5 text-celeste" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                                Protección de Datos Personales — Ley 25.326
+                            </h4>
+                            <div class="legal-text text-slate-600 mb-3">
+                                <p class="mb-2"><strong>LEY 25.326 — PROTECCIÓN DE LOS DATOS PERSONALES</strong></p>
+                                <p class="mb-2">El titular de los datos personales tiene la facultad de ejercer el derecho de acceso a los mismos en forma gratuita a intervalos no inferiores a seis meses, salvo que se acredite un interés legítimo al efecto conforme lo establecido en el artículo 14, inciso 3 de la Ley Nº 25.326.</p>
+                                <p class="mb-2">La DIRECCIÓN NACIONAL DE PROTECCIÓN DE DATOS PERSONALES, Órgano de Control de la Ley Nº 25.326, tiene la atribución de atender las denuncias y reclamos que se interpongan con relación al incumplimiento de las normas sobre protección de datos personales.</p>
+                                <p class="mb-2">Sarmiento 1118, piso 5º, C1041AAX CABA. Tel: (011) 4383-8512. datospersonales@jus.gov.ar</p>
+                                <p class="mb-2"><strong>CONSENTIMIENTO:</strong> Al completar este formulario, usted presta su consentimiento libre, expreso e informado para que TUERK trate sus datos personales con la finalidad de ponerlo en contacto con técnicos independientes. Los datos serán tratados con estricta confidencialidad y no serán cedidos a terceros ajenos al proceso de intermediación.</p>
+                                <p class="mb-2"><strong>DERECHOS DEL TITULAR:</strong> Usted podrá ejercer los derechos de acceso, rectificación, supresión, actualización y confidencialidad de sus datos personales comunicándose con nosotros a través de los canales indicados en esta plataforma.</p>
+                                <p><strong>ENCARGADO DE TRATAMIENTO:</strong> TUERK actúa como encargado del tratamiento de datos para la finalidad específica de intermediación entre clientes y técnicos independientes.</p>
+                            </div>
+                            <label class="flex items-start gap-3 cursor-pointer">
+                                <input type="checkbox" x-model="clienteForm.aceptaLey" required class="mt-1 w-5 h-5 text-celeste rounded border-slate-300 focus:ring-celeste">
+                                <span class="text-sm text-slate-700">He leído y acepto el tratamiento de mis datos personales conforme la Ley 25.326 y los Términos y Condiciones de TUERK. *</span>
+                            </label>
+                        </div>
+
+                        <!-- Disclaimer -->
+                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                            <label class="flex items-start gap-3 cursor-pointer">
+                                <input type="checkbox" x-model="clienteForm.aceptaDisclaimer" required class="mt-1 w-5 h-5 text-celeste rounded border-slate-300 focus:ring-celeste">
+                                <span class="text-sm text-slate-700">Entiendo que TUERK es una plataforma de intermediación pasiva, que no emplea a los técnicos, no garantiza sus servicios, y que el contrato de servicio se celebra directamente entre el técnico y yo. *</span>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn-celeste w-full text-white py-4 rounded-xl font-bold text-lg shadow-lg disabled:opacity-50 disabled:cursor-not-allowed" :disabled="!clienteForm.aceptaLey || !clienteForm.aceptaDisclaimer">
+                            Enviar solicitud
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- STEP 5: Confirmación -->
+            <div x-show="clienteStep === 5" x-transition class="max-w-2xl mx-auto text-center py-20">
+                <div class="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6 text-5xl pulse-glow">✅</div>
+                <h2 class="text-3xl font-display font-bold text-slate-900 mb-4">¡Solicitud enviada!</h2>
+                <p class="text-slate-600 mb-2">El técnico <strong x-text="tecnicoSelected?.nombre"></strong> recibió tu caso.</p>
+                <p class="text-slate-600 mb-8 max-w-lg mx-auto">Para acceder a tus datos de contacto y dirección, deberá abonar el canon del 1%. Una vez hecho esto, te contactará directamente.</p>
+                
+                <div class="bg-white p-6 rounded-xl border border-slate-200 mb-8 text-left max-w-lg mx-auto shadow-sm">
+                    <h4 class="font-bold text-slate-900 mb-3">¿Qué sigue?</h4>
+                    <ol class="space-y-2 text-sm text-slate-600 list-decimal list-inside">
+                        <li>El técnico revisa tu caso y decide si acepta el trabajo</li>
+                        <li>Si acepta, abona el canon del 1% y accede a tus datos</li>
+                        <li>El técnico te contacta directamente para coordinar visita</li>
+                        <li>Vos y el técnico acuerdan precio final, fecha y condiciones</li>
+                        <li>El técnico realiza el servicio y vos le pagás directamente</li>
+                    </ol>
+                </div>
+                
+                <button @click="resetCliente()" class="btn-celeste text-white px-8 py-3 rounded-xl font-bold">
+                    Hacer otra solicitud
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- VIEW: TECNICO -->
+    <div x-show="view === 'tecnico'" x-transition x-cloak class="min-h-screen bg-slate-50 pb-20">
+        
+        <div class="bg-white border-b border-slate-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                <button @click="view = 'home'" class="text-sm text-slate-500 hover:text-slate-700 flex items-center gap-1 mb-4">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                    Volver al inicio
+                </button>
+                <h1 class="text-2xl sm:text-3xl font-display font-bold text-slate-900">Registro de Técnico</h1>
+                <p class="text-slate-600 mt-2">Completá tus datos para ofrecer tus servicios en TUERK.</p>
+            </div>
+        </div>
+
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            
+            <div class="bg-amber-50 border-l-4 border-amber-400 p-4 rounded-r-lg mb-8">
+                <div class="flex items-start gap-3">
+                    <svg class="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                    </svg>
+                    <div class="text-sm text-amber-800">
+                        <p class="font-semibold mb-1">Aviso legal para técnicos</p>
+                        <p>TUERK <strong>no es tu empleador</strong>. No te asignamos trabajos, no controlamos tu agenda, no te pagamos salario ni remuneración alguna. Sos un profesional independiente que utiliza nuestra plataforma para contactar potenciales clientes. Vos decidís qué trabajos aceptar, a qué precio, y en qué horarios. La relación contractual es directamente entre vos y el cliente. Nosotros solo facilitamos el primer contacto a cambio de un canon del 1% sobre el costo estimado del arreglo.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="mb-8">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-sm font-medium text-slate-700">Progreso de registro</span>
+                    <span class="text-sm font-bold text-celeste" x-text="tecnicoProgress + '%'"></span>
+                </div>
+                <div class="w-full bg-slate-200 rounded-full h-2.5">
+                    <div class="bg-gradient-to-r from-celeste to-dorado h-2.5 rounded-full transition-all duration-500" :style="'width: ' + tecnicoProgress + '%'"></div>
+                </div>
+            </div>
+
+            <!-- Formulario Técnico -->
+            <div class="bg-white rounded-2xl shadow-lg p-8 border border-slate-200">
+                <form @submit.prevent="submitTecnicoForm()" class="space-y-8">
+                    
+                    <!-- Datos Personales -->
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
+                            <span class="w-8 h-8 bg-celeste text-white rounded-full flex items-center justify-center text-sm font-bold">1</span>
+                            Datos personales y fiscales
+                        </h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Nombre completo *</label>
+                                <input type="text" x-model="tecnicoForm.nombre" required class="input-tuerk w-full px-4 py-3 rounded-xl bg-white text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">CUIT/CUIL *</label>
+                                <input type="text" x-model="tecnicoForm.cuit" required placeholder="XX-XXXXXXXX-X" class="input-tuerk w-full px-4 py-3 rounded-xl bg-white text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Email *</label>
+                                <input type="email" x-model="tecnicoForm.email" required class="input-tuerk w-full px-4 py-3 rounded-xl bg-white text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Teléfono *</label>
+                                <input type="tel" x-model="tecnicoForm.telefono" required class="input-tuerk w-full px-4 py-3 rounded-xl bg-white text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Especialidad principal *</label>
+                                <select x-model="tecnicoForm.especialidad" required class="input-tuerk w-full px-4 py-3 rounded-xl bg-white text-sm">
+                                    <option value="">Seleccioná tu especialidad</option>
+                                    <option value="electricista">Electricista</option>
+                                    <option value="plomero">Plomero / Gasista</option>
+                                    <option value="refrigeracion">Refrigeración / Aire Acondicionado</option>
+                                    <option value="carpintero">Carpintero</option>
+                                    <option value="albanil">Albañil / Construcción</option>
+                                    <option value="tecnico_pc">Técnico de PC / Redes</option>
+                                    <option value="otro">Otro</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Años de experiencia *</label>
+                                <input type="number" x-model="tecnicoForm.experiencia" required min="0" class="input-tuerk w-full px-4 py-3 rounded-xl bg-white text-sm">
+                            </div>
+                            <div class="md:col-span-2">
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Zona de trabajo (barrios/localidades) *</label>
+                                <input type="text" x-model="tecnicoForm.zona" required placeholder="Ej: Palermo, Recoleta, Belgrano, CABA" class="input-tuerk w-full px-4 py-3 rounded-xl bg-white text-sm">
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="border-slate-200">
+
+                    <!-- Documentación -->
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
+                            <span class="w-8 h-8 bg-dorado text-white rounded-full flex items-center justify-center text-sm font-bold">2</span>
+                            Documentación requerida
+                        </h3>
+                        <p class="text-sm text-slate-600 mb-4">Subí los documentos en formato PDF, JPG o PNG. Todos los campos son obligatorios para completar tu registro.</p>
+                        
+                        <div class="grid md:grid-cols-3 gap-4">
+                            <div class="border-2 border-dashed border-slate-300 rounded-xl p-6 text-center hover:border-celeste transition-colors cursor-pointer" @click="$refs.fileAfip.click()">
+                                <input type="file" x-ref="fileAfip" @change="handleFile($event, 'afip')" accept=".pdf,.jpg,.jpeg,.png" class="hidden">
+                                <svg class="w-10 h-10 text-slate-400 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                                <p class="font-medium text-slate-700 text-sm">Constancia de inscripción en AFIP</p>
+                                <p class="text-xs text-slate-500 mt-1" x-text="tecnicoFiles.afip ? '✓ ' + tecnicoFiles.afip.name : 'Click para subir archivo'"></p>
+                            </div>
+
+                            <div class="border-2 border-dashed border-slate-300 rounded-xl p-6 text-center hover:border-celeste transition-colors cursor-pointer" @click="$refs.fileMatricula.click()">
+                                <input type="file" x-ref="fileMatricula" @change="handleFile($event, 'matricula')" accept=".pdf,.jpg,.jpeg,.png" class="hidden">
+                                <svg class="w-10 h-10 text-slate-400 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"/></svg>
+                                <p class="font-medium text-slate-700 text-sm">Matrícula / Habilitación profesional</p>
+                                <p class="text-xs text-slate-500 mt-1" x-text="tecnicoFiles.matricula ? '✓ ' + tecnicoFiles.matricula.name : 'Click para subir archivo'"></p>
+                            </div>
+
+                            <div class="border-2 border-dashed border-slate-300 rounded-xl p-6 text-center hover:border-celeste transition-colors cursor-pointer" @click="$refs.fileAntecedentes.click()">
+                                <input type="file" x-ref="fileAntecedentes" @change="handleFile($event, 'antecedentes')" accept=".pdf,.jpg,.jpeg,.png" class="hidden">
+                                <svg class="w-10 h-10 text-slate-400 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                <p class="font-medium text-slate-700 text-sm">Antecedentes Penales (RNR)</p>
+                                <p class="text-xs text-slate-500 mt-1" x-text="tecnicoFiles.antecedentes ? '✓ ' + tecnicoFiles.antecedentes.name : 'Click para subir archivo'"></p>
+                            </div>
+                        </div>
+
+                        <p class="text-xs text-slate-500 mt-3">
+                            <strong>Nota:</strong> Los documentos serán verificados de forma automatizada. TUERK no garantiza la autenticidad de la documentación presentada. El cliente es responsable de verificar la idoneidad del técnico contratado. No se requiere DNI ni póliza de seguro para el registro inicial. El certificado de antecedentes penales debe ser emitido por el Registro Nacional de Reincidencia (RNR).
+                        </p>
+                    </div>
+
+                    <hr class="border-slate-200">
+
+                    <!-- Términos y condiciones -->
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
+                            <span class="w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center text-sm font-bold">3</span>
+                            Términos y condiciones
+                        </h3>
+
+                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 mb-4">
+                            <h4 class="font-semibold text-slate-900 mb-2 text-sm">Acerca del canon del 1%</h4>
+                            <p class="text-sm text-slate-600 mb-3">
+                                Para acceder a los datos de contacto de un cliente, deberás abonar un canon equivalente al <strong>1%</strong> sobre el costo estimado del arreglo. Este monto se calcula automáticamente en base a la información del caso y se debita de tu saldo en la plataforma.
+                            </p>
+                            <ul class="text-sm text-slate-600 space-y-1 list-disc list-inside">
+                                <li>El canon se abona <strong>antes</strong> de acceder a los datos del cliente</li>
+                                <li>Una vez abonado, no hay reembolso si el cliente cancela</li>
+                                <li>El canon no incluye IVA (si corresponde)</li>
+                                <li>Podés cargar saldo mediante transferencia bancaria o MercadoPago</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-4">
+                            <p class="text-amber-800 text-sm">
+                                <strong>Relación contractual:</strong> Al registrarte, confirmás que sos un profesional independiente y que TUERK no es tu empleador. Vos decidís qué trabajos aceptar, a qué precio y en qué horarios. La relación contractual es directamente entre vos y el cliente. No te asignamos trabajos, no controlamos tu agenda, no te pagamos salario.
+                            </p>
+                        </div>
+
+                        <div class="space-y-4">
+                            <label class="flex items-start gap-3 cursor-pointer">
+                                <input type="checkbox" x-model="tecnicoForm.aceptaCanon" required class="mt-1 w-5 h-5 text-celeste rounded border-slate-300 focus:ring-celeste">
+                                <span class="text-sm text-slate-700">Entiendo que debo abonar un canon del 1% sobre el costo estimado para acceder a los datos de contacto de cada cliente. *</span>
+                            </label>
+
+                            <label class="flex items-start gap-3 cursor-pointer">
+                                <input type="checkbox" x-model="tecnicoForm.aceptaIndependiente" required class="mt-1 w-5 h-5 text-celeste rounded border-slate-300 focus:ring-celeste">
+                                <span class="text-sm text-slate-700">Confirmo que soy un profesional independiente, que TUERK no es mi empleador, y que la relación contractual es directamente entre el cliente y yo. *</span>
+                            </label>
+
+                            <label class="flex items-start gap-3 cursor-pointer">
+                                <input type="checkbox" x-model="tecnicoForm.aceptaDocumentacion" required class="mt-1 w-5 h-5 text-celeste rounded border-slate-300 focus:ring-celeste">
+                                <span class="text-sm text-slate-700">Declaro que la documentación presentada es auténtica y que soy responsable de su veracidad. *</span>
+                            </label>
+
+                            <label class="flex items-start gap-3 cursor-pointer">
+                                <input type="checkbox" x-model="tecnicoForm.aceptaDatos" required class="mt-1 w-5 h-5 text-celeste rounded border-slate-300 focus:ring-celeste">
+                                <span class="text-sm text-slate-700">Acepto el tratamiento de mis datos personales conforme la Ley 25.326 y los Términos y Condiciones de TUERK. *</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-dorado w-full text-white py-4 rounded-xl font-bold text-lg shadow-lg disabled:opacity-50 disabled:cursor-not-allowed" :disabled="!tecnicoForm.aceptaCanon || !tecnicoForm.aceptaIndependiente || !tecnicoForm.aceptaDocumentacion || !tecnicoForm.aceptaDatos || !tecnicoFiles.afip || !tecnicoFiles.matricula || !tecnicoFiles.antecedentes">
+                        Completar registro
+                    </button>
+                </form>
+            </div>
+
+            <!-- Confirmación -->
+            <div x-show="tecnicoRegistrado" x-transition class="max-w-2xl mx-auto text-center py-20">
+                <div class="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6 text-5xl pulse-glow">✅</div>
+                <h2 class="text-3xl font-display font-bold text-slate-900 mb-4">¡Registro enviado!</h2>
+                <p class="text-slate-600 mb-2">Tu solicitud está siendo revisada.</p>
+                <p class="text-slate-600 mb-8 max-w-lg mx-auto">Una vez aprobada tu documentación, recibirás un email con las instrucciones para comenzar a recibir casos. El proceso de verificación puede demorar hasta 48 horas hábiles.</p>
+
+                <div class="bg-white p-6 rounded-xl border border-slate-200 mb-8 text-left max-w-lg mx-auto shadow-sm">
+                    <h4 class="font-bold text-slate-900 mb-3">¿Qué sigue?</h4>
+                    <ol class="space-y-2 text-sm text-slate-600 list-decimal list-inside">
+                        <li>Revisamos tu documentación (hasta 48hs hábiles)</li>
+                        <li>Te enviamos un email de confirmación</li>
+                        <li>Cargás saldo en tu cuenta para poder acceder a casos</li>
+                        <li>Comenzás a recibir notificaciones de clientes en tu zona</li>
+                        <li>Elegís qué casos aceptar y abonás el canon del 1%</li>
+                    </ol>
+                </div>
+
+                <button @click="resetTecnico()" class="btn-dorado text-white px-8 py-3 rounded-xl font-bold">
+                    Volver al inicio
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- VIEW: TÉRMINOS Y CONDICIONES -->
+    <div x-show="view === 'tyc'" x-transition x-cloak class="min-h-screen bg-slate-50 pb-20">
+        <div class="bg-white border-b border-slate-200">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                <button @click="view = 'home'" class="text-sm text-slate-500 hover:text-slate-700 flex items-center gap-1 mb-4">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                    Volver al inicio
+                </button>
+                <h1 class="text-2xl sm:text-3xl font-display font-bold text-slate-900">Términos y Condiciones</h1>
+                <p class="text-slate-600 mt-2">Última actualización: Julio de 2026</p>
+            </div>
+        </div>
+
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="bg-white rounded-2xl shadow-lg p-8 border border-slate-200 space-y-8">
+
+                <div class="bg-amber-50 border-l-4 border-amber-400 p-4 rounded-r-lg">
+                    <p class="text-sm text-amber-800">
+                        <strong>Aviso legal general:</strong> TUERK es una plataforma de intermediación pasiva. No somos empleadores, no seleccionamos técnicos, no verificamos antecedentes más allá de la documentación autopresentada, no supervisamos trabajos, no garantizamos idoneidad y no fijamos tarifas. La relación contractual es exclusivamente entre el cliente y el técnico.
+                    </p>
+                </div>
+
+                <section>
+                    <h2 class="text-xl font-bold text-slate-900 mb-4">1. Naturaleza jurídica y declaración de neutralidad</h2>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-3">
+                        TUERK (la "Plataforma") es un entorno tecnológico de intermediación y negociación operado exclusivamente bajo la modalidad de locación de software de gestión administrativa ("Secretaría Digital").
+                    </p>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-3">
+                        La Plataforma <strong>no es una empresa de servicios técnicos</strong>, no ofrece servicios de reparación, no es parte, no fija honorarios ni aranceles obligatorios, ni interviene en la relación contractual civil o comercial que se celebre de forma autónoma y privada entre el usuario solicitante (el "Cliente") y el profesional técnico independiente matriculado (el "Técnico"). La Plataforma se limita a proveer el soporte digital para el cruce de oferta y demanda y la gestión de la facturación.
+                    </p>
+                </section>
+
+                <section>
+                    <h2 class="text-xl font-bold text-slate-900 mb-4">2. Condición fiscal y autonomía profesional</h2>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-3">
+                        El Técnico que se postule para operar dentro de la cartelera activa de la Plataforma manifiesta, con carácter de <strong>Declaración Jurada</strong>, que reviste la condición de profesional autónomo independiente (Monotributista o Responsable Inscripto).
+                    </p>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-3">
+                        El alta en la Plataforma <strong>no genera, bajo ninguna circunstancia</strong>, relación de dependencia laboral, subordinación jurídica ni vínculo de empleo entre el Técnico y la Plataforma, rigiéndose la actividad por las normas de la locación de servicios del Código Civil y Comercial de la Nación (CCyCN). El Técnico es el único responsable por el cumplimiento de sus obligaciones impositivas, previsionales y de cobertura de riesgos.
+                    </p>
+                </section>
+
+                <section>
+                    <h2 class="text-xl font-bold text-slate-900 mb-4">3. Canon de uso de software ("Secretaría Digital")</h2>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-3">
+                        El uso de las herramientas de gestión e intermediación de la Plataforma devenga un cargo administrativo equivalente al <strong>uno por ciento (1%)</strong> sobre el valor total de la locación de servicios privada efectivamente celebrada y percibida por el Técnico. Dicha tasa se liquidará de forma digital a través de los canales de pago autorizados (Mercado Pago o equivalente) previo al inicio de las tareas o según el esquema de cuenta corriente interna.
+                    </p>
+                </section>
+
+                <section>
+                    <h2 class="text-xl font-bold text-slate-900 mb-4">4. Obligaciones del técnico y auditoría de legajos</h2>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-3">
+                        Para ser habilitado en la cartelera de servicios de la Ciudad Autónoma de Buenos Aires (CABA), el Técnico se obliga a suministrar de forma fidedigna y actualizada:
+                    </p>
+                    <ul class="text-sm text-slate-600 space-y-1 list-disc list-inside mb-3">
+                        <li>Constancia de Opción AFIP vigente.</li>
+                        <li>Matrícula Profesional o Certificado de Idoneidad Técnica aplicable a su especialidad.</li>
+                        <li>Certificado de Antecedentes Penales emitido por el Registro Nacional de Reincidencia (RNR).</li>
+                    </ul>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-3">
+                        El Técnico declara bajo juramento que cuenta con cobertura de seguro de responsabilidad civil y que mantiene vigente su documentación personal (DNI). No se exige la carga de dichos documentos en el registro inicial, pero la Plataforma se reserva el derecho de solicitarlos en cualquier momento como condición de continuidad.
+                    </p>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        La Plataforma se reserva el derecho vinculante de auditar la documentación en un plazo máximo de veinticuatro (24) horas hábiles antes de otorgar el alta definitiva. La falsedad u omisión de los datos dará lugar a la baja inmediata y definitiva del perfil sin derecho a réplica.
+                    </p>
+                </section>
+
+                <section>
+                    <h2 class="text-xl font-bold text-slate-900 mb-4">5. Política de protección de datos personales (Ley Nº 25.326)</h2>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-3">
+                        En estricto cumplimiento de la Ley de Protección de Datos Personales de la República Argentina (Ley Nº 25.326), la Plataforma informa que:
+                    </p>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-3">
+                        <strong>Finalidad:</strong> Todos los datos e información patrimonial, fiscal y documental recolectada del Técnico (Nombre, CUIT, Email, PDFs respaldatorios) serán tratados con absoluta confidencialidad para el único propósito de validar la idoneidad civil y comercial de su perfil y para el despacho de notificaciones operativas y de liquidación vía correo electrónico.
+                    </p>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-3">
+                        <strong>Resguardo y custodia temporal:</strong> La Plataforma no efectúa archivo ni guarda a largo plazo de las descripciones, imágenes o datos multimedia de incidencias aportados por los Clientes. Una vez aceptada una orden de trabajo por el Técnico, la custodia y el resguardo confidencial de dichos datos comerciales y de localización quedan bajo la exclusiva responsabilidad legal del Técnico locatario independiente, quien deberá velar por el cumplimiento de la Ley 25.326 respecto del Cliente.
+                    </p>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        El titular de los datos personales tiene la facultad de ejercer el derecho de acceso a los mismos en forma gratuita a intervalos no inferiores a seis meses, salvo que se acredite un interés legítimo al efecto conforme lo establecido en el artículo 14, inciso 3 de la Ley Nº 25.326. La DIRECCIÓN NACIONAL DE PROTECCIÓN DE DATOS PERSONALES, Órgano de Control de la Ley Nº 25.326, tiene la atribución de atender las denuncias y reclamos. Sarmiento 1118, piso 5º, C1041AAX CABA. Tel: (011) 4383-8512. datospersonales@jus.gov.ar
+                    </p>
+                </section>
+
+                <section>
+                    <h2 class="text-xl font-bold text-slate-900 mb-4">6. Protocolo obligatorio de admisión civil (CCyCN)</h2>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-3">
+                        Al arribar al domicilio del servicio asignado, el Técnico tiene la obligación legal de constatar que la persona que otorga el acceso al inmueble sea un mayor de dieciocho (18) años con plena capacidad civil para consentir actos jurídicos, validar el pliego técnico y firmar la conformidad del servicio.
+                    </p>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Si el acceso es pretendido por un menor de edad o persona sin discernimiento legal aparente, el Técnico <strong>no deberá iniciar tareas bajo ninguna circunstancia</strong>, debiendo reportar la incidencia de forma inmediata a la central logística de la Plataforma para proceder a la cancelación justificada del servicio por culpa del usuario solicitante.
+                    </p>
+                </section>
+
+                <section>
+                    <h2 class="text-xl font-bold text-slate-900 mb-4">7. Exclusión de responsabilidad y praxis</h2>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-3">
+                        Dado que la Plataforma actúa como un mero intermediario tecnológico, <strong>no asume responsabilidad solidaria ni subsidiaria alguna</strong> por:
+                    </p>
+                    <ul class="text-sm text-slate-600 space-y-1 list-disc list-inside mb-3">
+                        <li>Daños materiales, vicios redhibitorios, fallas estructurales o mala praxis derivados de las tareas de reparación ejecutadas por el Técnico.</li>
+                        <li>Incumplimientos, retrasos o cancelaciones de las partes.</li>
+                        <li>Pérdida, sustracción o daños que sufran los Técnicos en el trayecto o dentro del domicilio del Cliente.</li>
+                    </ul>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        El Técnico mantendrá indemne a la Plataforma ante cualquier reclamo judicial o extrajudicial que pudiera promover el Cliente o terceros como consecuencia directa o indirecta de su actividad profesional.
+                    </p>
+                </section>
+
+                <section>
+                    <h2 class="text-xl font-bold text-slate-900 mb-4">8. Propiedad intelectual</h2>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        El nombre, logo y diseño de TUERK son propiedad exclusiva de sus titulares. Queda prohibida su reproducción, distribución o uso no autorizado.
+                    </p>
+                </section>
+
+                <section>
+                    <h2 class="text-xl font-bold text-slate-900 mb-4">9. Jurisdicción y ley aplicable</h2>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Estos Términos y Condiciones se rigen por las leyes de la República Argentina. Cualquier controversia será sometida a los tribunales ordinarios de la Ciudad Autónoma de Buenos Aires, con renuncia a cualquier otro fuero o jurisdicción.
+                    </p>
+                </section>
+
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 mt-8">
+                    <p class="text-sm text-slate-600 text-center">
+                        Al usar TUERK, aceptás estos Términos y Condiciones en su totalidad. Si no estás de acuerdo, no uses la plataforma.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-900 text-slate-400 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <svg class="w-8 h-8" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="celesteRingF" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#A8D0F0"/>
+                                    <stop offset="50%" stop-color="#75AADB"/>
+                                    <stop offset="100%" stop-color="#4A90C2"/>
+                                </linearGradient>
+                                <linearGradient id="goldTopF" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" stop-color="#FFF5C3"/>
+                                    <stop offset="40%" stop-color="#E8D070"/>
+                                    <stop offset="100%" stop-color="#D4AF37"/>
+                                </linearGradient>
+                                <linearGradient id="goldSideF" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#D4AF37"/>
+                                    <stop offset="50%" stop-color="#B8941F"/>
+                                    <stop offset="100%" stop-color="#8B6914"/>
+                                </linearGradient>
+                                <linearGradient id="goldBottomF" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" stop-color="#B8941F"/>
+                                    <stop offset="100%" stop-color="#6B4F0A"/>
+                                </linearGradient>
+                                <radialGradient id="hole3DF" cx="50%" cy="50%" r="50%">
+                                    <stop offset="0%" stop-color="#3D2E05"/>
+                                    <stop offset="70%" stop-color="#6B4F0A"/>
+                                    <stop offset="100%" stop-color="#B8941F"/>
+                                </radialGradient>
+                                <linearGradient id="threadGradF" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#E8D070"/>
+                                    <stop offset="100%" stop-color="#8B6914"/>
+                                </linearGradient>
+                            </defs>
+                            <circle cx="60" cy="60" r="56" fill="none" stroke="url(#celesteRingF)" stroke-width="3" opacity="0.9"/>
+                            <circle cx="60" cy="60" r="52" fill="none" stroke="#A8D0F0" stroke-width="1" opacity="0.4"/>
+                            <ellipse cx="60" cy="108" rx="35" ry="8" fill="#000" opacity="0.15"/>
+                            <polygon points="60,8 106,34.5 106,85.5 60,112 14,85.5 14,34.5" 
+                                     fill="url(#goldTopF)" stroke="#B8941F" stroke-width="1.5"/>
+                            <polygon points="106,34.5 106,85.5 100,82 100,37" fill="url(#goldSideF)" opacity="0.9"/>
+                            <polygon points="106,85.5 60,112 60,106 100,82" fill="url(#goldBottomF)" opacity="0.85"/>
+                            <polygon points="60,112 14,85.5 20,82 60,106" fill="url(#goldBottomF)" opacity="0.8"/>
+                            <polygon points="14,85.5 14,34.5 20,37 20,82" fill="url(#goldSideF)" opacity="0.9"/>
+                            <polygon points="14,34.5 60,8 60,14 20,37" fill="url(#goldSideF)" opacity="0.95"/>
+                            <polygon points="60,8 106,34.5 100,37 60,14" fill="url(#goldTopF)" opacity="0.95"/>
+                            <polygon points="60,18 93.3,37.2 93.3,82.8 60,102 26.7,82.8 26.7,37.2" 
+                                     fill="none" stroke="#E8D070" stroke-width="1.2" opacity="0.7"/>
+                            <circle cx="60" cy="60" r="20" fill="url(#hole3DF)" stroke="#D4AF37" stroke-width="2.5"/>
+                            <circle cx="60" cy="60" r="16" fill="none" stroke="url(#threadGradF)" stroke-width="1" opacity="0.6"/>
+                            <circle cx="60" cy="60" r="12" fill="none" stroke="url(#threadGradF)" stroke-width="1" opacity="0.5"/>
+                            <circle cx="60" cy="60" r="8" fill="none" stroke="url(#threadGradF)" stroke-width="0.8" opacity="0.4"/>
+                            <polygon points="60,8 75,17.5 60,27 45,17.5" fill="#FFF5C3" opacity="0.6"/>
+                            <polygon points="60,8 68,12.5 60,17 52,12.5" fill="#FFFFFF" opacity="0.8"/>
+                            <polygon points="106,34.5 106,50 96,44" fill="#E8D070" opacity="0.3"/>
+                            <polygon points="14,34.5 24,40 14,46" fill="#E8D070" opacity="0.3"/>
+                            <polygon points="60,8 106,34.5 106,85.5 60,112 14,85.5 14,34.5" 
+                                     fill="none" stroke="#E8D070" stroke-width="0.8" opacity="0.5"/>
+                        </svg>
+                        <span class="text-xl font-display font-black text-dorado-gradient">TUERK</span>
+                    </div>
+                    <p class="text-sm">Técnicos que hablan tu idioma. Intermediación pasiva en Argentina.</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-3">Plataforma</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><button @click="view = 'cliente'" class="hover:text-celeste transition-colors">Soy Cliente</button></li>
+                        <li><button @click="view = 'tecnico'" class="hover:text-celeste transition-colors">Soy Técnico</button></li>
+                        <li><button @click="view = 'tyc'" class="hover:text-celeste transition-colors">Términos y Condiciones</button></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-3">Legal</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><span class="text-slate-500">Ley 25.326 de Protección de Datos</span></li>
+                        <li><span class="text-slate-500">Intermediación pasiva</span></li>
+                        <li><span class="text-slate-500">Sin relación laboral</span></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-3">Contacto</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li>Argentina</li>
+                        <li><a href="mailto:tuerkargentina@gmail.com" class="text-slate-500 hover:text-celeste transition-colors">tuerkargentina@gmail.com</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-slate-800 pt-8 text-center text-xs text-slate-600">
+                <p>© 2026 TUERK. Todos los derechos reservados.</p>
+                <p class="mt-2">TUERK es una plataforma de intermediación pasiva. No somos empleadores, no garantizamos servicios.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ALPINE.JS APP LOGIC -->
+    <script>
+        function tuerkApp() {
+            return {
+                view: 'home',
+                mobileMenu: false,
+
+                // Cliente
+                clienteStep: 1,
+                categoriaSelected: null,
+                chatMessages: [],
+                anaTyping: false,
+                diagnosticoComplete: false,
+                diagnostico: {
+                    categoria: '',
+                    sintoma: '',
+                    antiguedad: '',
+                    urgencia: ''
+                },
+                tecnicoSelected: null,
+                clienteForm: {
+                    nombre: '',
+                    email: '',
+                    telefono: '',
+                    direccion: '',
+                    horario: '',
+                    notas: '',
+                    aceptaLey: false,
+                    aceptaDisclaimer: false
+                },
+                clienteFiles: [],
+                anaFiles: [],
+
+                // Técnico
+                tecnicoProgress: 0,
+                tecnicoForm: {
+                    nombre: '',
+                    cuit: '',
+                    email: '',
+                    telefono: '',
+                    especialidad: '',
+                    experiencia: '',
+                    zona: '',
+                    aceptaCanon: false,
+                    aceptaIndependiente: false,
+                    aceptaDocumentacion: false,
+                    aceptaDatos: false
+                },
+                tecnicoFiles: {
+                    afip: null,
+                    matricula: null,
+                    antecedentes: null
+                },
+                tecnicoRegistrado: false,
+
+                // Datos
+                categorias: [
+                    { id: 'electricidad', nombre: 'Electricidad', descripcion: 'Instalaciones, cortocircuitos, llaves térmicas, luminarias', icon: '⚡' },
+                    { id: 'plomeria', nombre: 'Plomería / Gas', descripcion: 'Filtraciones, desagües, instalación de gas, termotanques', icon: '🔧' },
+                    { id: 'refrigeracion', nombre: 'Refrigeración / Aire', descripcion: 'Heladeras, aires acondicionados, freezers, cámaras frigoríficas', icon: '❄️' },
+                    { id: 'carpinteria', nombre: 'Carpintería', descripcion: 'Puertas, ventanas, muebles, deck, pérgolas', icon: '🪵' },
+                    { id: 'construccion', nombre: 'Construcción / Albañilería', descripcion: 'Revoques, pisos, mampostería, refacciones generales', icon: '🧱' },
+                    { id: 'tecnico_pc', nombre: 'PC / Redes / Celulares', descripcion: 'Reparación de computadoras, instalación de redes, celulares', icon: '💻' }
+                ],
+
+                tecnicos: [
+                    { id: 1, nombre: 'Carlos Rodríguez', especialidad: 'Refrigeración / Aire Acondicionado', zona: 'Palermo, Recoleta, Belgrano', experiencia: 15, match: 98, tags: ['Heladeras', 'Aires', 'Freezers'], matricula: true },
+                    { id: 2, nombre: 'María González', especialidad: 'Electricista Matriculada', zona: 'Caballito, Almagro, Boedo', experiencia: 12, match: 95, tags: ['Instalaciones', 'Domicilios', 'Comercios'], matricula: true },
+                    { id: 3, nombre: 'Jorge Pérez', especialidad: 'Plomero / Gasista', zona: 'Villa Crespo, Chacarita, Colegiales', experiencia: 20, match: 92, tags: ['Gas', 'Agua', 'Desagües'], matricula: true },
+                    { id: 4, nombre: 'Lucía Fernández', especialidad: 'Técnica de PC / Redes', zona: 'San Telmo, Monserrat, Puerto Madero', experiencia: 8, match: 90, tags: ['PC', 'Notebooks', 'Redes'], matricula: true },
+                    { id: 5, nombre: 'Roberto Sánchez', especialidad: 'Carpintero', zona: 'Nuñez, Saavedra, Coghlan', experiencia: 25, match: 88, tags: ['Muebles', 'Puertas', 'Deck'], matricula: true },
+                    { id: 6, nombre: 'Ana Martínez', especialidad: 'Albañil / Construcción', zona: 'Flores, Floresta, Villa del Parque', experiencia: 18, match: 85, tags: ['Revoques', 'Pisos', 'Refacciones'], matricula: true }
+                ],
+
+                initApp() {
+                    // Inicialización si es necesaria
+                },
+
+                // Cliente methods
+                selectCategoria(cat) {
+                    this.categoriaSelected = cat;
+                    this.clienteStep = 2;
+                    this.iniciarChat();
+                },
+
+                iniciarChat() {
+                    this.chatMessages = [];
+                    this.diagnosticoComplete = false;
+                    this.diagnostico = { categoria: this.categoriaSelected.nombre, sintoma: '', antiguedad: '', urgencia: '' };
+
+                    setTimeout(() => {
+                        this.addAnaMessage('¡Hola! Soy Ana, tu analista de caso. Contame qué te está pasando con el "cosito". No hace falta que uses términos técnicos. 😊');
+                    }, 500);
+                },
+
+                addAnaMessage(text, options = null) {
+                    this.chatMessages.push({ from: 'ana', text: text, options: options });
+                    this.scrollChat();
+                },
+
+                addUserMessage(text) {
+                    this.chatMessages.push({ from: 'user', text: text });
+                    this.scrollChat();
+                },
+
+                scrollChat() {
+                    this.$nextTick(() => {
+                        const container = document.getElementById('chat-container');
+                        if (container) container.scrollTop = container.scrollHeight;
+                    });
+                },
+
+                responderAna(respuesta) {
+                    this.addUserMessage(respuesta);
+                    this.anaTyping = true;
+
+                    setTimeout(() => {
+                        this.anaTyping = false;
+                        this.procesarRespuesta(respuesta);
+                    }, 1500);
+                },
+
+                procesarRespuesta(respuesta) {
+                    const msgs = this.chatMessages;
+                    const anaCount = msgs.filter(m => m.from === 'ana').length;
+
+                    if (anaCount === 1) {
+                        this.diagnostico.sintoma = respuesta;
+                        this.addAnaMessage('Entiendo. ¿Hace cuánto tiempo tenés el aparato? Esto me ayuda a estimar si conviene reparar o cambiar.', ['Menos de 2 años', 'Entre 2 y 5 años', 'Más de 5 años', 'No estoy seguro']);
+                    } else if (anaCount === 2) {
+                        this.diagnostico.antiguedad = respuesta;
+                        this.addAnaMessage('¿Qué tan urgente es el arreglo?', ['Muy urgente — no funciona', 'Moderado — puedo esperar unos días', 'Baja — es una mejora, no una emergencia']);
+                    } else if (anaCount === 3) {
+                        this.diagnostico.urgencia = respuesta;
+                        this.addAnaMessage('Perfecto, ya tengo toda la información. Preparando tu diagnóstico preliminar...');
+                        setTimeout(() => {
+                            this.diagnosticoComplete = true;
+                        }, 1000);
+                    }
+                },
+
+                get tecnicosFiltrados() {
+                    if (!this.categoriaSelected) return this.tecnicos;
+                    const catMap = {
+                        'electricidad': 'Electricista',
+                        'plomeria': 'Plomero',
+                        'refrigeracion': 'Refrigeración',
+                        'carpinteria': 'Carpintero',
+                        'construccion': 'Albañil',
+                        'tecnico_pc': 'PC'
+                    };
+                    const filtro = catMap[this.categoriaSelected.id];
+                    return this.tecnicos.filter(t => t.especialidad.toLowerCase().includes(filtro.toLowerCase()));
+                },
+
+                selectTecnico(tec) {
+                    this.tecnicoSelected = tec;
+                    this.clienteStep = 4;
+                },
+
+                submitClienteForm() {
+                    // Simular envío
+                    this.clienteStep = 5;
+                },
+
+                addAnaFile(event) {
+                    const files = Array.from(event.target.files);
+                    files.forEach(file => {
+                        if (this.anaFiles.length >= 2) return;
+                        if (file.size > 10 * 1024 * 1024) {
+                            alert('El archivo "' + file.name + '" supera los 10 MB.');
+                            return;
+                        }
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            this.anaFiles.push({
+                                name: file.name,
+                                type: file.type,
+                                size: file.size,
+                                preview: e.target.result
+                            });
+                            // Mostrar mensaje de confirmación en el chat
+                            this.addAnaMessage('📎 Archivo adjunto: <strong>' + file.name + '</strong>. Esto me ayuda a entender mejor el problema.');
+                        };
+                        reader.readAsDataURL(file);
+                    });
+                    event.target.value = '';
+                },
+
+                removeAnaFile(index) {
+                    this.anaFiles.splice(index, 1);
+                },
+
+                addClienteFile(event) {
+                    const files = Array.from(event.target.files);
+                    files.forEach(file => {
+                        if (this.clienteFiles.length >= 4) return;
+                        if (file.size > 10 * 1024 * 1024) {
+                            alert('El archivo "' + file.name + '" supera los 10 MB.');
+                            return;
+                        }
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            this.clienteFiles.push({
+                                name: file.name,
+                                type: file.type,
+                                size: file.size,
+                                preview: e.target.result
+                            });
+                        };
+                        reader.readAsDataURL(file);
+                    });
+                    event.target.value = '';
+                },
+
+                removeClienteFile(index) {
+                    this.clienteFiles.splice(index, 1);
+                },
+
+                resetCliente() {
+                    this.clienteStep = 1;
+                    this.categoriaSelected = null;
+                    this.tecnicoSelected = null;
+                    this.diagnosticoComplete = false;
+                    this.chatMessages = [];
+                    this.anaFiles = [];
+                    this.clienteForm = {
+                        nombre: '', email: '', telefono: '', direccion: '',
+                        horario: '', notas: '', aceptaLey: false, aceptaDisclaimer: false
+                    };
+                    this.clienteFiles = [];
+                },
+
+                // Técnico methods
+                handleFile(event, tipo) {
+                    const file = event.target.files[0];
+                    if (file) {
+                        this.tecnicoFiles[tipo] = file;
+                        this.calcularProgreso();
+                    }
+                },
+
+                calcularProgreso() {
+                    let campos = ['nombre', 'cuit', 'email', 'telefono', 'especialidad', 'experiencia', 'zona'];
+                    let completados = campos.filter(c => this.tecnicoForm[c] && this.tecnicoForm[c].toString().trim() !== '').length;
+                    let docs = Object.values(this.tecnicoFiles).filter(f => f !== null).length; // Solo AFIP y Matrícula
+                    let checks = ['aceptaCanon', 'aceptaIndependiente', 'aceptaDocumentacion', 'aceptaDatos'].filter(c => this.tecnicoForm[c]).length;
+
+                    let total = campos.length + 4 + 4;
+                    let done = completados + docs + checks;
+                    this.tecnicoProgress = Math.round((done / total) * 100);
+                },
+
+                submitTecnicoForm() {
+                    this.tecnicoRegistrado = true;
+                },
+
+                resetTecnico() {
+                    this.tecnicoRegistrado = false;
+                    this.tecnicoProgress = 0;
+                    this.tecnicoForm = {
+                        nombre: '', cuit: '', email: '', telefono: '',
+                        especialidad: '', experiencia: '', zona: '',
+                        aceptaCanon: false, aceptaIndependiente: false,
+                        aceptaDocumentacion: false, aceptaDatos: false
+                    };
+                    this.tecnicoFiles = { afip: null, matricula: null, antecedentes: null };
+                    this.view = 'home';
+                }
+            }
+        }
+    </script>
+
 </body>
 </html>
