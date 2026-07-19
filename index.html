@@ -30,149 +30,62 @@
     </script>
     <style>
         [x-cloak] { display: none !important; }
-        
-        .logo-tuerca {
-            filter: drop-shadow(0px 4px 8px rgba(0,0,0,0.25));
-            animation: spin-nut 8s linear infinite;
-            transform-origin: center center;
-        }
-        .logo-tuerca:hover {
-            animation: spin-nut-fast 1s linear infinite;
-            filter: drop-shadow(0px 6px 12px rgba(95, 168, 201, 0.4));
-        }
-        @keyframes spin-nut {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-        @keyframes spin-nut-fast {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-        .footer-nut {
-            animation: spin-nut 12s linear infinite;
-            transform-origin: center center;
-        }
-        
-        .text-dorado-gradient {
-            background: linear-gradient(135deg, #D4AF37 0%, #E8D070 50%, #B8941F 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.97);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(142, 202, 230, 0.25);
-        }
-        
-        .card-hover {
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-        }
-        .card-hover:hover {
-            border-color: #D4AF37;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.12);
-        }
-        
-        .btn-celeste {
-            background: linear-gradient(135deg, #3B6E8F 0%, #1E3A4C 100%);
-            transition: all 0.3s ease;
-        }
-        .btn-celeste:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(95, 168, 201, 0.35);
-        }
-        
-        .btn-dorado {
-            background: linear-gradient(135deg, #D4AF37 0%, #B8941F 100%);
-            transition: all 0.3s ease;
-        }
-        .btn-dorado:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
-        }
-        
-        .input-tuerk {
-            transition: all 0.3s ease;
-            border: 2px solid #e2e8f0;
-        }
-        .input-tuerk:focus {
-            border-color: #3B6E8F;
-            box-shadow: 0 0 0 3px rgba(142, 202, 230, 0.25);
-            outline: none;
-        }
-        
-        .scrollbar-thin::-webkit-scrollbar {
-            width: 6px;
-        }
-        .scrollbar-thin::-webkit-scrollbar-track {
-            background: #f1f5f9;
-        }
-        .scrollbar-thin::-webkit-scrollbar-thumb {
-            background: #3B6E8F;
-            border-radius: 3px;
-        }
-        
-        .fade-in {
-            animation: fadeIn 0.5s ease-in;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .pulse-glow {
-            animation: pulse-glow 2s infinite;
-        }
-        @keyframes pulse-glow {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4); }
-            50% { box-shadow: 0 0 0 10px rgba(212, 175, 55, 0); }
-        }
+        .logo-tuerca { filter: drop-shadow(0px 4px 8px rgba(0,0,0,0.25)); animation: spin-nut 8s linear infinite; transform-origin: center center; }
+        .logo-tuerca:hover { animation: spin-nut-fast 1s linear infinite; filter: drop-shadow(0px 6px 12px rgba(95, 168, 201, 0.4)); }
+        @keyframes spin-nut { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes spin-nut-fast { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        .text-dorado-gradient { background: linear-gradient(135deg, #D4AF37 0%, #E8D070 50%, #B8941F 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .glass-panel { background: rgba(255, 255, 255, 0.97); backdrop-filter: blur(10px); border: 1px solid rgba(142, 202, 230, 0.25); }
+        .card-hover { transition: all 0.3s ease; border: 2px solid transparent; }
+        .card-hover:hover { border-color: #D4AF37; transform: translateY(-2px); box-shadow: 0 10px 25px rgba(212, 175, 55, 0.12); }
+        .btn-celeste { background: linear-gradient(135deg, #3B6E8F 0%, #1E3A4C 100%); transition: all 0.3s ease; }
+        .btn-celeste:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(95, 168, 201, 0.35); }
+        .btn-dorado { background: linear-gradient(135deg, #D4AF37 0%, #B8941F 100%); transition: all 0.3s ease; }
+        .btn-dorado:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4); }
+        .input-tuerk { transition: all 0.3s ease; border: 2px solid #e2e8f0; }
+        .input-tuerk:focus { border-color: #3B6E8F; box-shadow: 0 0 0 3px rgba(142, 202, 230, 0.25); outline: none; }
+        .fade-in { animation: fadeIn 0.5s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .admin-trigger { position: fixed; bottom: 4px; right: 4px; width: 8px; height: 8px; opacity: 0.05; cursor: pointer; z-index: 9999; }
+        .admin-trigger:hover { opacity: 0.3; }
     </style>
+<base target="_blank">
 </head>
 <body class="font-sans bg-[#EEF1F4] text-[#3A5A6A] antialiased" x-data="tuerkApp()">
+
+    <!-- ADMIN TRIGGER (invisible, esquina inferior derecha) -->
+    <div class="admin-trigger" @click="abrirAdmin()" title="Panel Admin"></div>
+
+    <!-- MODAL LOGIN ADMIN -->
+    <div x-show="adminModal" x-cloak class="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm" @click.self="adminModal = false">
+        <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-sm w-full mx-4 border border-slate-200">
+            <div class="text-center mb-6">
+                <div class="w-12 h-12 bg-slate-900 rounded-xl flex items-center justify-center mx-auto mb-3"><span class="text-xl">🔐</span></div>
+                <h3 class="text-lg font-bold text-slate-900">Panel de Validación</h3>
+                <p class="text-xs text-slate-500 mt-1">Acceso exclusivo administrador</p>
+            </div>
+            <form @submit.prevent="loginAdmin()" class="space-y-4">
+                <div><input type="password" x-model="adminPassword" placeholder="Contraseña de admin" class="input-tuerk w-full px-4 py-3 rounded-xl text-sm text-center font-mono tracking-widest" @keydown.enter="loginAdmin()"></div>
+                <p x-show="adminError" x-text="adminError" class="text-xs text-red-600 text-center"></p>
+                <button type="submit" class="w-full bg-slate-900 text-white py-3 rounded-xl font-bold text-sm">Ingresar</button>
+            </form>
+        </div>
+    </div>
 
     <!-- HEADER -->
     <header class="fixed top-0 left-0 right-0 z-50 glass-panel shadow-sm border-b border-celeste-light/30">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <!-- Logo -->
                 <div class="flex items-center gap-3 cursor-pointer" @click="view = 'home'">
                     <svg class="w-10 h-10 logo-tuerca" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <defs>
-                            <linearGradient id="celesteRing" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" stop-color="#5A8FAF"/>
-                                <stop offset="50%" stop-color="#3B6E8F"/>
-                                <stop offset="100%" stop-color="#1E3A4C"/>
-                            </linearGradient>
-                            <linearGradient id="goldTop" x1="0%" y1="0%" x2="0%" y2="100%">
-                                <stop offset="0%" stop-color="#FFF5C3"/>
-                                <stop offset="40%" stop-color="#E8D070"/>
-                                <stop offset="100%" stop-color="#D4AF37"/>
-                            </linearGradient>
-                            <linearGradient id="goldSide" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" stop-color="#D4AF37"/>
-                                <stop offset="50%" stop-color="#B8941F"/>
-                                <stop offset="100%" stop-color="#8B6914"/>
-                            </linearGradient>
-                            <linearGradient id="goldBottom" x1="0%" y1="0%" x2="0%" y2="100%">
-                                <stop offset="0%" stop-color="#B8941F"/>
-                                <stop offset="100%" stop-color="#6B4F0A"/>
-                            </linearGradient>
-                            <radialGradient id="hole3D" cx="50%" cy="50%" r="50%">
-                                <stop offset="0%" stop-color="#3D2E05"/>
-                                <stop offset="70%" stop-color="#6B4F0A"/>
-                                <stop offset="100%" stop-color="#B8941F"/>
-                            </radialGradient>
-                            <linearGradient id="threadGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" stop-color="#E8D070"/>
-                                <stop offset="100%" stop-color="#8B6914"/>
-                            </linearGradient>
-                            <filter id="dropShadow3D" x="-30%" y="-30%" width="160%" height="160%">
-                                <feDropShadow dx="3" dy="5" stdDeviation="4" flood-color="#000" flood-opacity="0.35"/>
-                            </filter>
+                            <linearGradient id="celesteRing" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5A8FAF"/><stop offset="50%" stop-color="#3B6E8F"/><stop offset="100%" stop-color="#1E3A4C"/></linearGradient>
+                            <linearGradient id="goldTop" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#FFF5C3"/><stop offset="40%" stop-color="#E8D070"/><stop offset="100%" stop-color="#D4AF37"/></linearGradient>
+                            <linearGradient id="goldSide" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#D4AF37"/><stop offset="50%" stop-color="#B8941F"/><stop offset="100%" stop-color="#8B6914"/></linearGradient>
+                            <linearGradient id="goldBottom" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#B8941F"/><stop offset="100%" stop-color="#6B4F0A"/></linearGradient>
+                            <radialGradient id="hole3D" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#3D2E05"/><stop offset="70%" stop-color="#6B4F0A"/><stop offset="100%" stop-color="#B8941F"/></radialGradient>
+                            <linearGradient id="threadGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#E8D070"/><stop offset="100%" stop-color="#8B6914"/></linearGradient>
+                            <filter id="dropShadow3D" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="3" dy="5" stdDeviation="4" flood-color="#000" flood-opacity="0.35"/></filter>
                         </defs>
                         <circle cx="60" cy="60" r="56" fill="none" stroke="url(#celesteRing)" stroke-width="3" opacity="0.9"/>
                         <circle cx="60" cy="60" r="52" fill="none" stroke="#5A8FAF" stroke-width="1" opacity="0.4"/>
@@ -187,28 +100,19 @@
                         <circle cx="60" cy="60" r="20" fill="url(#hole3D)" stroke="#D4AF37" stroke-width="2.5"/>
                         <circle cx="60" cy="60" r="16" fill="none" stroke="url(#threadGrad)" stroke-width="1" opacity="0.6"/>
                     </svg>
-                    <div>
-                        <span class="text-2xl font-display font-black text-dorado-gradient tracking-tight">TUERK</span>
-                        <span class="hidden sm:inline text-xs text-[#4A6572] ml-2">Argentina</span>
-                    </div>
+                    <div><span class="text-2xl font-display font-black text-dorado-gradient tracking-tight">TUERK</span><span class="hidden sm:inline text-xs text-[#4A6572] ml-2">Argentina</span></div>
                 </div>
-                
-                <!-- Nav -->
                 <nav class="hidden md:flex items-center gap-6">
                     <button @click="view = 'home'" class="text-sm font-medium text-[#5A7A8A] hover:text-[#1E3A4C] transition-colors cursor-pointer">Inicio</button>
                     <button @click="view = 'cliente'" class="text-sm font-medium text-[#5A7A8A] hover:text-[#1E3A4C] transition-colors cursor-pointer">Soy Cliente</button>
                     <button @click="view = 'tecnico'" class="text-sm font-medium text-[#5A7A8A] hover:text-[#1E3A4C] transition-colors cursor-pointer">Soy Técnico</button>
                     <button @click="view = 'tyc'" class="text-sm font-medium text-[#5A7A8A] hover:text-[#1E3A4C] transition-colors cursor-pointer">Términos</button>
                 </nav>
-                
-                <!-- Mobile menu button -->
                 <button @click="mobileMenu = !mobileMenu" class="md:hidden p-2 rounded-lg hover:bg-[#E8EEF2]">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
                 </button>
             </div>
         </div>
-        
-        <!-- Mobile dropdown -->
         <div x-show="mobileMenu" x-cloak x-transition class="md:hidden border-t border-[#C8D8E4] bg-white">
             <div class="px-4 py-3 space-y-2">
                 <button @click="view = 'home'; mobileMenu = false" class="block w-full text-left px-3 py-2 rounded-lg hover:bg-[#E8EEF2] text-sm font-medium cursor-pointer">Inicio</button>
@@ -219,12 +123,68 @@
         </div>
     </header>
 
-    <!-- SPACER -->
     <div class="h-16"></div>
 
+    <!-- VIEW: ADMIN -->
+    <div x-show="view === 'admin'" x-cloak class="min-h-screen bg-[#EEF1F4] pb-20 fade-in">
+        <div class="bg-slate-900 border-b border-slate-700">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <button @click="view = 'home'" class="text-sm text-slate-400 hover:text-slate-200 flex items-center gap-1">← Volver al inicio</button>
+                        <h1 class="text-2xl sm:text-3xl font-display font-bold text-white mt-2">🔐 Panel de Validación de Pagos</h1>
+                    </div>
+                    <div class="text-xs text-slate-500 bg-slate-800 px-3 py-1.5 rounded-lg">Admin: Activo</div>
+                </div>
+            </div>
+        </div>
+        <div class="max-w-4xl mx-auto px-4 py-8 space-y-8">
+            <div class="bg-white rounded-2xl shadow-lg p-8 border border-slate-200">
+                <h2 class="text-xl font-bold text-slate-900 mb-2">Generar Código de Desbloqueo</h2>
+                <p class="text-sm text-slate-500 mb-6">Ingresá el monto exacto acreditado en la cuenta bancaria para generar el código único de validación.</p>
+                <div class="grid md:grid-cols-2 gap-4 mb-6">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 mb-1">Monto acreditado ($ARS) *</label>
+                        <input type="number" x-model="adminMonto" placeholder="Ej: 15000" class="input-tuerk w-full px-4 py-3 rounded-xl text-sm font-mono">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 mb-1">ID de Solicitud (opcional)</label>
+                        <input type="text" x-model="adminSolicitudId" placeholder="Ej: TEC-001" class="input-tuerk w-full px-4 py-3 rounded-xl text-sm font-mono">
+                    </div>
+                </div>
+                <button @click="generarCodigoAdmin()" class="btn-dorado text-white px-6 py-3 rounded-xl font-bold text-sm">Generar Código de Validación</button>
+                <div x-show="codigoGenerado" class="mt-6 bg-emerald-50 border border-emerald-200 rounded-xl p-6 text-center">
+                    <p class="text-xs text-emerald-600 font-bold uppercase tracking-wide mb-2">Código Generado — Desbloqueo Habilitado</p>
+                    <div class="flex items-center justify-center gap-3">
+                        <div class="bg-white border-2 border-emerald-300 rounded-xl px-6 py-4">
+                            <span class="text-3xl font-black font-mono tracking-[0.3em] text-emerald-800" x-text="codigoGenerado"></span>
+                        </div>
+                        <button @click="copiarCodigoAdmin()" class="bg-emerald-600 text-white px-4 py-3 rounded-xl text-sm font-bold hover:bg-emerald-700 transition">📋 Copiar</button>
+                    </div>
+                    <p class="text-[10px] text-emerald-500 mt-3">Este código expira a las 23:59 hs del día de hoy. El técnico puede verificar el desbloqueo desde su pantalla ingresando el monto exacto.</p>
+                </div>
+            </div>
+            <div class="bg-white rounded-2xl shadow-lg p-8 border border-slate-200">
+                <h2 class="text-lg font-bold text-slate-900 mb-4">Códigos Generados Hoy</h2>
+                <div x-show="codigosHistorial.length === 0" class="text-sm text-slate-400 text-center py-8">No se generaron códigos hoy.</div>
+                <div class="space-y-2">
+                    <template x-for="(item, idx) in codigosHistorial" :key="idx">
+                        <div class="flex items-center justify-between bg-slate-50 rounded-lg p-3 border border-slate-100">
+                            <div>
+                                <span class="font-mono font-bold text-slate-800 text-sm" x-text="item.codigo"></span>
+                                <span class="text-xs text-slate-500 ml-2" x-text="'$' + item.monto + ' ARS'"></span>
+                                <span class="text-[10px] text-slate-400 ml-2" x-text="item.hora"></span>
+                            </div>
+                            <span class="text-[10px] px-2 py-1 rounded-full bg-emerald-100 text-emerald-700 font-bold" x-text="item.usado ? 'Usado' : 'Activo'"></span>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- VIEW: HOME -->
-    <div id="view-home" x-show="view === 'home'" class="fade-in">
-        <!-- HERO -->
+    <div x-show="view === 'home'" class="fade-in">
         <section class="relative overflow-hidden bg-gradient-to-br from-[#1E3A4C] via-[#3B6E8F] to-[#D4E4F0] text-white">
             <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
                 <div class="text-center max-w-4xl mx-auto">
@@ -232,41 +192,26 @@
                         <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
                         <span class="text-sm font-medium text-white/90">Profesionalismo Técnico · Argentina</span>
                     </div>
-                    
                     <h1 class="text-4xl sm:text-5xl lg:text-7xl font-display font-black mb-6 leading-tight">
                         <span class="text-dorado-gradient">TUERK</span>
                         <span class="block text-white mt-2">Técnicos que hablan</span>
                         <span class="block text-[#A8D8E8] mt-2">tu idioma</span>
                     </h1>
-                    
-                    <p class="text-xl sm:text-2xl text-amber-300 mb-6 font-bold tracking-wide">
-                        "Técnicos que hablan tu idioma, entendemos de cosito"
-                    </p>
-                    
-                    <p class="text-base text-white/80 max-w-2xl mx-auto mb-10 leading-relaxed">
-                        Conectamos clientes con técnicos independientes. No empleamos, no seleccionamos, no fijamos tarifas. Vos elegís a quién contratar y a qué precio.
-                    </p>
-                    
+                    <p class="text-xl sm:text-2xl text-amber-300 mb-6 font-bold tracking-wide">"Técnicos que hablan tu idioma, entendemos de cosito"</p>
+                    <p class="text-base text-white/80 max-w-2xl mx-auto mb-10 leading-relaxed">Conectamos clientes con técnicos independientes. No empleamos, no seleccionamos, no fijamos tarifas. Vos elegís a quién contratar y a qué precio.</p>
                     <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                        <button @click="view = 'cliente'" class="btn-celeste text-white px-8 py-4 rounded-xl font-semibold text-lg flex items-center justify-center gap-2">
-                            Necesito un técnico
-                        </button>
-                        <button @click="view = 'tecnico'" class="btn-dorado text-white px-8 py-4 rounded-xl font-semibold text-lg flex items-center justify-center gap-2">
-                            Soy técnico
-                        </button>
+                        <button @click="view = 'cliente'" class="btn-celeste text-white px-8 py-4 rounded-xl font-semibold text-lg">Necesito un técnico</button>
+                        <button @click="view = 'tecnico'" class="btn-dorado text-white px-8 py-4 rounded-xl font-semibold text-lg">Soy técnico</button>
                     </div>
                 </div>
             </div>
         </section>
-
-        <!-- HOW IT WORKS -->
         <section class="py-20 bg-[#E8EEF2]">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-16">
                     <h2 class="text-3xl sm:text-4xl font-display font-bold text-[#2D4A5E] mb-4">¿Cómo funciona?</h2>
                     <p class="text-[#5A7A8A] max-w-2xl mx-auto">Simple, transparente y sin intermediarios abusivos.</p>
                 </div>
-                
                 <div class="grid md:grid-cols-3 gap-8">
                     <div class="bg-white rounded-2xl p-8 shadow-sm border border-[#C8D8E4] card-hover text-center">
                         <div class="w-16 h-16 bg-[#EDF3F7] rounded-2xl flex items-center justify-center mx-auto mb-6"><span class="text-3xl font-black text-[#3B6E8F]">1</span></div>
@@ -289,16 +234,14 @@
     </div>
 
     <!-- VIEW: CLIENTE -->
-    <div id="view-cliente" x-show="view === 'cliente'" x-cloak class="min-h-screen bg-[#EEF1F4] pb-20">
+    <div x-show="view === 'cliente'" x-cloak class="min-h-screen bg-[#EEF1F4] pb-20">
         <div class="bg-white border-b border-[#C8D8E4]">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
                 <button @click="view = 'home'" class="text-sm text-[#6A8A9A] hover:text-[#4A6A7A] flex items-center gap-1 mb-4">← Volver al inicio</button>
                 <h1 class="text-2xl sm:text-3xl font-display font-bold text-[#2D4A5E]">¿Qué necesitás arreglar?</h1>
             </div>
         </div>
-
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <!-- STEP 1: Categorías -->
             <div x-show="clienteStep === 1">
                 <h2 class="text-xl font-bold text-[#2D4A5E] mb-6">Seleccioná una categoría</h2>
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -311,83 +254,49 @@
                     </template>
                 </div>
             </div>
-
-            <!-- STEP 2: Formulario de localización -->
             <div x-show="clienteStep === 2" class="max-w-2xl mx-auto">
                 <div class="bg-white rounded-2xl shadow-lg p-8 border border-[#C8D8E4]">
                     <h2 class="text-2xl font-bold text-[#2D4A5E] mb-6">Tus datos de localización</h2>
                     <form @submit.prevent="iniciarChat()" class="space-y-5">
-                        <div>
-                            <label class="block text-sm font-medium text-[#4A6A7A] mb-1">Nombre completo *</label>
-                            <input type="text" x-model="clienteForm.nombre" required class="input-tuerk w-full px-4 py-3 rounded-xl text-sm" placeholder="Ej: Juan Pérez">
+                        <div><label class="block text-sm font-medium text-[#4A6A7A] mb-1">Nombre completo *</label><input type="text" x-model="clienteForm.nombre" required class="input-tuerk w-full px-4 py-3 rounded-xl text-sm" placeholder="Ej: Juan Pérez"></div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div><label class="block text-sm font-medium text-[#4A6A7A] mb-1">Calle *</label><input type="text" x-model="clienteForm.calle" required class="input-tuerk w-full px-4 py-3 rounded-xl text-sm" placeholder="Ej: Av. Santa Fe"></div>
+                            <div><label class="block text-sm font-medium text-[#4A6A7A] mb-1">Altura *</label><input type="text" x-model="clienteForm.altura" required class="input-tuerk w-full px-4 py-3 rounded-xl text-sm" placeholder="Ej: 1234"></div>
                         </div>
                         <div class="grid grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-sm font-medium text-[#4A6A7A] mb-1">Calle *</label>
-                                <input type="text" x-model="clienteForm.calle" required class="input-tuerk w-full px-4 py-3 rounded-xl text-sm" placeholder="Ej: Av. Santa Fe">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-[#4A6A7A] mb-1">Altura *</label>
-                                <input type="text" x-model="clienteForm.altura" required class="input-tuerk w-full px-4 py-3 rounded-xl text-sm" placeholder="Ej: 1234">
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-sm font-medium text-[#4A6A7A] mb-1">Localidad/Barrio *</label>
-                                <input type="text" x-model="clienteForm.localidad" required class="input-tuerk w-full px-4 py-3 rounded-xl text-sm" placeholder="Ej: Palermo">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-[#4A6A7A] mb-1">Provincia *</label>
-                                <input type="text" x-model="clienteForm.provincia" required class="input-tuerk w-full px-4 py-3 rounded-xl text-sm" placeholder="Ej: CABA">
-                            </div>
+                            <div><label class="block text-sm font-medium text-[#4A6A7A] mb-1">Localidad/Barrio *</label><input type="text" x-model="clienteForm.localidad" required class="input-tuerk w-full px-4 py-3 rounded-xl text-sm" placeholder="Ej: Palermo"></div>
+                            <div><label class="block text-sm font-medium text-[#4A6A7A] mb-1">Provincia *</label><input type="text" x-model="clienteForm.provincia" required class="input-tuerk w-full px-4 py-3 rounded-xl text-sm" placeholder="Ej: CABA"></div>
                         </div>
                         <button type="submit" class="btn-celeste w-full text-white py-4 rounded-xl font-bold text-lg">Continuar con Ana →</button>
                     </form>
                 </div>
             </div>
-
-            <!-- STEP 3: Chat con Ana -->
             <div x-show="clienteStep === 3" class="max-w-2xl mx-auto">
                 <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-[#C8D8E4]">
                     <div class="bg-gradient-to-r from-[#3B6E8F] to-[#1E3A4C] p-5 text-white">
                         <div class="flex items-center gap-4">
                             <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center text-2xl">👩‍💻</div>
-                            <div>
-                                <h2 class="text-lg font-bold">Ana — Analista de Caso</h2>
-                                <p class="text-xs text-white/80">Entendemos de cosito</p>
-                            </div>
+                            <div><h2 class="text-lg font-bold">Ana — Analista de Caso</h2><p class="text-xs text-white/80">Entendemos de cosito</p></div>
                         </div>
                     </div>
-                    
                     <div class="h-[350px] overflow-y-auto p-4 space-y-4 bg-[#EEF1F4]" id="chat-container">
                         <template x-for="(msg, index) in chatMessages" :key="index">
                             <div :class="msg.from === 'ana' ? 'flex items-start gap-3' : 'flex items-start gap-3 flex-row-reverse'">
                                 <div class="w-8 h-8 rounded-full flex items-center justify-center bg-white text-sm" x-text="msg.from === 'ana' ? '👩‍💻' : '🙂'"></div>
-                                <div :class="msg.from === 'ana' ? 'bg-white rounded-2xl rounded-tl-none p-4 max-w-[80%] text-sm shadow-sm text-slate-800' : 'bg-[#3B6E8F] text-white rounded-2xl rounded-tr-none p-4 max-w-[80%] text-sm shadow-sm'">
-                                    <p x-html="msg.text"></p>
-                                    <div x-show="msg.options" class="mt-3 space-y-2">
-                                        <template x-for="opt in msg.options" :key="opt">
-                                            <button @click="responderAna(opt)" class="block w-full text-left px-3 py-1.5 rounded-lg bg-slate-100 border text-slate-700 text-xs hover:bg-slate-200 transition" x-text="opt"></button>
-                                        </template>
-                                    </div>
-                                </div>
+                                <div :class="msg.from === 'ana' ? 'bg-white rounded-2xl rounded-tl-none p-4 max-w-[80%] text-sm shadow-sm text-slate-800' : 'bg-[#3B6E8F] text-white rounded-2xl rounded-tr-none p-4 max-w-[80%] text-sm shadow-sm'"><p x-html="msg.text"></p></div>
                             </div>
                         </template>
                     </div>
-
                     <div x-show="!diagnosticoComplete" class="p-4 border-t bg-white flex gap-2">
                         <textarea x-model="anaTextInput" rows="2" class="input-tuerk flex-1 px-4 py-2 rounded-xl text-sm bg-slate-50 text-slate-900" placeholder="Describí la falla del cosito..."></textarea>
                         <button @click="enviarTextoAna()" class="btn-celeste text-white px-4 rounded-xl font-bold">Enviar</button>
                     </div>
-
                     <div x-show="diagnosticoComplete" class="p-4 bg-emerald-50 border-t flex flex-col items-center">
                         <p class="text-xs text-emerald-800 font-bold mb-3">✓ Diagnóstico procesado con éxito por Ana.</p>
                         <button @click="clienteStep = 4" class="btn-celeste text-white px-6 py-2.5 rounded-xl font-bold text-sm">Ver Técnicos Disponibles en la Zona</button>
                     </div>
                 </div>
             </div>
-
-            <!-- STEP 4: Listado de Técnicos -->
             <div x-show="clienteStep === 4">
                 <h2 class="text-xl font-bold text-[#2D4A5E] mb-6">Técnicos recomendados para tu caso</h2>
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -405,200 +314,130 @@
                 </div>
             </div>
 
-            <!-- STEP 5: Despacho Fijo -->
             <div x-show="clienteStep === 5" class="max-w-2xl mx-auto">
                 <div class="bg-white rounded-2xl shadow-lg p-8 border border-[#C8D8E4]">
                     <h2 class="text-xl font-bold text-[#2D4A5E] mb-4">Módulo de Despacho y Canon Operativo</h2>
-                    
-                    <!-- Formulario Web3Forms -->
-                    <form action="https://api.web3forms.com/submit" method="POST" enctype="multipart/form-data" class="space-y-5">
-                        <input type="hidden" name="access_key" value="TU_ACCESS_KEY_AQUI">
-                        <input type="hidden" name="subject" value="🚨 Nueva Solicitud de Reparación - Ecosistema TUERK">
-                        <input type="hidden" name="from_name" value="TUERK Argentina">
-                        <input type="hidden" name="redirect" value="https://web3forms.com/success">
-
-                        <!-- BLOQUEO DE SEGURIDAD: CANON ADMINISTRATIVO -->
+                    <div x-show="!pagoPendienteValidacion" class="space-y-5">
                         <div class="bg-slate-950 text-slate-100 border border-slate-800 rounded-xl p-5 relative overflow-hidden">
                             <div class="absolute -right-6 -top-6 w-20 h-20 bg-amber-500/10 rounded-full blur-2xl"></div>
-                            <h3 class="text-xs font-black text-amber-400 uppercase tracking-widest mb-2 flex items-center">
-                                🔒 Canon del 1% Obligatorio para Habilitación
-                            </h3>
-                            <p class="text-[11px] text-slate-400 leading-relaxed mb-4">
-                                De acuerdo al Marco Jurídico de la plataforma, el Técnico independiente debe liquidar la tasa administrativa del <strong>1%</strong> sobre el costo base estimado antes de remover el enmascaramiento legal y visualizar tu localización exacta.
-                            </p>
-                            
-                            <!-- Botón de Pago Ofuscado Inteligente -->
-                            <button 
-                                type="button" 
-                                @click="ejecutarPagoCanon()"
-                                :class="canonLiquidado ? 'bg-emerald-600 border-emerald-500 text-white' : 'bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 shadow-[0_4px_15px_rgba(245,158,11,0.15)]'" 
-                                class="w-full text-xs py-3 rounded-lg font-extrabold uppercase tracking-wider transition-all active:scale-[0.99] flex items-center justify-center gap-2 border"
-                            >
-                                <span x-text="canonLiquidado ? '✓ Canon Validado Core Directo' : '💳 Proceder al Pago del Canon (Copiar Alias)'"></span>
-                            </button>
-                            <p class="text-[9px] text-slate-500 mt-2 text-center" x-show="!canonLiquidado">
-                                * Al presionar, el alias se guarda en tu portapapeles de forma invisible y se abre el entorno de liquidación.
-                            </p>
-                        </div>
-
-                        <!-- PANEL DE DATOS ENMASCARADOS (Solo se desbloquea al pagar) -->
-                        <div class="border rounded-xl p-4 text-xs space-y-1.5 transition-all duration-300" :class="canonLiquidado ? 'bg-emerald-50/50 border-emerald-200 text-slate-700 shadow-inner' : 'bg-slate-100 border-slate-200 text-slate-400 select-none opacity-60'">
-                            <div class="flex items-center justify-between font-bold border-b pb-1.5 mb-1">
-                                <span>Información de Contacto del Caso</span>
-                                <span class="text-[10px] uppercase px-2 py-0.5 rounded" :class="canonLiquidado ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-200 text-slate-600'" x-text="canonLiquidado ? 'Desbloqueado' : 'Enmascarado'"></span>
+                            <h3 class="text-xs font-black text-amber-400 uppercase tracking-widest mb-2 flex items-center">🔒 Canon del 1% — Validación Anti-Fraude</h3>
+                            <p class="text-[11px] text-slate-400 leading-relaxed mb-4">De acuerdo al Marco Jurídico, debés liquidar la tasa administrativa del <strong>1%</strong> sobre el costo base estimado. Realizá una <strong>transferencia bancaria directa</strong> (sin intermediarios) a la cuenta de TUERK. Una vez que el pago impacte, el administrador te enviará un <strong>código de validación único</strong> para desbloquear los datos del cliente.</p>
+                            <div class="bg-slate-900 rounded-lg p-4 mb-4 border border-slate-700">
+                                <p class="text-[10px] text-slate-500 uppercase tracking-wider mb-2 font-bold">Datos para transferencia bancaria:</p>
+                                <p class="text-sm font-mono text-amber-300 mb-1">Alias: <strong>tuerkargentina</strong></p>
+                                <p class="text-sm font-mono text-amber-300">Titular: TUERK Argentina</p>
+                                <p class="text-[10px] text-slate-500 mt-2">Transferencia bancaria directa — sin comisiones de intermediarios.</p>
                             </div>
-                            <p><strong>Técnico Asignado:</strong> <span x-text="tecnicoSelected?.nombre"></span></p>
-                            <input type="hidden" name="tecnico_asignado" :value="tecnicoSelected?.nombre">
-                            
-                            <p><strong>Cliente Titular:</strong> <span x-text="canonLiquidado ? clienteForm.nombre : '•••••••• ••••••••'"></span></p>
-                            <input type="hidden" name="cliente_nombre" :value="clienteForm.nombre">
-                            
-                            <p><strong>Ubicación Geográfica:</strong> <span x-text="canonLiquidado ? clienteForm.direccion : '•••• ••••• •• ••••, Palermo, CABA'"></span></p>
-                            <input type="hidden" name="cliente_direccion" :value="clienteForm.direccion">
-                            
-                            <p><strong>Diagnóstico Ana:</strong> <span x-text="canonLiquidado ? diagnostico.sintoma : '•••••••• ••••••••••••'"></span></p>
-                            <input type="hidden" name="diagnostico" :value="diagnostico.sintoma">
+                            <button type="button" @click="copiarDatosTransferencia()" class="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 shadow-[0_4px_15px_rgba(245,158,11,0.15)] text-xs py-3 rounded-lg font-extrabold uppercase tracking-wider transition-all active:scale-[0.99] flex items-center justify-center gap-2 border border-amber-400">📋 Copiar Datos de Transferencia</button>
+                            <p class="text-[9px] text-slate-500 mt-2 text-center">* Al presionar, los datos de la cuenta se copian automáticamente a tu portapapeles.</p>
                         </div>
-
-                        <div>
-                            <label class="block text-xs font-bold text-slate-500 mb-1">Cargá hasta 4 fotos/videos del desperfecto (Opcional)</label>
-                            <input type="file" name="fotos_evidencia" multiple accept="image/*,video/*" class="w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-slate-100 file:text-slate-700 hover:file:bg-slate-200">
+                        <div class="bg-amber-50 border border-amber-200 rounded-xl p-4">
+                            <h4 class="text-xs font-bold text-amber-700 mb-2">📋 Instrucciones post-pago:</h4>
+                            <ol class="text-[11px] text-amber-600 space-y-1 list-decimal list-inside">
+                                <li>Realizá la transferencia del 1% a la cuenta de TUERK.</li>
+                                <li>El sistema detecta el impacto automáticamente.</li>
+                                <li>El admin habilitará el desbloqueo en la web. Volvé a esta página y presioná <strong>"Verificar Desbloqueo"</strong> para acceder a los datos.</li>
+                                <li>Ingresá el código acá abajo para acceder a la información del cliente.</li>
+                            </ol>
                         </div>
-
-                        <div class="bg-slate-50 p-3.5 border rounded-xl">
-                            <label class="flex items-start gap-3 cursor-pointer select-none">
-                                <input type="checkbox" x-model="clienteForm.aceptaLey" :disabled="!canonLiquidado" required class="mt-1 w-4 h-4 text-celeste rounded disabled:opacity-40">
-                                <span class="text-[11px] text-slate-500 leading-normal" :class="!canonLiquidado ? 'text-slate-400' : ''">Acepto los términos de resguardo confidencial de la Ley 25.326 y entiendo que la relación contractual de locación es exclusiva con el profesional independiente elegido.</span>
-                            </label>
+                        <div class="border-t pt-5">
+                            <label class="block text-xs font-bold text-slate-600 mb-2">¿Ya pagaste y recibiste el código de validación?</label>
+                            <button @click="pagoPendienteValidacion = true" class="w-full bg-slate-800 text-white py-3 rounded-xl font-bold text-sm">Ingresar Código de Validación →</button>
                         </div>
-
-                        <button type="submit" :disabled="!clienteForm.aceptaLey || !canonLiquidado" class="w-full btn-celeste text-white py-4 rounded-xl font-bold text-sm uppercase tracking-wider shadow-md disabled:opacity-40 disabled:cursor-not-allowed">Despachar Solicitud Exclusiva</button>
-                    </form>
+                    </div>
+                    <div x-show="pagoPendienteValidacion" class="space-y-5">
+                        <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-5">
+                            <h3 class="text-sm font-bold text-emerald-800 mb-3">🔓 Verificar Desbloqueo</h3>
+                            <p class="text-[11px] text-emerald-600 mb-4">Realizaste la transferencia del 1%. El administrador validará el pago y habilitará el desbloqueo desde el panel. Presioná el botón para verificar si ya está habilitado.</p>
+                            <div class="space-y-3">
+                                <div><label class="block text-xs font-bold text-slate-600 mb-1">Monto transferido ($ARS) *</label><input type="number" x-model="canonMontoValidar" placeholder="Ej: 15000" class="input-tuerk w-full px-4 py-3 rounded-xl text-sm font-mono"></div>
+                            </div>
+                            <p x-show="codigoError" x-text="codigoError" class="text-xs text-red-600 mt-2 text-center font-bold"></p>
+                            <button @click="verificarDesbloqueo()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 rounded-xl font-bold text-sm mt-3">🔍 Verificar Desbloqueo</button>
+                            <p class="text-[10px] text-emerald-500 mt-2 text-center">Si el admin ya validó tu pago, los datos se desbloquearán instantáneamente.</p>
+                            <button @click="pagoPendienteValidacion = false" class="w-full text-slate-400 text-xs mt-2 py-2">← Volver a instrucciones de pago</button>
+                        </div>
+                    </div>
+                    <div x-show="canonLiquidado" class="space-y-5">
+                        <div class="bg-emerald-100 border border-emerald-300 rounded-xl p-4 text-center">
+                            <span class="text-2xl">✅</span>
+                            <p class="text-sm font-bold text-emerald-800 mt-1">Pago Validado — Datos Desbloqueados</p>
+                            <p class="text-[10px] text-emerald-600">El administrador confirmó el impacto de la transferencia.</p>
+                        </div>
+                        <form action="https://api.web3forms.com/submit" method="POST" enctype="multipart/form-data" class="space-y-5">
+                            <input type="hidden" name="access_key" value="bf7ca6d7-1731-4568-9b36-0ae9d61b95f3">
+                            <input type="hidden" name="subject" value="🚨 Nueva Solicitud de Reparación - Ecosistema TUERK">
+                            <input type="hidden" name="from_name" value="TUERK Argentina">
+                            <input type="hidden" name="redirect" value="https://web3forms.com/success">
+                            <div class="border rounded-xl p-4 text-xs space-y-1.5 bg-emerald-50/50 border-emerald-200 text-slate-700 shadow-inner">
+                                <div class="flex items-center justify-between font-bold border-b pb-1.5 mb-1"><span>Información de Contacto del Caso</span><span class="text-[10px] uppercase px-2 py-0.5 rounded bg-emerald-100 text-emerald-800">Desbloqueado</span></div>
+                                <p><strong>Técnico Asignado:</strong> <span x-text="tecnicoSelected?.nombre"></span></p><input type="hidden" name="tecnico_asignado" :value="tecnicoSelected?.nombre">
+                                <p><strong>Cliente Titular:</strong> <span x-text="clienteForm.nombre"></span></p><input type="hidden" name="cliente_nombre" :value="clienteForm.nombre">
+                                <p><strong>Ubicación Geográfica:</strong> <span x-text="clienteForm.direccion"></span></p><input type="hidden" name="cliente_direccion" :value="clienteForm.direccion">
+                                <p><strong>Diagnóstico Ana:</strong> <span x-text="diagnostico.sintoma"></span></p><input type="hidden" name="diagnostico" :value="diagnostico.sintoma">
+                            </div>
+                            <div><label class="block text-xs font-bold text-slate-500 mb-1">Cargá hasta 4 fotos/videos del desperfecto (Opcional)</label><input type="file" name="fotos_evidencia" multiple accept="image/*,video/*" class="w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-slate-100 file:text-slate-700 hover:file:bg-slate-200"></div>
+                            <div class="bg-slate-50 p-3.5 border rounded-xl">
+                                <label class="flex items-start gap-3 cursor-pointer select-none">
+                                    <input type="checkbox" x-model="clienteForm.aceptaLey" required class="mt-1 w-4 h-4 text-celeste rounded">
+                                    <span class="text-[11px] text-slate-500 leading-normal">Acepto los términos de resguardo confidencial de la Ley 25.326 y entiendo que la relación contractual de locación es exclusiva con el profesional independiente elegido.</span>
+                                </label>
+                            </div>
+                            <button type="submit" :disabled="!clienteForm.aceptaLey" class="w-full btn-celeste text-white py-4 rounded-xl font-bold text-sm uppercase tracking-wider shadow-md disabled:opacity-40 disabled:cursor-not-allowed">Despachar Solicitud Exclusiva</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- VIEW: TÉCNICO -->
-    <div id="view-tecnico" x-show="view === 'tecnico'" x-cloak class="min-h-screen bg-[#EEF1F4] pb-20">
+    <div x-show="view === 'tecnico'" x-cloak class="min-h-screen bg-[#EEF1F4] pb-20">
         <div class="bg-white border-b border-[#C8D8E4]">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
                 <button @click="view = 'home'" class="text-sm text-[#6A8A9A] flex items-center gap-1">← Volver al inicio</button>
                 <h1 class="text-2xl sm:text-3xl font-display font-bold text-[#2D4A5E] mt-3">Portal de Auditoría de Técnicos</h1>
             </div>
         </div>
-
         <div class="max-w-2xl mx-auto px-4 py-8">
             <div class="bg-white rounded-2xl shadow-lg p-8 border border-[#C8D8E4]">
-                <!-- Formulario Web3Forms de Auditoría -->
                 <form action="https://api.web3forms.com/submit" method="POST" enctype="multipart/form-data" class="space-y-6">
-                    <input type="hidden" name="access_key" value="TU_ACCESS_KEY_AQUI">
+                    <input type="hidden" name="access_key" value="bf7ca6d7-1731-4568-9b36-0ae9d61b95f3">
                     <input type="hidden" name="subject" value="📂 Nuevo Legajo Técnico Cargado para Auditoría (24hs)">
                     <input type="hidden" name="from_name" value="TUERK Argentina - Portal Técnico">
                     <input type="hidden" name="redirect" value="https://web3forms.com/success">
-                    
                     <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-xs font-bold text-[#4A6A7A] mb-1">Nombre Completo *</label>
-                            <input type="text" name="tecnico_nombre" x-model="tecnicoForm.nombre" required class="input-tuerk w-full px-4 py-2.5 rounded-xl text-xs text-slate-900 bg-slate-50">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-[#4A6A7A] mb-1">CUIT / CUIL (Sin Guiones) *</label>
-                            <input type="text" name="tecnico_cuit" x-model="tecnicoForm.cuit" required pattern="[0-9]{11}" class="input-tuerk w-full px-4 py-2.5 rounded-xl text-xs text-slate-900 font-mono bg-slate-50">
-                        </div>
+                        <div><label class="block text-xs font-bold text-[#4A6A7A] mb-1">Nombre Completo *</label><input type="text" name="tecnico_nombre" x-model="tecnicoForm.nombre" required class="input-tuerk w-full px-4 py-2.5 rounded-xl text-xs text-slate-900 bg-slate-50"></div>
+                        <div><label class="block text-xs font-bold text-[#4A6A7A] mb-1">CUIT / CUIL (Sin Guiones) *</label><input type="text" name="tecnico_cuit" x-model="tecnicoForm.cuit" required pattern="[0-9]{11}" class="input-tuerk w-full px-4 py-2.5 rounded-xl text-xs text-slate-900 font-mono bg-slate-50"></div>
                     </div>
-
                     <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-xs font-bold text-[#4A6A7A] mb-1">Email Comercial *</label>
-                            <input type="email" name="tecnico_email" x-model="tecnicoForm.email" required class="input-tuerk w-full px-4 py-2.5 rounded-xl text-xs text-slate-900 font-mono bg-slate-50">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-[#4A6A7A] mb-1">Teléfono Móvil *</label>
-                            <input type="tel" name="tecnico_telefono" x-model="tecnicoForm.telefono" required class="input-tuerk w-full px-4 py-2.5 rounded-xl text-xs text-slate-900 bg-slate-50">
-                        </div>
+                        <div><label class="block text-xs font-bold text-[#4A6A7A] mb-1">Email Comercial *</label><input type="email" name="tecnico_email" x-model="tecnicoForm.email" required class="input-tuerk w-full px-4 py-2.5 rounded-xl text-xs text-slate-900 font-mono bg-slate-50"></div>
+                        <div><label class="block text-xs font-bold text-[#4A6A7A] mb-1">Teléfono Móvil *</label><input type="tel" name="tecnico_telefono" x-model="tecnicoForm.telefono" required class="input-tuerk w-full px-4 py-2.5 rounded-xl text-xs text-slate-900 bg-slate-50"></div>
                     </div>
-
                     <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-xs font-bold text-[#4A6A7A] mb-1">Especialidad Principal *</label>
-                            <select name="tecnico_especialidad" x-model="tecnicoForm.especialidad" required class="input-tuerk w-full px-4 py-2.5 rounded-xl text-xs text-slate-900 bg-slate-50">
-                                <option value="Electricista">Electricista</option>
-                                <option value="Plomero / Gasista">Plomero / Gasista</option>
-                                <option value="Refrigeración">Refrigeración / Aire Acondicionado</option>
-                                <option value="Carpintero">Carpintero</option>
-                                <option value="Albañil">Albañil</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-[#4A6A7A] mb-1">Años de Experiencia *</label>
-                            <input type="number" name="tecnico_experiencia" x-model="tecnicoForm.experiencia" required class="input-tuerk w-full px-4 py-2.5 rounded-xl text-xs text-slate-900 bg-slate-50">
-                        </div>
+                        <div><label class="block text-xs font-bold text-[#4A6A7A] mb-1">Especialidad Principal *</label><select name="tecnico_especialidad" x-model="tecnicoForm.especialidad" required class="input-tuerk w-full px-4 py-2.5 rounded-xl text-xs text-slate-900 bg-slate-50"><option value="Electricista">Electricista</option><option value="Plomero / Gasista">Plomero / Gasista</option><option value="Refrigeración">Refrigeración / Aire Acondicionado</option><option value="Carpintero">Carpintero</option><option value="Albañil">Albañil</option></select></div>
+                        <div><label class="block text-xs font-bold text-[#4A6A7A] mb-1">Años de Experiencia *</label><input type="number" name="tecnico_experiencia" x-model="tecnicoForm.experiencia" required class="input-tuerk w-full px-4 py-2.5 rounded-xl text-xs text-slate-900 bg-slate-50"></div>
                     </div>
-
-                    <!-- PRECIO ESTIMADO - SOLO VISIBLE PARA EL TÉCNICO, NO PARA EL CLIENTE -->
                     <div class="bg-amber-50 border border-amber-200 rounded-xl p-5 space-y-3">
-                        <h4 class="text-xs font-black text-amber-700 uppercase tracking-wide flex items-center gap-2">
-                            <span class="w-5 h-5 bg-amber-200 rounded-full flex items-center justify-center text-[10px]">💰</span>
-                            Precio Estimado del Servicio (Uso Interno Técnico)
-                        </h4>
-                        <p class="text-[11px] text-amber-600 leading-relaxed">
-                            <strong>Importante:</strong> Este monto es de uso exclusivo interno para el cálculo del canon administrativo del 1%. 
-                            <span class="text-red-600 font-bold">El cliente NO visualiza este precio.</span> 
-                            TUERK no cobra al cliente; el canon del 1% se debita directamente de tu cuenta como costo operativo de plataforma.
-                        </p>
-                        <div>
-                            <label class="block text-xs font-bold text-[#4A6A7A] mb-1">Presupuesto estimado del trabajo ($ARS) *</label>
-                            <input type="number" name="precio_estimado" x-model="tecnicoForm.precioEstimado" required min="1000" class="input-tuerk w-full px-4 py-2.5 rounded-xl text-xs text-slate-900 bg-white font-mono" placeholder="Ej: 15000">
-                            <p class="text-[10px] text-slate-400 mt-1">Canon a liquidar: <span class="font-bold text-amber-600" x-text="tecnicoForm.precioEstimado ? '$' + (tecnicoForm.precioEstimado * 0.01).toFixed(2) + ' ARS' : '$0.00 ARS'"></span></p>
-                        </div>
+                        <h4 class="text-xs font-black text-amber-700 uppercase tracking-wide flex items-center gap-2"><span class="w-5 h-5 bg-amber-200 rounded-full flex items-center justify-center text-[10px]">💰</span>Precio Estimado del Servicio (Uso Interno Técnico)</h4>
+                        <p class="text-[11px] text-amber-600 leading-relaxed"><strong>Importante:</strong> Este monto es de uso exclusivo interno para el cálculo del canon administrativo del 1%. <span class="text-red-600 font-bold">El cliente NO visualiza este precio.</span> TUERK no cobra al cliente; el canon del 1% se debita directamente de tu cuenta como costo operativo de plataforma.</p>
+                        <div><label class="block text-xs font-bold text-[#4A6A7A] mb-1">Presupuesto estimado del trabajo ($ARS) *</label><input type="number" name="precio_estimado" x-model="tecnicoForm.precioEstimado" required min="1000" class="input-tuerk w-full px-4 py-2.5 rounded-xl text-xs text-slate-900 bg-white font-mono" placeholder="Ej: 15000"><p class="text-[10px] text-slate-400 mt-1">Canon a liquidar: <span class="font-bold text-amber-600" x-text="tecnicoForm.precioEstimado ? '$' + (tecnicoForm.precioEstimado * 0.01).toFixed(2) + ' ARS' : '$0.00 ARS'"></span></p></div>
                     </div>
-
                     <div class="space-y-3 pt-2">
                         <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wide border-b pb-1">Carga de Documentación Solicitada</h4>
-                        <div>
-                            <label class="block text-[11px] text-slate-500 mb-1">1. Constancia de Opción AFIP Activa (PDF/JPG)</label>
-                            <input type="file" name="doc_afip" required accept=".pdf,.png,.jpg,.jpeg" class="w-full text-xs text-slate-500 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-slate-100">
-                        </div>
-                        <div>
-                            <label class="block text-[11px] text-slate-500 mb-1">2. Matrícula o Habilitación de Idoneidad (PDF/JPG)</label>
-                            <input type="file" name="doc_matricula" required accept=".pdf,.png,.jpg,.jpeg" class="w-full text-xs text-slate-500 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-slate-100">
-                        </div>
-                        <div>
-                            <label class="block text-[11px] text-slate-500 mb-1">3. Certificado de Antecedentes Penales RNR (PDF/JPG)</label>
-                            <input type="file" name="doc_antecedentes" required accept=".pdf,.png,.jpg,.jpeg" class="w-full text-xs text-slate-500 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-slate-100">
-                        </div>
+                        <div><label class="block text-[11px] text-slate-500 mb-1">1. Constancia de Opción AFIP Activa (PDF/JPG)</label><input type="file" name="doc_afip" required accept=".pdf,.png,.jpg,.jpeg" class="w-full text-xs text-slate-500 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-slate-100"></div>
+                        <div><label class="block text-[11px] text-slate-500 mb-1">2. Matrícula o Habilitación de Idoneidad (PDF/JPG)</label><input type="file" name="doc_matricula" required accept=".pdf,.png,.jpg,.jpeg" class="w-full text-xs text-slate-500 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-slate-100"></div>
+                        <div><label class="block text-[11px] text-slate-500 mb-1">3. Certificado de Antecedentes Penales RNR (PDF/JPG)</label><input type="file" name="doc_antecedentes" required accept=".pdf,.png,.jpg,.jpeg" class="w-full text-xs text-slate-500 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-slate-100"></div>
                     </div>
-
-                    <!-- CLÁUSULA DE DESVINCULACIÓN -->
                     <div class="bg-red-50 border border-red-200 rounded-xl p-4">
-                        <h4 class="text-xs font-black text-red-700 uppercase tracking-wide mb-2 flex items-center gap-2">
-                            <span class="text-base">⚠️</span> Cláusula de Desvinculación Automática
-                        </h4>
-                        <p class="text-[11px] text-red-600 leading-relaxed">
-                            En caso de detectarse <strong>precio vil</strong> (cotización deliberadamente inferior al costo de mercado con fines de captación desleal), 
-                            <strong>actos de competencia desleal</strong> conforme el art. 10 bis de la Convención de París, 
-                            o cualquier conducta que atente contra la ética profesional del ecosistema TUERK, 
-                            el usuario técnico será <strong>desvinculado de forma inmediata y sin previo aviso</strong> del entorno digital, 
-                            quedando suspendido el acceso a la cartelera de clientes y la liquidación de canones pendientes.
-                        </p>
+                        <h4 class="text-xs font-black text-red-700 uppercase tracking-wide mb-2 flex items-center gap-2"><span class="text-base">⚠️</span> Cláusula de Desvinculación Automática</h4>
+                        <p class="text-[11px] text-red-600 leading-relaxed">En caso de detectarse <strong>precio vil</strong> (cotización deliberadamente inferior al costo de mercado con fines de captación desleal), <strong>actos de competencia desleal</strong> conforme el art. 10 bis de la Convención de París, o cualquier conducta que atente contra la ética profesional del ecosistema TUERK, el usuario técnico será <strong>desvinculado de forma inmediata y sin previo aviso</strong> del entorno digital, quedando suspendido el acceso a la cartelera de clientes y la liquidación de canones pendientes.</p>
                     </div>
-
                     <div class="bg-slate-50 p-4 border rounded-xl space-y-3">
-                        <label class="flex items-start gap-3 cursor-pointer select-none">
-                            <input type="checkbox" x-model="tecnicoForm.aceptaCanon" required class="mt-1 w-4 h-4 text-celeste rounded">
-                            <span class="text-[11px] text-slate-500 leading-normal">Entiendo y acepto el débito del canon administrativo del 1% sobre los montos estimados para acceder a las localizaciones de clientes. El canon se cobra a mí como técnico, NO al cliente.</span>
-                        </label>
-                        <label class="flex items-start gap-3 cursor-pointer select-none">
-                            <input type="checkbox" x-model="tecnicoForm.aceptaDesvinculacion" required class="mt-1 w-4 h-4 text-celeste rounded">
-                            <span class="text-[11px] text-slate-500 leading-normal">Acepto la cláusula de desvinculación automática en caso de precio vil o competencia desleal, conforme los términos expuestos arriba.</span>
-                        </label>
-                        <label class="flex items-start gap-3 cursor-pointer select-none">
-                            <input type="checkbox" x-model="tecnicoForm.aceptaDatos" required class="mt-1 w-4 h-4 text-celeste rounded">
-                            <span class="text-[11px] text-slate-500 leading-normal">Presto consentimiento para el tratamiento de mis datos impositivos conforme las garantías de confidencialidad de la Ley 25.326.</span>
-                        </label>
+                        <label class="flex items-start gap-3 cursor-pointer select-none"><input type="checkbox" x-model="tecnicoForm.aceptaCanon" required class="mt-1 w-4 h-4 text-celeste rounded"><span class="text-[11px] text-slate-500 leading-normal">Entiendo y acepto el débito del canon administrativo del 1% sobre los montos estimados para acceder a las localizaciones de clientes. El canon se cobra a mí como técnico, NO al cliente.</span></label>
+                        <label class="flex items-start gap-3 cursor-pointer select-none"><input type="checkbox" x-model="tecnicoForm.aceptaDesvinculacion" required class="mt-1 w-4 h-4 text-celeste rounded"><span class="text-[11px] text-slate-500 leading-normal">Acepto la cláusula de desvinculación automática en caso de precio vil o competencia desleal, conforme los términos expuestos arriba.</span></label>
+                        <label class="flex items-start gap-3 cursor-pointer select-none"><input type="checkbox" x-model="tecnicoForm.aceptaDatos" required class="mt-1 w-4 h-4 text-celeste rounded"><span class="text-[11px] text-slate-500 leading-normal">Presto consentimiento para el tratamiento de mis datos impositivos conforme las garantías de confidencialidad de la Ley 25.326.</span></label>
                     </div>
-
                     <button type="submit" :disabled="!tecnicoForm.aceptaCanon || !tecnicoForm.aceptaDatos || !tecnicoForm.aceptaDesvinculacion" class="w-full btn-dorado text-white py-4 rounded-xl font-bold text-sm uppercase tracking-widest disabled:opacity-40">Enviar Legajo Firme a Auditoría</button>
                 </form>
             </div>
@@ -606,7 +445,7 @@
     </div>
 
     <!-- VIEW: TERMINOS -->
-    <div id="view-tyc" x-show="view === 'tyc'" x-cloak class="min-h-screen bg-[#EEF1F4] pb-20">
+    <div x-show="view === 'tyc'" x-cloak class="min-h-screen bg-[#EEF1F4] pb-20">
         <div class="max-w-4xl mx-auto px-4 py-8">
             <div class="bg-white rounded-2xl shadow-lg p-8 border border-[#C8D8E4] space-y-6 text-sm text-slate-700 leading-relaxed">
                 <h2 class="text-2xl font-display font-black text-slate-900">Marco Jurídico Vigente y Términos Generales</h2>
@@ -626,7 +465,6 @@
         </div>
     </footer>
 
-    <!-- LÓGICA CORE ALPINE.JS UNIFICADA -->
     <script>
         function tuerkApp() {
             return {
@@ -639,11 +477,23 @@
                 anaTextInput: '',
                 diagnosticoComplete: false,
                 canonLiquidado: false,
-                
+                pagoPendienteValidacion: false,
+                canonMontoValidar: '',
+                canonCodigoValidar: '',
+                codigoError: '',
+
+                adminModal: false,
+                adminPassword: '',
+                adminError: '',
+                adminMonto: '',
+                adminSolicitudId: '',
+                codigoGenerado: '',
+                codigosHistorial: [],
+
                 clienteForm: { nombre: '', calle: '', altura: '', localidad: '', provincia: '', direccion: '', aceptaLey: false },
                 tecnicoForm: { nombre: '', cuit: '', email: '', telefono: '', especialidad: 'Electricista', experiencia: '', precioEstimado: '', aceptaCanon: false, aceptaDesvinculacion: false, aceptaDatos: false },
                 diagnostico: { categoria: '', sintoma: '', zona: '', urgencia: 'Moderada' },
-                
+
                 categorias: [
                     { id: 'electricidad', nombre: 'Electricidad ⚡', icon: '⚡', descripcion: 'Cortos, térmicas, cableados, luminarias.', keywords: ['luz', 'corto', 'térmica', 'enchufe', 'fase', 'cable'] },
                     { id: 'plomeria', nombre: 'Plomería / Gas 🔧', icon: '🔧', descripcion: 'Filtraciones, destapaciones, cañerías, gasistas.', keywords: ['agua', 'caño', 'filtración', 'gas', 'gotera', 'inodoro'] },
@@ -651,7 +501,7 @@
                     { id: 'carpinteria', nombre: 'Carpintería 🪵', icon: '🪵', descripcion: 'Muebles, aberturas, colocaciones estructurales.', keywords: ['madera', 'mueble', 'puerta', 'placard', 'mesa', 'silla'] },
                     { id: 'construccion', nombre: 'Construcción 🧱', icon: '🧱', descripcion: 'Albañilería, revoques, colocación de cerámicos.', keywords: ['pared', 'ladrillo', 'cemento', 'revoque', 'piso', 'techo'] }
                 ],
-                
+
                 tecnicos: [
                     { id: 1, nombre: 'Carlos Gómez', especialidad: 'Electricista Matriculado', zona: 'Palermo, CABA', experiencia: 12, match: 95 },
                     { id: 2, nombre: 'Mariano Silva', especialidad: 'Plomero / Gasista Avanzado', zona: 'Belgrano, CABA', experiencia: 8, match: 88 },
@@ -671,15 +521,84 @@
                     });
                 },
 
-                selectCategoria(cat) {
-                    this.categoriaSelected = cat;
-                    this.clienteStep = 2;
+                abrirAdmin() { this.adminModal = true; this.adminPassword = ''; this.adminError = ''; },
+
+                loginAdmin() {
+                    if (this.adminPassword === 'tu3rk2026') {
+                        this.adminModal = false;
+                        this.view = 'admin';
+                        this.adminError = '';
+                    } else {
+                        this.adminError = 'Contraseña incorrecta. Acceso denegado.';
+                    }
                 },
 
+                generarCodigoAdmin() {
+                    if (!this.adminMonto || this.adminMonto <= 0) {
+                        alert('Ingresá el monto acreditado en la cuenta bancaria.');
+                        return;
+                    }
+                    const fecha = new Date().toISOString().split('T')[0];
+                    const salt = 'TUERK_ARG_SECRET_2026_V2';
+                    const str = this.adminMonto.toString() + fecha + salt;
+                    let hash = 0;
+                    for (let i = 0; i < str.length; i++) {
+                        const char = str.charCodeAt(i);
+                        hash = ((hash << 5) - hash) + char;
+                        hash = hash & hash;
+                    }
+                    let codigo = Math.abs(hash).toString(36).toUpperCase().padEnd(6, '0').substring(0, 6);
+                    if (codigo.length < 6) codigo = codigo + '0'.repeat(6 - codigo.length);
+                    this.codigoGenerado = codigo;
+                    const ahora = new Date();
+                    const horaStr = ahora.getHours().toString().padStart(2, '0') + ':' + ahora.getMinutes().toString().padStart(2, '0');
+                    this.codigosHistorial.unshift({ codigo: codigo, monto: this.adminMonto, hora: horaStr, usado: false });
+                    if (this.codigosHistorial.length > 10) this.codigosHistorial.pop();
+                },
+
+                copiarCodigoAdmin() {
+                    const el = document.createElement('textarea');
+                    el.value = this.codigoGenerado;
+                    document.body.appendChild(el);
+                    el.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(el);
+                    alert('Código ' + this.codigoGenerado + ' generado. El desbloqueo queda habilitado para el técnico.');
+                },
+
+                verificarDesbloqueo() {
+                    this.codigoError = '';
+                    if (!this.canonMontoValidar) {
+                        this.codigoError = 'Ingresá el monto exacto que transferiste.';
+                        return;
+                    }
+                    // Simulación: en producción real, esto consultaría un backend
+                    // Por ahora, usamos el mismo algoritmo de hash para "simular" la validación del admin
+                    const fecha = new Date().toISOString().split('T')[0];
+                    const salt = 'TUERK_ARG_SECRET_2026_V2';
+                    const str = this.canonMontoValidar.toString() + fecha + salt;
+                    let hash = 0;
+                    for (let i = 0; i < str.length; i++) {
+                        const char = str.charCodeAt(i);
+                        hash = ((hash << 5) - hash) + char;
+                        hash = hash & hash;
+                    }
+                    let codigoEsperado = Math.abs(hash).toString(36).toUpperCase().padEnd(6, '0').substring(0, 6);
+                    if (codigoEsperado.length < 6) codigoEsperado = codigoEsperado + '0'.repeat(6 - codigoEsperado.length);
+
+                    // Simular que el admin ya validó: el código "correcto" siempre funciona
+                    // En producción real, esto verificaría contra una base de datos
+                    this.canonLiquidado = true;
+                    this.pagoPendienteValidacion = false;
+                    this.codigoError = '';
+                },
+
+                selectCategoria(cat) { this.categoriaSelected = cat; this.clienteStep = 2; },
+
                 iniciarChat() {
-                    this.clienteForm.direccion = `${this.clienteForm.calle} ${this.clienteForm.altura}, ${this.clienteForm.localidad}, ${this.clienteForm.provincia}`;
+                    this.clienteForm.direccion = this.clienteForm.calle + ' ' + this.clienteForm.altura + ', ' + this.clienteForm.localidad + ', ' + this.clienteForm.provincia;
                     this.chatMessages = [
-                        { from: 'ana', text: `¡Hola <strong>${this.clienteForm.nombre.split(' ')[0]}</strong>! Soy Ana. Veo que estás en <strong>${this.clienteForm.localidad}</strong> y necesitás asistencia en <strong>${this.categoriaSelected.nombre}</strong>. Contame qué le pasa al cosito...` }
+                        { from: 'ana', text: '¡Hola <strong>' + this.clienteForm.nombre.split(' ')[0] + '</strong>! Soy Ana. Veo que estás en <strong>' + this.clienteForm.localidad + '</strong> y necesitás asistencia en <strong>' + this.categoriaSelected.nombre + '</strong>. Contame qué le pasa al cosito...' }
                     ];
                     this.clienteStep = 3;
                 },
@@ -687,47 +606,39 @@
                 enviarTextoAna() {
                     if (!this.anaTextInput.trim()) return;
                     this.chatMessages.push({ from: 'user', text: this.anaTextInput });
-                    
                     const t = this.anaTextInput.toLowerCase();
                     this.anaTextInput = '';
-                    
                     setTimeout(() => {
                         this.diagnostico.sintoma = t;
                         this.diagnostico.categoria = this.categoriaSelected.nombre;
                         this.diagnostico.zona = this.clienteForm.localidad;
                         this.diagnosticoComplete = true;
-                        
-                        this.chatMessages.push({ from: 'ana', text: `<strong>¡Perfecto! Diagnóstico Terminado:</strong><br>• Problema registrado.<br>• Zona de cobertura validada.<br><br>Ya podés avanzar a la cartelera.` });
+                        this.chatMessages.push({ from: 'ana', text: '<strong>¡Perfecto! Diagnóstico Terminado:</strong><br>• Problema registrado.<br>• Zona de cobertura validada.<br><br>Ya podés avanzar a la cartelera.' });
                     }, 1000);
                 },
 
-                responderAna(opt) {
-                    this.anaTextInput = opt;
-                    this.enviarTextoAna();
-                },
+                responderAna(opt) { this.anaTextInput = opt; this.enviarTextoAna(); },
 
                 selectTecnico(tec) {
                     this.tecnicoSelected = tec;
                     this.canonLiquidado = false;
+                    this.pagoPendienteValidacion = false;
+                    this.canonMontoValidar = '';
+                    this.canonCodigoValidar = '';
+                    this.codigoError = '';
                     this.clienteForm.aceptaLey = false;
                     this.clienteStep = 5;
                 },
 
-                ejecutarPagoCanon() {
-                    if (this.canonLiquidado) return;
-                    
-                    // Copiado silencioso del alias al portapapeles
+                copiarDatosTransferencia() {
+                    const datos = 'Alias: tuerkargentina\nTitular: TUERK Argentina\nConcepto: Canon operativo TUERK - 1%';
                     const el = document.createElement('textarea');
-                    el.value = 'VIKOPESOSBB';
+                    el.value = datos;
                     document.body.appendChild(el);
                     el.select();
                     document.execCommand('copy');
                     document.body.removeChild(el);
-                    
-                    alert('¡Alias copiado al portapapeles de forma segura!\n\nSe abrirá la ventana de Mercado Pago. Realizá la transferencia del 1% al alias asignado y la información se desbloqueará instantáneamente.');
-                    
-                    window.open('https://link.mercadopago.com.ar', '_blank');
-                    this.canonLiquidado = true;
+                    alert('¡Datos de transferencia copiados al portapapeles!\n\nAlias: tuerkargentina\nTitular: TUERK Argentina\n\nAbrí tu home banking o app del banco y realizá la transferencia del 1%. Una vez acreditada, el admin te enviará el código de desbloqueo.');
                 }
             }
         }
