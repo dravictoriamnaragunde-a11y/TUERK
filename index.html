@@ -6,7 +6,6 @@
     <title>TUERK — Técnicos que hablan tu idioma</title>
     <meta name="description" content="TUERK es profesionalismo técnico, acortando procesos. Conectamos clientes con técnicos independientes verificados. Vos elegís quién y a qué precio.">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
@@ -730,7 +729,15 @@
                         </div>
                     </div>
 
-<div x-show="clienteStep === 3 && !diagnosticoComplete" class="p-4 border-t border-[#C8D8E4] bg-white">
+                    <!-- Input de texto y archivos para Ana -->
+                    <div x-show="clienteStep === 3 && !diagnosticoComplete" class="p-4 border-t border-[#C8D8E4] bg-white">
+                        <!-- Input de texto -->
+                        <div class="flex items-end gap-2 mb-3">
+                            <div class="flex-1">
+                                <textarea 
+                                    x-model="anaTextInput" 
+<!-- Input de texto y archivos para Ana -->
+                    <div x-show="clienteStep === 3 && !diagnosticoComplete" class="p-4 border-t border-[#C8D8E4] bg-white">
                         <!-- Input de texto -->
                         <div class="flex items-end gap-2 mb-3">
                             <div class="flex-1">
@@ -1038,7 +1045,7 @@
     </div>
 
     <!-- VIEW: TECNICO -->
-    <div x-show="view === 'tecnico'" x-transition x-cloak class="min-h-screen bg-[#EEF1F4] pb-20">
+    <div x-show="view === 'tecnico'" x-transition class="min-h-screen bg-[#EEF1F4] pb-20" style="display: none;">
         
         <div class="bg-white border-b border-[#C8D8E4]">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
@@ -1248,7 +1255,7 @@
     </div>
 
     <!-- VIEW: TÉRMINOS Y CONDICIONES -->
-    <div x-show="view === 'tyc'" x-transition x-cloak class="min-h-screen bg-[#EEF1F4] pb-20">
+    <div x-show="view === 'tyc'" x-transition class="min-h-screen bg-[#EEF1F4] pb-20" style="display: none;">
         <div class="bg-white border-b border-[#C8D8E4]">
             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
                 <button @click="view = 'home'" class="text-sm text-[#6A8A9A] hover:text-[#4A6A7A] flex items-center gap-1 mb-4">
@@ -1473,11 +1480,7 @@
             </div>
         </div>
     </footer>
-
-    <!-- ALPINE.JS APP LOGIC -->
-    </body>
-</html>
-<script>
+    <script>
         function tuerkApp() {
             return {
                 view: 'home',
@@ -1499,101 +1502,69 @@
                     urgencia: ''
                 },
 
-                tecnicoSelected: null,
-                mostrandoCercanos: false,
-                clienteForm: {
-                    nombre: '',
-                    dni: '',
-                    fechaNacimiento: '',
-                    email: '',
-                    telefono: '',
-                    direccion: '',
-                    calle: '',
-                    altura: '',
-                    localidad: '',
-                    provincia: '',
-                    horario: '',
-                    notas: '',
-                    mayorEdad: false,
-                    accesoMayorEdad: false,
-                    aceptaLey: false,
-                    aceptaDisclaimer: false
-                },
-                clienteFiles: [],
+                // ============ ANA: CHAT INTELIGENTE ============
 
-                // Técnico
-                tecnicoProgress: 0,
-                tecnicoForm: {
-                    nombre: '',
-                    cuit: '',
-                    email: '',
-                    telefono: '',
-                    especialidad: '',
-                    experiencia: '',
-                    zona: '',
-                    aceptaCanon: false,
-                    aceptaIndependiente: false,
-                    aceptaDocumentacion: false,
-                    aceptaDatos: false
-                },
-                tecnicoFiles: {
-                    afip: null,
-                    matricula: null,
-                    antecedentes: null
-                },
-                tecnicoRegistrado: false,
+                // ============ GETTERS ============
 
-                // Datos
-                categorias: [
-                    { id: 'electricidad', nombre: 'Electricidad', descripcion: 'Instalaciones, cortocircuitos, llaves térmicas, luminarias', icon: '⚡', keywords: ['electricista', 'luz', 'enchufe', 'cortocircuito', 'llave térmica', 'cable', 'luminaria', 'tensión', 'voltaje', 'apagón', 'tablero'] },
-                    { id: 'plomeria', nombre: 'Plomería / Gas', descripcion: 'Filtraciones, desagües, instalación de gas, termotanques', icon: '🔧', keywords: ['plomero', 'gasista', 'fuga', 'filtración', 'caño', 'desagüe', 'cloaca', 'inodoro', 'grifo', 'canilla', 'termotanque', 'calefón', 'gas', 'agua'] },
-                    { id: 'refrigeracion', nombre: 'Refrigeración / Aire', descripcion: 'Heladeras, aires acondicionados, freezers, cámaras frigoríficas', icon: '❄️', keywords: ['heladera', 'freezer', 'aire acondicionado', 'split', 'refrigeración', 'frío', 'hielo', 'compresor', 'cámara frigorífica', 'ventilador'] },
-                    { id: 'carpinteria', nombre: 'Carpintería', descripcion: 'Puertas, ventanas, muebles, deck, pérgolas', icon: '🪵', keywords: ['carpintero', 'puerta', 'ventana', 'mueble', 'deck', 'pérgola', 'madera', 'melamina', 'bisagra', 'cerradura'] },
-                    { id: 'construccion', nombre: 'Construcción / Albañilería', descripcion: 'Revoques, pisos, mampostería, refacciones generales', icon: '🧱', keywords: ['albañil', 'construcción', 'revoque', 'piso', 'pared', 'mampostería', 'humedad', 'filtración', 'refacción', 'pintura', 'azulejo'] },
-                    { id: 'tecnico_pc', nombre: 'PC / Redes / Celulares', descripcion: 'Reparación de computadoras, instalación de redes, celulares', icon: '💻', keywords: ['pc', 'computadora', 'notebook', 'celular', 'pantalla', 'red', 'wifi', 'router', 'internet', 'virus', 'formateo', 'hardware'] }
-                ],
-
-                zonas: [
-                    'Palermo', 'Recoleta', 'Belgrano', 'Nuñez', 'Saavedra', 'Coghlan',
-                    'Caballito', 'Almagro', 'Boedo', 'Villa Crespo', 'Chacarita', 'Colegiales',
-                    'San Telmo', 'Monserrat', 'Puerto Madero', 'Retiro', 'San Nicolás',
-                    'Flores', 'Floresta', 'Villa del Parque', 'Villa Devoto', 'Villa Urquiza',
-                    'Liniers', 'Mataderos', 'Parque Patricios', 'Barracas', 'La Boca',
-                    'Pilar', 'Tigre', 'San Isidro', 'Vicente López', 'Martínez', 'Olivos'
-                ],
-
-                tecnicos: [
-                    { id: 1, nombre: 'Carlos Rodríguez', especialidad: 'Refrigeración / Aire Acondicionado', zona: 'Palermo, Recoleta, Belgrano', experiencia: 15, match: 98, tags: ['Heladeras', 'Aires', 'Freezers'], matricula: true },
-                    { id: 2, nombre: 'María González', especialidad: 'Electricista Matriculada', zona: 'Caballito, Almagro, Boedo', experiencia: 12, match: 95, tags: ['Instalaciones', 'Domicilios', 'Comercios'], matricula: true },
-                    { id: 3, nombre: 'Jorge Pérez', especialidad: 'Plomero / Gasista', zona: 'Villa Crespo, Chacarita, Colegiales', experiencia: 20, match: 92, tags: ['Gas', 'Agua', 'Desagües'], matricula: true },
-                    { id: 4, nombre: 'Lucía Fernández', especialidad: 'Técnica de PC / Redes', zona: 'San Telmo, Monserrat, Puerto Madero', experiencia: 8, match: 90, tags: ['PC', 'Notebooks', 'Redes'], matricula: true },
-                    { id: 5, nombre: 'Roberto Sánchez', especialidad: 'Carpintero', zona: 'Nuñez, Saavedra, Coghlan', experiencia: 25, match: 88, tags: ['Muebles', 'Puertas', 'Deck'], matricula: true },
-                    { id: 6, nombre: 'Ana Martínez', especialidad: 'Albañil / Construcción', zona: 'Flores, Floresta, Villa del Parque', experiencia: 18, match: 85, tags: ['Revoques', 'Pisos', 'Refacciones'], matricula: true }
-                ],
-
-                initApp() {
-                    console.log('TUERK App inicializada');
-                },
 
                 get fechaMaximaNacimiento() {
                     const hoy = new Date();
                     hoy.setFullYear(hoy.getFullYear() - 18);
                     return hoy.toISOString().split('T')[0];
-                },
+                }
+
+
+
+                get tecnicosFiltrados() {
+                    if (!this.categoriaSelected) return this.tecnicos;
+                    const catMap = {
+                        'electricidad': 'Electricista',
+                        'plomeria': 'Plomero',
+                        'refrigeracion': 'Refrigeración',
+                        'carpinteria': 'Carpintero',
+                        'construccion': 'Albañil',
+                        'tecnico_pc': 'PC'
+                    };
+                    const filtro = catMap[this.categoriaSelected.id];
+                    let filtrados = this.tecnicos.filter(t => t.especialidad.toLowerCase().includes(filtro.toLowerCase()));
+
+                    // Filtrar por zona del cliente (localidad)
+                    const zonaCliente = (this.clienteForm.localidad || '').toLowerCase();
+                    if (zonaCliente) {
+                        const enZona = filtrados.filter(t => t.zona.toLowerCase().includes(zonaCliente));
+                        if (enZona.length > 0) {
+                            filtrados = enZona.map(t => ({ ...t, match: Math.min(99, t.match + 25), cercano: false }));
+                        } else {
+                            // Si no hay en la zona exacta, marcar como cercanos
+                            filtrados = filtrados.map(t => ({ ...t, match: Math.max(50, t.match - 15), cercano: true }));
+                        }
+                    }
+
+                    return filtrados.sort((a, b) => b.match - a.match);
+                }
+
+                // ============ CATEGORÍAS ============
+
 
                 selectCategoria(cat) {
                     this.categoriaSelected = cat;
                     this.clienteStep = 2;
-                },
+                }
+
+                // ============ ANA: CHAT INTELIGENTE ============
+
 
                 iniciarChat() {
+                    // Guardar dirección completa
                     this.clienteForm.direccion = this.clienteForm.calle + ' ' + this.clienteForm.altura + ', ' + this.clienteForm.localidad + ', ' + this.clienteForm.provincia;
+
                     this.chatMessages = [];
                     this.diagnosticoComplete = false;
                     this.anaTextInput = '';
                     this.anaFiles = [];
                     this.diagnostico = { categoria: this.categoriaSelected?.nombre || '', sintoma: '', zona: this.clienteForm.localidad, urgencia: '' };
-                    this.clienteStep = 3;
+
+                    this.clienteStep = 3; // Ir al chat con Ana
 
                     setTimeout(() => {
                         const nombreCliente = this.clienteForm.nombre ? this.clienteForm.nombre.split(' ')[0] : 'there';
@@ -1601,7 +1572,9 @@
                         const categoria = this.categoriaSelected?.nombre || 'el servicio';
                         this.addAnaMessage('¡Hola <strong>' + nombreCliente + '</strong>! Soy Ana, tu analista de caso para <strong>' + categoria + '</strong>. 🛠️<br><br>Ya tengo tu ubicación en <strong>' + localidad + '</strong>. Ahora contame qué te pasó con el "cosito".<br><br>Podés escribir libremente, subir <strong>fotos</strong> o <strong>videos cortos</strong> (máx. 30 segundos), o ambos. Cuanto más me cuentes, mejor te puedo orientar.<br><br><em>Por ejemplo: "Se me rompió la heladera, hace un ruido raro y no enfría" o "Tengo una filtración en el baño"</em>');
                     }, 500);
-                },
+                }
+
+
 
                 enviarTextoAna() {
                     const texto = this.anaTextInput.trim();
@@ -1617,7 +1590,9 @@
                         this.anaTyping = false;
                         this.analizarConsulta(texto);
                     }, 1200 + Math.random() * 800);
-                },
+                }
+
+
 
                 analizarConsulta(texto) {
                     const lower = texto.toLowerCase();
@@ -1625,6 +1600,7 @@
                     let zonaDetectada = null;
                     let urgenciaDetectada = 'Moderada';
 
+                    // Detectar categoría por palabras clave
                     for (const cat of this.categorias) {
                         for (const kw of cat.keywords) {
                             if (lower.includes(kw.toLowerCase())) {
@@ -1635,43 +1611,36 @@
                         if (categoriaDetectada) break;
                     }
 
-                    for (const z of this.zonas) {
-                        if (lower.includes(z.toLowerCase())) {
-                            zonaDetectada = z;
-                            break;
-                        }
-                    }
+                    // Detectar zona del cliente (ya la tenemos del formulario)
+                    zonaDetectada = this.clienteForm.localidad || 'No especificada';
 
+                    // Detectar urgencia
                     const urgWords = ['urgente', 'ya', 'ahora', 'emergencia', 'inundado', 'exploto', 'corto', 'quemó', 'prendió fuego', 'no funciona nada'];
                     const lowWords = ['cuando puedas', 'tranqui', 'no apura', 'proxima semana', 'despues'];
                     if (urgWords.some(w => lower.includes(w))) urgenciaDetectada = 'Alta';
                     else if (lowWords.some(w => lower.includes(w))) urgenciaDetectada = 'Baja';
 
+                    // Guardar diagnóstico
                     this.diagnostico.sintoma = texto;
-                    this.diagnostico.zona = zonaDetectada || this.clienteForm.localidad || 'No especificada';
+                    this.diagnostico.zona = zonaDetectada;
                     this.diagnostico.urgencia = urgenciaDetectada;
 
-                    if (categoriaDetectada || this.categoriaSelected) {
-                        const catFinal = categoriaDetectada || this.categoriaSelected;
-                        this.categoriaSelected = catFinal;
-                        this.diagnostico.categoria = catFinal.nombre;
+                    if (this.categoriaSelected) {
+                        this.diagnostico.categoria = this.categoriaSelected.nombre;
 
-                        let respuesta = '✅ <strong>Detecté tu problema:</strong><br><br>• <strong>Categoría:</strong> ' + catFinal.nombre + ' ' + catFinal.icon + '<br>';
-                        respuesta += '• <strong>Zona:</strong> ' + this.diagnostico.zona + '<br>';
+                        let respuesta = '✅ <strong>Detecté tu problema:</strong><br><br>• <strong>Categoría:</strong> ' + this.categoriaSelected.nombre + ' ' + this.categoriaSelected.icon + '<br>';
+                        respuesta += '• <strong>Zona:</strong> ' + zonaDetectada + '<br>';
                         respuesta += '• <strong>Urgencia:</strong> ' + urgenciaDetectada + '<br>';
                         respuesta += '• <strong>Descripción:</strong> "' + texto.substring(0, 80) + (texto.length > 80 ? '...' : '') + '"<br><br>';
+                        respuesta += '¿Querés que te muestre los técnicos disponibles en tu zona?';
 
-                        if (!zonaDetectada && !this.clienteForm.localidad) {
-                            respuesta += '¿En qué barrio o zona necesitás el servicio? Así te muestro técnicos cercanos.';
-                            this.addAnaMessage(respuesta, ['Palermo', 'Recoleta', 'Belgrano', 'Caballito', 'Almagro', 'San Telmo', 'Nuñez', 'Flores', 'Villa Crespo', 'Otro']);
-                        } else {
-                            respuesta += '¿Querés que te muestre los técnicos disponibles en tu zona?';
-                            this.addAnaMessage(respuesta, ['Sí, mostrar técnicos', 'No, quiero cambiar algo']);
-                        }
+                        this.addAnaMessage(respuesta, ['Sí, mostrar técnicos', 'No, quiero cambiar algo']);
                     } else {
                         this.addAnaMessage('🤔 No estoy segura de qué tipo de técnico necesitás. ¿Podés darme más detalles?<br><br>Por ejemplo: "se cortó la luz", "tengo una filtración", "la heladera no enfría", etc.<br><br>O elegí una categoría:', ['Electricidad ⚡', 'Plomería / Gas 🔧', 'Refrigeración ❄️', 'Carpintería 🪵', 'Construcción 🧱', 'PC / Redes 💻']);
                     }
-                },
+                }
+
+
 
                 responderAna(respuesta) {
                     this.addUserMessage(respuesta);
@@ -1679,15 +1648,10 @@
 
                     setTimeout(() => {
                         this.anaTyping = false;
+
                         const lower = respuesta.toLowerCase();
 
-                        if (this.zonas.some(z => z.toLowerCase() === lower || lower.includes(z.toLowerCase()))) {
-                            const zonaEncontrada = this.zonas.find(z => lower.includes(z.toLowerCase()));
-                            this.diagnostico.zona = zonaEncontrada || respuesta;
-                            this.addAnaMessage('✅ Perfecto, zona confirmada: <strong>' + this.diagnostico.zona + '</strong>.<br><br>¿Querés que te muestre los técnicos disponibles?', ['Sí, mostrar técnicos', 'No, quiero cambiar algo']);
-                            return;
-                        }
-
+                        // Si quiere ver técnicos
                         if (lower.includes('sí') || lower.includes('si') || lower.includes('mostrar') || lower.includes('tecnicos')) {
                             this.addAnaMessage('¡Perfecto! Preparando tu diagnóstico y buscando los mejores técnicos para tu caso...');
                             setTimeout(() => {
@@ -1696,11 +1660,13 @@
                             return;
                         }
 
+                        // Si quiere cambiar algo
                         if (lower.includes('no') || lower.includes('cambiar')) {
                             this.addAnaMessage('Ok, contame qué querés cambiar o dame más detalles del problema.');
                             return;
                         }
 
+                        // Si eligió categoría manual
                         const catMap = {
                             'electricidad': 'electricidad', 'plomería': 'plomeria', 'refrigeración': 'refrigeracion',
                             'carpintería': 'carpinteria', 'construcción': 'construccion', 'pc': 'tecnico_pc'
@@ -1714,26 +1680,36 @@
                             }
                         }
 
+                        // Fallback: reanalizar
                         this.analizarConsulta(respuesta);
                     }, 800);
-                },
+                }
+
+
 
                 addAnaMessage(text, options = null) {
                     this.chatMessages.push({ from: 'ana', text: text, options: options, files: null });
                     this.scrollChat();
-                },
+                }
+
+
 
                 addUserMessage(text, files = null) {
                     this.chatMessages.push({ from: 'user', text: text, files: files });
                     this.scrollChat();
-                },
+                }
+
+
 
                 scrollChat() {
                     this.$nextTick(() => {
                         const container = document.getElementById('chat-container');
                         if (container) container.scrollTop = container.scrollHeight;
                     });
-                },
+                }
+
+                // ============ ARCHIVOS ANA ============
+
 
                 addAnaFile(event) {
                     const files = Array.from(event.target.files);
@@ -1755,13 +1731,19 @@
                         reader.readAsDataURL(file);
                     });
                     event.target.value = '';
-                },
+                }
+
+
 
                 removeAnaFile(index) {
                     this.anaFiles.splice(index, 1);
-                },
+                }
+
+                // ============ DATOS CLIENTE ============
+
 
                 validarYAvanzar() {
+                    // Validar mayoría de edad
                     if (!this.clienteForm.fechaNacimiento) {
                         alert('Debes ingresar tu fecha de nacimiento.');
                         return;
@@ -1777,6 +1759,7 @@
                         return;
                     }
 
+                    // Validar DNI
                     const dni = this.clienteForm.dni.replace(/\./g, '').trim();
                     if (!/^\d{7,9}$/.test(dni)) {
                         alert('El DNI debe contener entre 7 y 9 dígitos numéricos, sin puntos ni espacios.');
@@ -1785,42 +1768,23 @@
                     this.clienteForm.dni = dni;
 
                     this.clienteStep = 3;
-                },
+                }
 
-                get tecnicosFiltrados() {
-                    if (!this.categoriaSelected) return this.tecnicos;
-                    const catMap = {
-                        'electricidad': 'Electricista',
-                        'plomeria': 'Plomero',
-                        'refrigeracion': 'Refrigeración',
-                        'carpinteria': 'Carpintero',
-                        'construccion': 'Albañil',
-                        'tecnico_pc': 'PC'
-                    };
-                    const filtro = catMap[this.categoriaSelected.id];
-                    let filtrados = this.tecnicos.filter(t => t.especialidad.toLowerCase().includes(filtro.toLowerCase()));
+                // ============ TÉCNICOS ============
 
-                    const zonaCliente = (this.clienteForm.localidad || '').toLowerCase();
-                    if (zonaCliente) {
-                        const enZona = filtrados.filter(t => t.zona.toLowerCase().includes(zonaCliente));
-                        if (enZona.length > 0) {
-                            filtrados = enZona.map(t => ({ ...t, match: Math.min(99, t.match + 25), cercano: false }));
-                        } else {
-                            filtrados = filtrados.map(t => ({ ...t, match: Math.max(50, t.match - 15), cercano: true }));
-                        }
-                    }
-
-                    return filtrados.sort((a, b) => b.match - a.match);
-                },
 
                 selectTecnico(tec) {
                     this.tecnicoSelected = tec;
-                    this.clienteStep = 5;
-                },
+                    this.clienteStep = 4;
+                }
+
+
 
                 submitClienteForm() {
-                    this.clienteStep = 6;
-                },
+                    this.clienteStep = 5;
+                }
+
+
 
                 resetCliente() {
                     this.clienteStep = 1;
@@ -1837,11 +1801,16 @@
                         aceptaLey: false, aceptaDisclaimer: false
                     };
                     this.clienteFiles = [];
-                },
+                }
+
+
 
                 mostrarTecnicosCercanos() {
                     this.mostrandoCercanos = true;
-                },
+                }
+
+                // ============ ARCHIVOS CLIENTE ============
+
 
                 addClienteFile(event) {
                     const files = Array.from(event.target.files);
@@ -1863,11 +1832,16 @@
                         reader.readAsDataURL(file);
                     });
                     event.target.value = '';
-                },
+                }
+
+
 
                 removeClienteFile(index) {
                     this.clienteFiles.splice(index, 1);
-                },
+                }
+
+                // ============ TÉCNICO ============
+
 
                 handleFile(event, tipo) {
                     const file = event.target.files[0];
@@ -1875,7 +1849,9 @@
                         this.tecnicoFiles[tipo] = file;
                         this.calcularProgreso();
                     }
-                },
+                }
+
+
 
                 calcularProgreso() {
                     let campos = ['nombre', 'cuit', 'email', 'telefono', 'especialidad', 'experiencia', 'zona'];
@@ -1886,11 +1862,15 @@
                     let total = campos.length + 3 + 4;
                     let done = completados + docs + checks;
                     this.tecnicoProgress = Math.round((done / total) * 100);
-                },
+                }
+
+
 
                 submitTecnicoForm() {
                     this.tecnicoRegistrado = true;
-                },
+                }
+
+
 
                 resetTecnico() {
                     this.tecnicoRegistrado = false;
@@ -1908,5 +1888,11 @@
         }
     </script>
 
+    <!-- DEBUG: Estado de la app -->
+    <div class="fixed bottom-4 right-4 bg-red-500 text-white px-4 py-2 rounded-lg z-50 font-mono text-sm" x-text="'Step: ' + clienteStep + ' | View: ' + view">
+        Step: 1 | View: home
+    </div>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
 </body>
 </html>
