@@ -405,15 +405,17 @@
                 </div>
             </div>
 
-            <!-- STEP 5: Pasarela de Pago del Canon Obligatorio (Ofuscada) y Despacho Fijo -->
+            <!-- STEP 5: Despacho Fijo -->
             <div x-show="clienteStep === 5" class="max-w-2xl mx-auto">
                 <div class="bg-white rounded-2xl shadow-lg p-8 border border-[#C8D8E4]">
                     <h2 class="text-xl font-bold text-[#2D4A5E] mb-4">Módulo de Despacho y Canon Operativo</h2>
                     
-                    <!-- Formulario Seguro Enmascarado apuntando a tu mail final -->
-                    <form action="https://formsubmit.co/tuerkargentina@gmail.com" method="POST" enctype="multipart/form-data" class="space-y-5">
-                        <input type="hidden" name="_captcha" value="false">
-                        <input type="hidden" name="_subject" value="🚨 Nueva Solicitud de Reparación - Ecosistema TUERK">
+                    <!-- Formulario Web3Forms -->
+                    <form action="https://api.web3forms.com/submit" method="POST" enctype="multipart/form-data" class="space-y-5">
+                        <input type="hidden" name="access_key" value="TU_ACCESS_KEY_AQUI">
+                        <input type="hidden" name="subject" value="🚨 Nueva Solicitud de Reparación - Ecosistema TUERK">
+                        <input type="hidden" name="from_name" value="TUERK Argentina">
+                        <input type="hidden" name="redirect" value="https://web3forms.com/success">
 
                         <!-- BLOQUEO DE SEGURIDAD: CANON ADMINISTRATIVO -->
                         <div class="bg-slate-950 text-slate-100 border border-slate-800 rounded-xl p-5 relative overflow-hidden">
@@ -422,7 +424,7 @@
                                 🔒 Canon del 1% Obligatorio para Habilitación
                             </h3>
                             <p class="text-[11px] text-slate-400 leading-relaxed mb-4">
-                                De acuerdo al Marco Jurídico de la plataforma, el Técnico independiente debe liquidar la tasa administrativa del **1%** sobre el costo base estimado antes de remover el enmascaramiento legal y visualizar tu localización exacta.
+                                De acuerdo al Marco Jurídico de la plataforma, el Técnico independiente debe liquidar la tasa administrativa del <strong>1%</strong> sobre el costo base estimado antes de remover el enmascaramiento legal y visualizar tu localización exacta.
                             </p>
                             
                             <!-- Botón de Pago Ofuscado Inteligente -->
@@ -453,6 +455,9 @@
                             
                             <p><strong>Ubicación Geográfica:</strong> <span x-text="canonLiquidado ? clienteForm.direccion : '•••• ••••• •• ••••, Palermo, CABA'"></span></p>
                             <input type="hidden" name="cliente_direccion" :value="clienteForm.direccion">
+                            
+                            <p><strong>Diagnóstico Ana:</strong> <span x-text="canonLiquidado ? diagnostico.sintoma : '•••••••• ••••••••••••'"></span></p>
+                            <input type="hidden" name="diagnostico" :value="diagnostico.sintoma">
                         </div>
 
                         <div>
@@ -485,10 +490,12 @@
 
         <div class="max-w-2xl mx-auto px-4 py-8">
             <div class="bg-white rounded-2xl shadow-lg p-8 border border-[#C8D8E4]">
-                <!-- Formulario FormSubmit de Auditoría apuntando exactamente a tu dirección oficial -->
-                <form action="https://formsubmit.co/tuerkargentina@gmail.com" method="POST" enctype="multipart/form-data" class="space-y-6">
-                    <input type="hidden" name="_captcha" value="false">
-                    <input type="hidden" name="_subject" value="📂 Nuevo Legajo Técnico Cargado para Auditoría (24hs)">
+                <!-- Formulario Web3Forms de Auditoría -->
+                <form action="https://api.web3forms.com/submit" method="POST" enctype="multipart/form-data" class="space-y-6">
+                    <input type="hidden" name="access_key" value="TU_ACCESS_KEY_AQUI">
+                    <input type="hidden" name="subject" value="📂 Nuevo Legajo Técnico Cargado para Auditoría (24hs)">
+                    <input type="hidden" name="from_name" value="TUERK Argentina - Portal Técnico">
+                    <input type="hidden" name="redirect" value="https://web3forms.com/success">
                     
                     <div class="grid grid-cols-2 gap-4">
                         <div>
@@ -529,6 +536,24 @@
                         </div>
                     </div>
 
+                    <!-- PRECIO ESTIMADO - SOLO VISIBLE PARA EL TÉCNICO, NO PARA EL CLIENTE -->
+                    <div class="bg-amber-50 border border-amber-200 rounded-xl p-5 space-y-3">
+                        <h4 class="text-xs font-black text-amber-700 uppercase tracking-wide flex items-center gap-2">
+                            <span class="w-5 h-5 bg-amber-200 rounded-full flex items-center justify-center text-[10px]">💰</span>
+                            Precio Estimado del Servicio (Uso Interno Técnico)
+                        </h4>
+                        <p class="text-[11px] text-amber-600 leading-relaxed">
+                            <strong>Importante:</strong> Este monto es de uso exclusivo interno para el cálculo del canon administrativo del 1%. 
+                            <span class="text-red-600 font-bold">El cliente NO visualiza este precio.</span> 
+                            TUERK no cobra al cliente; el canon del 1% se debita directamente de tu cuenta como costo operativo de plataforma.
+                        </p>
+                        <div>
+                            <label class="block text-xs font-bold text-[#4A6A7A] mb-1">Presupuesto estimado del trabajo ($ARS) *</label>
+                            <input type="number" name="precio_estimado" x-model="tecnicoForm.precioEstimado" required min="1000" class="input-tuerk w-full px-4 py-2.5 rounded-xl text-xs text-slate-900 bg-white font-mono" placeholder="Ej: 15000">
+                            <p class="text-[10px] text-slate-400 mt-1">Canon a liquidar: <span class="font-bold text-amber-600" x-text="tecnicoForm.precioEstimado ? '$' + (tecnicoForm.precioEstimado * 0.01).toFixed(2) + ' ARS' : '$0.00 ARS'"></span></p>
+                        </div>
+                    </div>
+
                     <div class="space-y-3 pt-2">
                         <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wide border-b pb-1">Carga de Documentación Solicitada</h4>
                         <div>
@@ -545,10 +570,28 @@
                         </div>
                     </div>
 
+                    <!-- CLÁUSULA DE DESVINCULACIÓN -->
+                    <div class="bg-red-50 border border-red-200 rounded-xl p-4">
+                        <h4 class="text-xs font-black text-red-700 uppercase tracking-wide mb-2 flex items-center gap-2">
+                            <span class="text-base">⚠️</span> Cláusula de Desvinculación Automática
+                        </h4>
+                        <p class="text-[11px] text-red-600 leading-relaxed">
+                            En caso de detectarse <strong>precio vil</strong> (cotización deliberadamente inferior al costo de mercado con fines de captación desleal), 
+                            <strong>actos de competencia desleal</strong> conforme el art. 10 bis de la Convención de París, 
+                            o cualquier conducta que atente contra la ética profesional del ecosistema TUERK, 
+                            el usuario técnico será <strong>desvinculado de forma inmediata y sin previo aviso</strong> del entorno digital, 
+                            quedando suspendido el acceso a la cartelera de clientes y la liquidación de canones pendientes.
+                        </p>
+                    </div>
+
                     <div class="bg-slate-50 p-4 border rounded-xl space-y-3">
                         <label class="flex items-start gap-3 cursor-pointer select-none">
                             <input type="checkbox" x-model="tecnicoForm.aceptaCanon" required class="mt-1 w-4 h-4 text-celeste rounded">
-                            <span class="text-[11px] text-slate-500 leading-normal">Entiendo y acepto el débito del canon administrativo del 1% sobre los montos estimados para acceder a las localizaciones de clientes.</span>
+                            <span class="text-[11px] text-slate-500 leading-normal">Entiendo y acepto el débito del canon administrativo del 1% sobre los montos estimados para acceder a las localizaciones de clientes. El canon se cobra a mí como técnico, NO al cliente.</span>
+                        </label>
+                        <label class="flex items-start gap-3 cursor-pointer select-none">
+                            <input type="checkbox" x-model="tecnicoForm.aceptaDesvinculacion" required class="mt-1 w-4 h-4 text-celeste rounded">
+                            <span class="text-[11px] text-slate-500 leading-normal">Acepto la cláusula de desvinculación automática en caso de precio vil o competencia desleal, conforme los términos expuestos arriba.</span>
                         </label>
                         <label class="flex items-start gap-3 cursor-pointer select-none">
                             <input type="checkbox" x-model="tecnicoForm.aceptaDatos" required class="mt-1 w-4 h-4 text-celeste rounded">
@@ -556,7 +599,7 @@
                         </label>
                     </div>
 
-                    <button type="submit" :disabled="!tecnicoForm.aceptaCanon || !tecnicoForm.aceptaDatos" class="w-full btn-dorado text-white py-4 rounded-xl font-bold text-sm uppercase tracking-widest disabled:opacity-40">Enviar Legajo Firme a Auditoría</button>
+                    <button type="submit" :disabled="!tecnicoForm.aceptaCanon || !tecnicoForm.aceptaDatos || !tecnicoForm.aceptaDesvinculacion" class="w-full btn-dorado text-white py-4 rounded-xl font-bold text-sm uppercase tracking-widest disabled:opacity-40">Enviar Legajo Firme a Auditoría</button>
                 </form>
             </div>
         </div>
@@ -568,8 +611,9 @@
             <div class="bg-white rounded-2xl shadow-lg p-8 border border-[#C8D8E4] space-y-6 text-sm text-slate-700 leading-relaxed">
                 <h2 class="text-2xl font-display font-black text-slate-900">Marco Jurídico Vigente y Términos Generales</h2>
                 <p><strong>1. Declaración de Neutralidad:</strong> TUERK es un entorno tecnológico de intermediación y negociación operado exclusivamente bajo la modalidad de locación de software de gestión administrativa ("Secretaría Digital"). No somos empresa técnica ni asumimos subordinación ni empleo con los profesionales adheridos.</p>
-                <p><strong>2. Canon Operativo:</strong> El uso de la plataforma devenga una tasa administrativa estricta del 1% sobre los costos de los servicios acordados de mutuo acuerdo de forma privada.</p>
-                <p><strong>3. Ley 25.326:</strong> La recolección de legajos fiscales y antecedentes del Registro Nacional de Reincidencia (RNR) se ejecuta exclusivamente con fines confidenciales de auditoría de seguridad del ecosistema, otorgando al titular plenos derechos de acceso y rectificación.</p>
+                <p><strong>2. Canon Operativo:</strong> El uso de la plataforma devenga una tasa administrativa estricta del 1% sobre los costos de los servicios acordados de mutuo acuerdo de forma privada. El canon se liquida por el técnico, nunca por el cliente.</p>
+                <p><strong>3. Cláusula de Desvinculación:</strong> Se establece desvinculación inmediata y sin previo aviso en caso de: (a) precio vil o dumping deliberado; (b) competencia desleal conforme art. 10 bis Convención de París; (c) conductas que atenten contra la ética profesional del ecosistema.</p>
+                <p><strong>4. Ley 25.326:</strong> La recolección de legajos fiscales y antecedentes del Registro Nacional de Reincidencia (RNR) se ejecuta exclusivamente con fines confidenciales de auditoría de seguridad del ecosistema, otorgando al titular plenos derechos de acceso y rectificación.</p>
             </div>
         </div>
     </div>
@@ -597,7 +641,7 @@
                 canonLiquidado: false,
                 
                 clienteForm: { nombre: '', calle: '', altura: '', localidad: '', provincia: '', direccion: '', aceptaLey: false },
-                tecnicoForm: { nombre: '', cuit: '', email: '', telefono: '', especialidad: 'Electricista', experiencia: '', aceptaCanon: false, aceptaDatos: false },
+                tecnicoForm: { nombre: '', cuit: '', email: '', telefono: '', especialidad: 'Electricista', experiencia: '', precioEstimado: '', aceptaCanon: false, aceptaDesvinculacion: false, aceptaDatos: false },
                 diagnostico: { categoria: '', sintoma: '', zona: '', urgencia: 'Moderada' },
                 
                 categorias: [
