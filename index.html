@@ -262,6 +262,7 @@
                     <h2 class="text-2xl font-bold text-[#2D4A5E] mb-6">Tus datos de localización</h2>
                     <form @submit.prevent="iniciarChat()" class="space-y-5">
                         <div><label class="block text-sm font-medium text-[#4A6A7A] mb-1">Nombre completo *</label><input type="text" x-model="clienteForm.nombre" required class="input-tuerk w-full px-4 py-3 rounded-xl text-sm" placeholder="Ej: Juan Pérez"></div>
+                        <div><label class="block text-sm font-medium text-[#4A6A7A] mb-1">Teléfono celular *</label><input type="tel" x-model="clienteForm.telefono" required class="input-tuerk w-full px-4 py-3 rounded-xl text-sm" placeholder="Ej: +54 9 11 1234-5678"></div>
                         <div class="grid grid-cols-2 gap-4">
                             <div><label class="block text-sm font-medium text-[#4A6A7A] mb-1">Calle *</label><input type="text" x-model="clienteForm.calle" required class="input-tuerk w-full px-4 py-3 rounded-xl text-sm" placeholder="Ej: Av. Santa Fe"></div>
                             <div><label class="block text-sm font-medium text-[#4A6A7A] mb-1">Altura *</label><input type="text" x-model="clienteForm.altura" required class="input-tuerk w-full px-4 py-3 rounded-xl text-sm" placeholder="Ej: 1234"></div>
@@ -373,6 +374,7 @@
                                 <li>• <strong>OP:</strong> <span x-text="opNumero"></span></li>
                                 <li>• <strong>Categoría:</strong> <span x-text="diagnostico.categoria"></span></li>
                                 <li>• <strong>Zona:</strong> <span x-text="clienteForm.direccion"></span></li>
+                                <li>• <strong>Teléfono:</strong> <span x-text="clienteForm.telefono"></span></li>
                                 <li>• <strong>Diagnóstico:</strong> <span x-text="diagnostico.sintoma"></span></li>
                                 <li>• <strong>Técnico:</strong> <span x-text="tecnicoSelected?.nombre"></span></li>
                             </ul>
@@ -394,6 +396,7 @@
                             <input type="hidden" name="_next" value="https://tuerka.com">
                             <input type="hidden" name="op_numero" :value="opNumero">
                             <input type="hidden" name="cliente_nombre" :value="clienteForm.nombre">
+                            <input type="hidden" name="cliente_telefono" :value="clienteForm.telefono">
                             <input type="hidden" name="cliente_direccion" :value="clienteForm.direccion">
                             <input type="hidden" name="diagnostico" :value="diagnostico.sintoma">
                             <input type="hidden" name="categoria" :value="diagnostico.categoria">
@@ -441,7 +444,7 @@
                         <div><label class="block text-xs font-bold text-[#4A6A7A] mb-1">Teléfono Móvil *</label><input type="tel" name="tecnico_telefono" x-model="tecnicoForm.telefono" required class="input-tuerk w-full px-4 py-2.5 rounded-xl text-xs text-slate-900 bg-slate-50"></div>
                     </div>
                     <div class="grid grid-cols-2 gap-4">
-                        <div><label class="block text-xs font-bold text-[#4A6A7A] mb-1">Especialidad Principal *</label><select name="tecnico_especialidad" x-model="tecnicoForm.especialidad" required class="input-tuerk w-full px-4 py-2.5 rounded-xl text-xs text-slate-900 bg-slate-50"><option value="Electricista">Electricista</option><option value="Plomero / Gasista">Plomero / Gasista</option><option value="Refrigeración">Refrigeración / Aire Acondicionado</option><option value="Carpintero">Carpintero</option><option value="Albañil">Albañil</option><option value="Informática">Informática / Redes / PC</option></select></div>
+                        <div><label class="block text-xs font-bold text-[#4A6A7A] mb-1">Especialidad Principal *</label><select name="tecnico_especialidad" x-model="tecnicoForm.especialidad" required class="input-tuerk w-full px-4 py-2.5 rounded-xl text-xs text-slate-900 bg-slate-50"><option value="Electricista">Electricista</option><option value="Plomero / Gasista">Plomero / Gasista</option><option value="Refrigeración">Refrigeración / Aire Acondicionado</option><option value="Carpintero">Carpintero</option><option value="Albañil">Albañil</option><option value="Informática">Informática / Redes / PC</option><option value="Electrodomésticos">Service de Electrodomésticos</option></select></div>
                         <div><label class="block text-xs font-bold text-[#4A6A7A] mb-1">Años de Experiencia *</label><input type="number" name="tecnico_experiencia" x-model="tecnicoForm.experiencia" required class="input-tuerk w-full px-4 py-2.5 rounded-xl text-xs text-slate-900 bg-slate-50"></div>
                     </div>
                     <div class="space-y-3 pt-2">
@@ -670,7 +673,7 @@
                 codigoGenerado: '',
                 codigosHistorial: [],
 
-                clienteForm: { nombre: '', calle: '', altura: '', localidad: '', provincia: '', direccion: '', aceptaLey: false, mayorEdad: false },
+                clienteForm: { nombre: '', telefono: '', calle: '', altura: '', localidad: '', provincia: '', direccion: '', aceptaLey: false, mayorEdad: false },
                 tecnicoForm: { nombre: '', cuit: '', email: '', telefono: '', especialidad: 'Electricista', experiencia: '', aceptaCanon: false, aceptaBajaUsuario: false, aceptaDatos: false },
                 tecnicoOPMonto: 35000,
                 mostrarValidacionCodigo: false,
@@ -684,7 +687,8 @@
                     { id: 'refrigeracion', nombre: 'Refrigeración ❄️', icon: '❄️', descripcion: 'Aires acondicionados, heladeras, cámaras.', keywords: ['aire', 'frío', 'heladera', 'enfría', 'split', 'acondicionado'] },
                     { id: 'carpinteria', nombre: 'Carpintería 🪵', icon: '🪵', descripcion: 'Muebles, aberturas, colocaciones estructurales.', keywords: ['madera', 'mueble', 'puerta', 'placard', 'mesa', 'silla'] },
                     { id: 'construccion', nombre: 'Construcción 🧱', icon: '🧱', descripcion: 'Albañilería, revoques, colocación de cerámicos.', keywords: ['pared', 'ladrillo', 'cemento', 'revoque', 'piso', 'techo'] },
-                    { id: 'informatica', nombre: 'Informática 💻', icon: '💻', descripcion: 'PC, notebooks, redes, virus, instalación de software.', keywords: ['pc', 'notebook', 'internet', 'wifi', 'virus', 'pantalla', 'lento', 'windows', 'mac'] }
+                    { id: 'informatica', nombre: 'Informática 💻', icon: '💻', descripcion: 'PC, notebooks, redes, virus, instalación de software.', keywords: ['pc', 'notebook', 'internet', 'wifi', 'virus', 'pantalla', 'lento', 'windows', 'mac'] },
+                    { id: 'electrodomesticos', nombre: 'Service Electrodomésticos 📺', icon: '📺', descripcion: 'Lavarropas, microondas, hornos, TVs, aspiradoras.', keywords: ['lavarropas', 'microondas', 'horno', 'tv', 'televisor', 'aspiradora', 'licuadora', 'tostadora'] }
                 ],
 
                 tecnicos: [
@@ -695,7 +699,8 @@
                     { id: 5, nombre: 'Lucas Fernández', especialidad: 'Electricista Matriculado', zona: 'Belgrano, CABA', experiencia: 10, match: 90, cat: 'electricidad' },
                     { id: 6, nombre: 'Roberto Díaz', especialidad: 'Albañil / Construcción', zona: 'Palermo, CABA', experiencia: 18, match: 87, cat: 'construccion' },
                     { id: 7, nombre: 'Martín López', especialidad: 'Técnico en Informática', zona: 'Palermo, CABA', experiencia: 9, match: 93, cat: 'informatica' },
-                    { id: 8, nombre: 'Diego Torres', especialidad: 'Plomero / Gasista', zona: 'Caballito, CABA', experiencia: 14, match: 89, cat: 'plomeria' }
+                    { id: 8, nombre: 'Diego Torres', especialidad: 'Plomero / Gasista', zona: 'Caballito, CABA', experiencia: 14, match: 89, cat: 'plomeria' },
+                    { id: 9, nombre: 'Sergio Benítez', especialidad: 'Técnico en Electrodomésticos', zona: 'Palermo, CABA', experiencia: 11, match: 91, cat: 'electrodomesticos' }
                 ],
 
                 get tecnicosFiltrados() {
@@ -849,6 +854,12 @@
                             '¿Es un problema de hardware (pantalla, teclado) o software?',
                             '¿Tenés conexión a internet o es un problema de red?',
                             '¿Aparecen mensajes de error? Si es así, ¿cuáles?'
+                        ],
+                        'electrodomesticos': [
+                            '¿Qué electrodoméstico necesita reparación? 📺',
+                            '¿El equipo enciende pero no funciona correctamente?',
+                            '¿Escuchás ruidos extraños o huele a quemado?',
+                            '¿Cuándo fue la última vez que funcionó bien?'
                         ]
                     };
                     const lista = preguntas[catId] || preguntas['electricidad'];
