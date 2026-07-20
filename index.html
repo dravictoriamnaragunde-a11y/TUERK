@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TUERKA — Técnicos que hablan tu idioma</title>
+    <title>TUERKA — Secretaría Digital</title>
     <meta name="description" content="TUERKA es profesionalismo técnico, acortando procesos. Conectamos clientes con técnicos independientes verificados. Vos elegís quién y a qué precio.">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
@@ -49,7 +49,7 @@
         .admin-trigger { position: fixed; bottom: 4px; right: 4px; width: 8px; height: 8px; opacity: 0.05; cursor: pointer; z-index: 9999; }
         .admin-trigger:hover { opacity: 0.3; }
     </style>
-<base target="_blank">
+<base target="_self">
 <base target="_blank">
 </head>
 <body class="font-sans bg-[#EEF1F4] text-[#3A5A6A] antialiased" x-data="tuerkApp()">
@@ -107,6 +107,7 @@
                     <button @click="view = 'home'" class="text-sm font-medium text-[#5A7A8A] hover:text-[#1E3A4C] transition-colors cursor-pointer">Inicio</button>
                     <button @click="view = 'cliente'" class="text-sm font-medium text-[#5A7A8A] hover:text-[#1E3A4C] transition-colors cursor-pointer">Soy Cliente</button>
                     <button @click="view = 'tecnico'" class="text-sm font-medium text-[#5A7A8A] hover:text-[#1E3A4C] transition-colors cursor-pointer">Soy Técnico</button>
+                    <button @click="view = 'panel-tecnico'" class="text-sm font-medium text-[#5A7A8A] hover:text-[#1E3A4C] transition-colors cursor-pointer">Panel Técnico</button>
                     <button @click="view = 'tyc'" class="text-sm font-medium text-[#5A7A8A] hover:text-[#1E3A4C] transition-colors cursor-pointer">Términos</button>
                 </nav>
                 <button @click="mobileMenu = !mobileMenu" class="md:hidden p-2 rounded-lg hover:bg-[#E8EEF2]">
@@ -119,6 +120,7 @@
                 <button @click="view = 'home'; mobileMenu = false" class="block w-full text-left px-3 py-2 rounded-lg hover:bg-[#E8EEF2] text-sm font-medium cursor-pointer">Inicio</button>
                 <button @click="view = 'cliente'; mobileMenu = false" class="block w-full text-left px-3 py-2 rounded-lg hover:bg-[#E8EEF2] text-sm font-medium cursor-pointer">Soy Cliente</button>
                 <button @click="view = 'tecnico'; mobileMenu = false" class="block w-full text-left px-3 py-2 rounded-lg hover:bg-[#E8EEF2] text-sm font-medium cursor-pointer">Soy Técnico</button>
+                <button @click="view = 'panel-tecnico'; mobileMenu = false" class="block w-full text-left px-3 py-2 rounded-lg hover:bg-[#E8EEF2] text-sm font-medium cursor-pointer">Panel Técnico</button>
                 <button @click="view = 'tyc'; mobileMenu = false" class="block w-full text-left px-3 py-2 rounded-lg hover:bg-[#E8EEF2] text-sm font-medium cursor-pointer">Términos y Condiciones</button>
             </div>
         </div>
@@ -350,86 +352,57 @@
                             <p class="text-slate-300">📍 <span x-text="diagnostico.zona"></span></p>
                         </div>
                     </div>
-                    <h2 class="text-xl font-bold text-[#2D4A5E] mb-4">Módulo de Despacho y Canon Operativo</h2>
-                    <div x-show="!pagoPendienteValidacion" class="space-y-5">
-                        <div class="bg-slate-950 text-slate-100 border border-slate-800 rounded-xl p-5 relative overflow-hidden">
-                            <div class="absolute -right-6 -top-6 w-20 h-20 bg-amber-500/10 rounded-full blur-2xl"></div>
-                            <h3 class="text-xs font-black text-amber-400 uppercase tracking-widest mb-2 flex items-center">🔒 Canon del 1% — Validación Anti-Fraude</h3>
-                            <p class="text-[11px] text-slate-400 leading-relaxed mb-4">De acuerdo al Marco Jurídico, debés liquidar la tasa administrativa del <strong>1%</strong> sobre el costo base estimado. Realizá una <strong>transferencia bancaria directa</strong> (sin intermediarios) a la cuenta de TUERKA. Una vez que el pago impacte, el administrador te enviará un <strong>código de validación único</strong> para desbloquear los datos del cliente.</p>
-                            <div class="bg-slate-900 rounded-lg p-4 mb-4 border border-slate-700">
-                                <p class="text-[10px] text-slate-500 uppercase tracking-wider mb-2 font-bold">Datos para transferencia bancaria:</p>
-                                <p class="text-sm font-mono text-amber-300 mb-1">Alias: <strong>tuerkaargentina</strong></p>
-                                <p class="text-sm font-mono text-amber-300">Titular: TUERKA Argentina</p>
-                                <p class="text-[10px] text-slate-500 mt-2">Transferencia bancaria directa — sin comisiones de intermediarios.</p>
-                            </div>
-                            <button type="button" @click="copiarDatosTransferencia()" class="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 shadow-[0_4px_15px_rgba(245,158,11,0.15)] text-xs py-3 rounded-lg font-extrabold uppercase tracking-wider transition-all active:scale-[0.99] flex items-center justify-center gap-2 border border-amber-400">📋 Copiar Datos de Transferencia</button>
-                            <p class="text-[9px] text-slate-500 mt-2 text-center">* Al presionar, los datos de la cuenta se copian automáticamente a tu portapapeles.</p>
-                        </div>
+
+                    <h2 class="text-xl font-bold text-[#2D4A5E] mb-4">Confirmación de Solicitud</h2>
+
+                    <div class="space-y-5">
                         <div class="bg-amber-50 border border-amber-200 rounded-xl p-4">
-                            <h4 class="text-xs font-bold text-amber-700 mb-2">📋 Instrucciones post-pago:</h4>
-                            <ol class="text-[11px] text-amber-600 space-y-1 list-decimal list-inside">
-                                <li>Realizá la transferencia del 1% a la cuenta de TUERKA.</li>
-                                <li>El sistema detecta el impacto automáticamente.</li>
-                                <li>El admin habilitará el desbloqueo en la web. Volvé a esta página y presioná <strong>"Verificar Desbloqueo"</strong> para acceder a los datos.</li>
-                                <li>Ingresá el código acá abajo para acceder a la información del cliente.</li>
-                            </ol>
+                            <h4 class="text-xs font-bold text-amber-700 mb-2">📋 Resumen de tu solicitud:</h4>
+                            <ul class="text-[11px] text-amber-600 space-y-1">
+                                <li>• <strong>OP:</strong> <span x-text="opNumero"></span></li>
+                                <li>• <strong>Categoría:</strong> <span x-text="diagnostico.categoria"></span></li>
+                                <li>• <strong>Zona:</strong> <span x-text="clienteForm.direccion"></span></li>
+                                <li>• <strong>Diagnóstico:</strong> <span x-text="diagnostico.sintoma"></span></li>
+                                <li>• <strong>Técnico:</strong> <span x-text="tecnicoSelected?.nombre"></span></li>
+                            </ul>
                         </div>
-                        <div class="border-t pt-5">
-                            <label class="block text-xs font-bold text-slate-600 mb-2">¿Ya pagaste y recibiste el código de validación?</label>
-                            <button @click="pagoPendienteValidacion = true" class="w-full bg-slate-800 text-white py-3 rounded-xl font-bold text-sm">Ingresar Código de Validación →</button>
+
+                        <div class="bg-blue-50 border border-blue-200 rounded-xl p-4">
+                            <p class="text-[11px] text-blue-700 leading-relaxed">
+                                <strong>¿Qué sigue?</strong><br>
+                                1. El técnico recibirá tu solicitud y definirá el monto del servicio.<br>
+                                2. Una vez que el técnico pague el canon del 1%, recibirás sus datos de contacto para que puedas coordinar fecha, hora y detalles directamente con él.<br>
+                                3. El monto mínimo de cualquier OP es de <strong>$35.000 ARS</strong>.
+                            </p>
                         </div>
-                    </div>
-                    <div x-show="pagoPendienteValidacion" class="space-y-5">
-                        <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-5">
-                            <h3 class="text-sm font-bold text-emerald-800 mb-3">🔓 Verificar Desbloqueo</h3>
-                            <p class="text-[11px] text-emerald-600 mb-4">Realizaste la transferencia del 1%. El administrador validará el pago y habilitará el desbloqueo desde el panel. Presioná el botón para verificar si ya está habilitado.</p>
-                            <div class="space-y-3">
-                                <div><label class="block text-xs font-bold text-slate-600 mb-1">Monto transferido ($ARS) *</label><input type="number" x-model="canonMontoValidar" placeholder="Ej: 15000" class="input-tuerk w-full px-4 py-3 rounded-xl text-sm font-mono"></div>
-                            </div>
-                            <p x-show="codigoError" x-text="codigoError" class="text-xs text-red-600 mt-2 text-center font-bold"></p>
-                            <button @click="verificarDesbloqueo()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 rounded-xl font-bold text-sm mt-3">🔍 Verificar Desbloqueo</button>
-                            <p class="text-[10px] text-emerald-500 mt-2 text-center">Si el admin ya validó tu pago, los datos se desbloquearán instantáneamente.</p>
-                            <button @click="pagoPendienteValidacion = false" class="w-full text-slate-400 text-xs mt-2 py-2">← Volver a instrucciones de pago</button>
-                        </div>
-                    </div>
-                    <div x-show="canonLiquidado" class="space-y-5">
-                        <div class="bg-emerald-100 border border-emerald-300 rounded-xl p-4 text-center">
-                            <span class="text-2xl">✅</span>
-                            <p class="text-sm font-bold text-emerald-800 mt-1">Pago Validado — Datos Desbloqueados</p>
-                            <p class="text-[10px] text-emerald-600">El administrador confirmó el impacto de la transferencia.</p>
-                        </div>
-                        <form action="https://formsubmit.co/tuerkargentina@gmail.com" method="POST" enctype="multipart/form-data" class="space-y-5">
+
+                        <form action="https://formsubmit.co/tuerkargentina@gmail.com" method="POST" enctype="multipart/form-data" target="_self" class="space-y-5">
                             <input type="hidden" name="_captcha" value="false">
                             <input type="hidden" name="_template" value="table">
-                            <input type="hidden" name="_subject" value="🚨 Nueva Solicitud de Reparación - Ecosistema TUERKA">
-                            <input type="hidden" name="_next" value="https://tuerka.com/gracias-cliente.html">
+                            <input type="hidden" name="_subject" value="🚨 Nueva Solicitud - TUERKA">
+                            <input type="hidden" name="_next" value="https://tuerka.com">
                             <input type="hidden" name="op_numero" :value="opNumero">
-                            <input type="hidden" name="diagnostico_completo" :value="diagnostico.sintoma">
-                            <input type="hidden" name="categoria_servicio" :value="diagnostico.categoria">
-                            <input type="hidden" name="zona_servicio" :value="diagnostico.zona">
-                            <div class="border rounded-xl p-4 text-xs space-y-1.5 bg-emerald-50/50 border-emerald-200 text-slate-700 shadow-inner">
-                                <div class="flex items-center justify-between font-bold border-b pb-1.5 mb-1"><span>Información de Contacto del Caso</span><span class="text-[10px] uppercase px-2 py-0.5 rounded bg-emerald-100 text-emerald-800">Desbloqueado</span></div>
-                                <p><strong>Técnico Asignado:</strong> <span x-text="tecnicoSelected?.nombre"></span></p><input type="hidden" name="tecnico_asignado" :value="tecnicoSelected?.nombre">
-                                <p><strong>Cliente Titular:</strong> <span x-text="clienteForm.nombre"></span></p><input type="hidden" name="cliente_nombre" :value="clienteForm.nombre">
-                                <p><strong>Ubicación Geográfica:</strong> <span x-text="clienteForm.direccion"></span></p><input type="hidden" name="cliente_direccion" :value="clienteForm.direccion">
-                                <p><strong>Diagnóstico Ana:</strong> <span x-text="diagnostico.sintoma"></span></p><input type="hidden" name="diagnostico" :value="diagnostico.sintoma">
-                            </div>
-                            <div><label class="block text-xs font-bold text-slate-500 mb-1">Cargá hasta 4 fotos/videos del desperfecto (Opcional)</label><input type="file" name="fotos_evidencia" multiple accept="image/*,video/*" class="w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-slate-100 file:text-slate-700 hover:file:bg-slate-200"></div>
+                            <input type="hidden" name="cliente_nombre" :value="clienteForm.nombre">
+                            <input type="hidden" name="cliente_direccion" :value="clienteForm.direccion">
+                            <input type="hidden" name="diagnostico" :value="diagnostico.sintoma">
+                            <input type="hidden" name="categoria" :value="diagnostico.categoria">
+                            <input type="hidden" name="tecnico_asignado" :value="tecnicoSelected?.nombre">
+
+                            <div><label class="block text-xs font-bold text-slate-500 mb-1">Cargá fotos/videos del desperfecto (Opcional)</label><input type="file" name="fotos_evidencia" multiple accept="image/*,video/*" class="w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-slate-100 file:text-slate-700 hover:file:bg-slate-200"></div>
                             <div class="bg-slate-50 p-3.5 border rounded-xl">
                                 <label class="flex items-start gap-3 cursor-pointer select-none">
                                     <input type="checkbox" x-model="clienteForm.aceptaLey" required class="mt-1 w-4 h-4 text-celeste rounded">
                                     <span class="text-[11px] text-slate-500 leading-normal">Acepto los términos de resguardo confidencial de la Ley 25.326 y entiendo que la relación contractual de locación es exclusiva con el profesional independiente elegido.</span>
                                 </label>
                             </div>
-                            <button type="submit" :disabled="!clienteForm.aceptaLey" class="w-full btn-celeste text-white py-4 rounded-xl font-bold text-sm uppercase tracking-wider shadow-md disabled:opacity-40 disabled:cursor-not-allowed">Despachar Solicitud Exclusiva</button>
+                            <button type="submit" :disabled="!clienteForm.aceptaLey" class="w-full btn-celeste text-white py-4 rounded-xl font-bold text-sm uppercase tracking-wider shadow-md disabled:opacity-40 disabled:cursor-not-allowed">Confirmar y Enviar Solicitud</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- VIEW: TÉCNICO -->
+<!-- VIEW: TÉCNICO -->
     <div x-show="view === 'tecnico'" x-cloak class="min-h-screen bg-[#EEF1F4] pb-20">
         <div class="bg-white border-b border-[#C8D8E4]">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
@@ -439,11 +412,11 @@
         </div>
         <div class="max-w-2xl mx-auto px-4 py-8">
             <div class="bg-white rounded-2xl shadow-lg p-8 border border-[#C8D8E4]">
-                <form action="https://formsubmit.co/tuerkargentina@gmail.com" method="POST" enctype="multipart/form-data" class="space-y-6">
+                <form action="https://formsubmit.co/tuerkargentina@gmail.com" method="POST" enctype="multipart/form-data" target="_self" class="space-y-6">
                     <input type="hidden" name="_captcha" value="false">
                     <input type="hidden" name="_template" value="table">
-                    <input type="hidden" name="_subject" value="📂 Nuevo Legajo Técnico Cargado para Auditoría (24hs)">
-                    <input type="hidden" name="_next" value="https://tuerka.com/gracias-tecnico.html">
+                    <input type="hidden" name="_subject" value="📂 Nuevo Legajo Técnico - TUERKA">
+                    <input type="hidden" name="_next" value="https://tuerka.com">
                     <div class="grid grid-cols-2 gap-4">
                         <div><label class="block text-xs font-bold text-[#4A6A7A] mb-1">Nombre Completo *</label><input type="text" name="tecnico_nombre" x-model="tecnicoForm.nombre" required class="input-tuerk w-full px-4 py-2.5 rounded-xl text-xs text-slate-900 bg-slate-50"></div>
                         <div><label class="block text-xs font-bold text-[#4A6A7A] mb-1">CUIT / CUIL (Sin Guiones) *</label><input type="text" name="tecnico_cuit" x-model="tecnicoForm.cuit" required pattern="[0-9]{11}" class="input-tuerk w-full px-4 py-2.5 rounded-xl text-xs text-slate-900 font-mono bg-slate-50"></div>
@@ -455,11 +428,6 @@
                     <div class="grid grid-cols-2 gap-4">
                         <div><label class="block text-xs font-bold text-[#4A6A7A] mb-1">Especialidad Principal *</label><select name="tecnico_especialidad" x-model="tecnicoForm.especialidad" required class="input-tuerk w-full px-4 py-2.5 rounded-xl text-xs text-slate-900 bg-slate-50"><option value="Electricista">Electricista</option><option value="Plomero / Gasista">Plomero / Gasista</option><option value="Refrigeración">Refrigeración / Aire Acondicionado</option><option value="Carpintero">Carpintero</option><option value="Albañil">Albañil</option><option value="Informática">Informática / Redes / PC</option></select></div>
                         <div><label class="block text-xs font-bold text-[#4A6A7A] mb-1">Años de Experiencia *</label><input type="number" name="tecnico_experiencia" x-model="tecnicoForm.experiencia" required class="input-tuerk w-full px-4 py-2.5 rounded-xl text-xs text-slate-900 bg-slate-50"></div>
-                    </div>
-                    <div class="bg-amber-50 border border-amber-200 rounded-xl p-5 space-y-3">
-                        <h4 class="text-xs font-black text-amber-700 uppercase tracking-wide flex items-center gap-2"><span class="w-5 h-5 bg-amber-200 rounded-full flex items-center justify-center text-[10px]">💰</span>Precio Estimado del Servicio (Uso Interno Técnico)</h4>
-                        <p class="text-[11px] text-amber-600 leading-relaxed"><strong>Importante:</strong> Este monto es de uso exclusivo interno para el cálculo del canon administrativo del 1%. <span class="text-red-600 font-bold">El cliente NO visualiza este precio.</span> TUERKA no cobra al cliente; el canon del 1% se debita directamente de tu cuenta como costo operativo de plataforma.</p>
-                        <div><label class="block text-xs font-bold text-[#4A6A7A] mb-1">Presupuesto estimado del trabajo ($ARS) *</label><input type="number" name="precio_estimado" x-model="tecnicoForm.precioEstimado" required min="1000" class="input-tuerk w-full px-4 py-2.5 rounded-xl text-xs text-slate-900 bg-white font-mono" placeholder="Ej: 15000"><p class="text-[10px] text-slate-400 mt-1">Canon a liquidar: <span class="font-bold text-amber-600" x-text="tecnicoForm.precioEstimado ? '$' + (tecnicoForm.precioEstimado * 0.01).toFixed(2) + ' ARS' : '$0.00 ARS'"></span></p></div>
                     </div>
                     <div class="space-y-3 pt-2">
                         <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wide border-b pb-1">Carga de Documentación Solicitada</h4>
@@ -482,7 +450,90 @@
         </div>
     </div>
 
-    <!-- VIEW: TERMINOS -->
+    <!-- VIEW: PANEL TÉCNICO — Aquí el técnico ve sus OPs y paga el canon -->
+    <div x-show="view === 'panel-tecnico'" x-cloak class="min-h-screen bg-[#EEF1F4] pb-20">
+        <div class="bg-white border-b border-[#C8D8E4]">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                <button @click="view = 'home'" class="text-sm text-[#6A8A9A] flex items-center gap-1">← Volver al inicio</button>
+                <h1 class="text-2xl sm:text-3xl font-display font-bold text-[#2D4A5E] mt-3">Panel del Técnico — Órdenes de Pedido</h1>
+            </div>
+        </div>
+        <div class="max-w-2xl mx-auto px-4 py-8">
+            <div class="bg-white rounded-2xl shadow-lg p-8 border border-[#C8D8E4] space-y-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-[10px] text-slate-400 uppercase tracking-wider font-bold">Orden de Pedido</p>
+                        <p class="text-xl font-black font-mono text-amber-500">OP-20260720123456</p>
+                    </div>
+                    <span class="px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-xs font-bold">PENDIENTE</span>
+                </div>
+
+                <div class="border rounded-xl p-4 text-xs space-y-2 bg-slate-50 text-slate-700">
+                    <p><strong>📋 Categoría:</strong> Electricidad ⚡</p>
+                    <p><strong>📍 Zona:</strong> Palermo, CABA</p>
+                    <p><strong>🔧 Diagnóstico del cliente:</strong> "Se cortó la luz en toda la casa, el tablero hace un ruido raro y huele a quemado."</p>
+                    <p><strong>📎 Archivos adjuntos:</strong> 2 fotos, 1 video</p>
+                </div>
+
+                <div class="bg-amber-50 border-2 border-amber-300 rounded-xl p-6">
+                    <h3 class="text-sm font-bold text-amber-800 mb-3">💰 Definir Monto del Servicio y Pagar Canon</h3>
+                    <p class="text-[11px] text-amber-600 mb-4">
+                        Ingresá el monto que le vas a cobrar al cliente por este servicio. Sobre ese monto se calcula el canon del 1% que debés pagar a TUERKA para desbloquear los datos de contacto del cliente.<br>
+                        <strong>Monto mínimo de OP: $35.000 ARS.</strong>
+                    </p>
+
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold text-[#4A6A7A] mb-1">Monto del servicio ($ARS) *</label>
+                            <input type="number" x-model="tecnicoOPMonto" min="35000" class="input-tuerk w-full px-4 py-3 rounded-xl text-sm font-mono" placeholder="Ej: 45000">
+                            <p class="text-[10px] text-slate-400 mt-1">Mínimo: $35.000</p>
+                        </div>
+
+                        <div x-show="tecnicoOPMonto >= 35000" class="bg-white rounded-lg p-4 border border-amber-200">
+                            <div class="flex justify-between text-sm mb-1">
+                                <span class="text-slate-600">Monto del servicio:</span>
+                                <span class="font-bold" x-text="'$' + Number(tecnicoOPMonto).toLocaleString('es-AR')"></span>
+                            </div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span class="text-slate-600">Canon TUERKA (1%):</span>
+                                <span class="font-bold text-amber-600" x-text="'$' + Math.round(tecnicoOPMonto * 0.01).toLocaleString('es-AR')"></span>
+                            </div>
+                            <hr class="my-2">
+                            <div class="flex justify-between text-sm">
+                                <span class="text-slate-600">Vos cobrás al cliente:</span>
+                                <span class="font-bold text-lg text-[#2D4A5E]" x-text="'$' + Number(tecnicoOPMonto).toLocaleString('es-AR')"></span>
+                            </div>
+                        </div>
+
+                        <div x-show="tecnicoOPMonto >= 35000" class="bg-slate-900 rounded-lg p-4 border border-slate-700">
+                            <p class="text-[10px] text-slate-400 uppercase tracking-wider mb-2 font-bold">Datos para transferencia:</p>
+                            <p class="text-sm font-mono text-amber-300 mb-1">Alias: <strong>tuerkaargentina</strong></p>
+                            <p class="text-sm font-mono text-amber-300">Titular: TUERKA Argentina</p>
+                            <p class="text-[10px] text-slate-500 mt-2">Concepto: Canon OP</p>
+                        </div>
+
+                        <button x-show="tecnicoOPMonto >= 35000" @click="confirmarPagoCanon()" class="w-full btn-dorado text-white py-3 rounded-xl font-bold text-sm">
+                            💳 Confirmar y Pagar Canon del 1%
+                        </button>
+                    </div>
+                </div>
+
+                <div x-show="canonLiquidado" x-cloak class="bg-emerald-50 border border-emerald-200 rounded-xl p-6 text-center">
+                    <span class="text-3xl">🔓</span>
+                    <h3 class="text-lg font-bold text-emerald-800 mt-2">¡Canon Pagado — Datos Desbloqueados!</h3>
+                    <div class="mt-4 text-left bg-white rounded-lg p-4 border border-emerald-200 text-sm space-y-2">
+                        <p><strong>👤 Cliente:</strong> Juan Pérez</p>
+                        <p><strong>📱 Teléfono:</strong> +54 9 11 XXXX-XXXX</p>
+                        <p><strong>📧 Email:</strong> juan@email.com</p>
+                        <p><strong>📍 Dirección:</strong> Av. Santa Fe 1234, Palermo, CABA</p>
+                    </div>
+                    <p class="text-[11px] text-emerald-600 mt-3">Contactá al cliente para coordinar fecha, hora y detalles del servicio.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- VIEW: TERMINOS -->
     <div x-show="view === 'tyc'" x-cloak class="min-h-screen bg-[#EEF1F4] pb-20">
         <div class="max-w-4xl mx-auto px-4 py-8">
             <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-6 flex items-center justify-between">
@@ -544,7 +595,8 @@
                 codigosHistorial: [],
 
                 clienteForm: { nombre: '', calle: '', altura: '', localidad: '', provincia: '', direccion: '', aceptaLey: false },
-                tecnicoForm: { nombre: '', cuit: '', email: '', telefono: '', especialidad: 'Electricista', experiencia: '', precioEstimado: '', aceptaCanon: false, aceptaBajaUsuario: false, aceptaDatos: false },
+                tecnicoForm: { nombre: '', cuit: '', email: '', telefono: '', especialidad: 'Electricista', experiencia: '', aceptaCanon: false, aceptaBajaUsuario: false, aceptaDatos: false },
+                tecnicoOPMonto: 35000,
                 diagnostico: { categoria: '', sintoma: '', zona: '', urgencia: 'Moderada' },
 
                 categorias: [
@@ -744,6 +796,112 @@
                     document.execCommand('copy');
                     document.body.removeChild(el);
                     alert('¡Datos de transferencia copiados al portapapeles!\n\nAlias: tuerkaargentina\nTitular: TUERKA Argentina\n\nAbrí tu home banking o app del banco y realizá la transferencia del 1%. Una vez acreditada, el admin te enviará el código de desbloqueo.');
+                },
+
+                // ===== PANEL TÉCNICO: CALCULAR CANON =====
+                calcularCanonTecnico() {
+                    const monto = Number(this.tecnicoOPMonto) || 35000;
+                    this.tecnicoOPMonto = Math.max(monto, 35000);
+                },
+
+                confirmarPagoCanon() {
+                    if (this.tecnicoOPMonto < 35000) {
+                        alert('El monto mínimo de la OP es de $35.000 ARS.');
+                        return;
+                    }
+                    const canon = Math.round(this.tecnicoOPMonto * 0.01);
+                    alert('Canon a pagar: $' + canon.toLocaleString('es-AR') + ' ARS\n\nRealizá la transferencia al alias: tuerkaargentina\nTitular: TUERKA Argentina\n\nUna vez acreditado, presioná "Verificar Desbloqueo".');
+                    // En producción, esto redirigiría a Mercado Pago o similar
+                },
+
+                // ===== ENVIAR FORMULARIO TÉCNICO (vía FormSubmit AJAX) =====
+                async enviarFormularioTecnico() {
+                    const form = document.getElementById('form-tecnico');
+                    const formData = new FormData(form);
+
+                    // Agregar metadatos
+                    formData.append('_captcha', 'false');
+                    formData.append('_template', 'table');
+                    formData.append('_subject', '📂 Nuevo Legajo Técnico - TUERKA');
+
+                    try {
+                        const response = await fetch('https://formsubmit.co/ajax/tuerkargentina@gmail.com', {
+                            method: 'POST',
+                            body: formData
+                        });
+                        if (response.ok) {
+                            this.tecnicoEnviado = true;
+                        } else {
+                            throw new Error('Error en el envío');
+                        }
+                    } catch (e) {
+                        // Si falla, mostrar opción de mailto
+                        alert('Hubo un problema con el envío automático. Usá el link "Enviar por email" debajo del botón.');
+                    }
+                },
+
+                generarMailtoTecnico() {
+                    const subject = encodeURIComponent('📂 Nuevo Legajo Técnico - ' + this.tecnicoForm.nombre);
+                    const body = encodeURIComponent(
+                        'NUEVO LEGAJO TÉCNICO - TUERKA\n\n' +
+                        'Nombre: ' + this.tecnicoForm.nombre + '\n' +
+                        'CUIT: ' + this.tecnicoForm.cuit + '\n' +
+                        'Email: ' + this.tecnicoForm.email + '\n' +
+                        'Teléfono: ' + this.tecnicoForm.telefono + '\n' +
+                        'Especialidad: ' + this.tecnicoForm.especialidad + '\n' +
+                        'Experiencia: ' + this.tecnicoForm.experiencia + ' años\n\n' +
+                        'Adjuntar en este email:\n' +
+                        '1. Constancia AFIP\n' +
+                        '2. Matrícula Profesional\n' +
+                        '3. Certificado de Antecedentes Penales (RNR)\n\n' +
+                        '---\nEnviado desde TUERKA Argentina'
+                    );
+                    return 'mailto:tuerkargentina@gmail.com?subject=' + subject + '&body=' + body;
+                },
+
+                // ===== ENVIAR FORMULARIO CLIENTE (vía FormSubmit AJAX) =====
+                async enviarFormularioCliente() {
+                    const form = document.getElementById('form-cliente');
+                    const formData = new FormData(form);
+
+                    formData.append('_captcha', 'false');
+                    formData.append('_template', 'table');
+                    formData.append('_subject', '🚨 Nueva Solicitud - OP ' + this.opNumero);
+
+                    try {
+                        const response = await fetch('https://formsubmit.co/ajax/tuerkargentina@gmail.com', {
+                            method: 'POST',
+                            body: formData
+                        });
+                        if (response.ok) {
+                            this.clienteEnviado = true;
+                        } else {
+                            throw new Error('Error en el envío');
+                        }
+                    } catch (e) {
+                        alert('Hubo un problema con el envío automático. Usá el link "Enviar por email" debajo del botón.');
+                    }
+                },
+
+                generarMailtoCliente() {
+                    const subject = encodeURIComponent('🚨 Nueva Solicitud - OP ' + this.opNumero);
+                    const body = encodeURIComponent(
+                        'NUEVA SOLICITUD DE SERVICIO - TUERKA\n\n' +
+                        'OP: ' + this.opNumero + '\n' +
+                        'Cliente: ' + this.clienteForm.nombre + '\n' +
+                        'Dirección: ' + this.clienteForm.direccion + '\n' +
+                        'Categoría: ' + this.diagnostico.categoria + '\n' +
+                        'Diagnóstico: ' + this.diagnostico.sintoma + '\n' +
+                        'Técnico Asignado: ' + (this.tecnicoSelected?.nombre || 'Pendiente') + '\n\n' +
+                        '---\nEnviado desde TUERKA Argentina'
+                    );
+                    return 'mailto:tuerkargentina@gmail.com?subject=' + subject + '&body=' + body;
+                },
+
+                // ===== CALCULAR CANON DE OP =====
+                calcularCanonOP(monto) {
+                    const base = Math.max(monto, this.opMontoMinimo);
+                    return Math.round(base * 0.01);
                 }
             }
         }
