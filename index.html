@@ -263,6 +263,7 @@
                     <form @submit.prevent="iniciarChat()" class="space-y-5">
                         <div><label class="block text-sm font-medium text-[#4A6A7A] mb-1">Nombre completo *</label><input type="text" x-model="clienteForm.nombre" required class="input-tuerk w-full px-4 py-3 rounded-xl text-sm" placeholder="Ej: Juan Pérez"></div>
                         <div><label class="block text-sm font-medium text-[#4A6A7A] mb-1">Teléfono celular *</label><input type="tel" x-model="clienteForm.telefono" required class="input-tuerk w-full px-4 py-3 rounded-xl text-sm" placeholder="Ej: +54 9 11 1234-5678"></div>
+                        <div><label class="block text-sm font-medium text-[#4A6A7A] mb-1">Email *</label><input type="email" x-model="clienteForm.email" required class="input-tuerk w-full px-4 py-3 rounded-xl text-sm" placeholder="Ej: juan@email.com"></div>
                         <div class="grid grid-cols-2 gap-4">
                             <div><label class="block text-sm font-medium text-[#4A6A7A] mb-1">Calle *</label><input type="text" x-model="clienteForm.calle" required class="input-tuerk w-full px-4 py-3 rounded-xl text-sm" placeholder="Ej: Av. Santa Fe"></div>
                             <div><label class="block text-sm font-medium text-[#4A6A7A] mb-1">Altura *</label><input type="text" x-model="clienteForm.altura" required class="input-tuerk w-full px-4 py-3 rounded-xl text-sm" placeholder="Ej: 1234"></div>
@@ -375,6 +376,7 @@
                                 <li>• <strong>Categoría:</strong> <span x-text="diagnostico.categoria"></span></li>
                                 <li>• <strong>Zona:</strong> <span x-text="clienteForm.direccion"></span></li>
                                 <li>• <strong>Teléfono:</strong> <span x-text="clienteForm.telefono"></span></li>
+                                <li>• <strong>Email:</strong> <span x-text="clienteForm.email"></span></li>
                                 <li>• <strong>Diagnóstico:</strong> <span x-text="diagnostico.sintoma"></span></li>
                                 <li>• <strong>Técnico:</strong> <span x-text="tecnicoSelected?.nombre"></span></li>
                             </ul>
@@ -416,6 +418,7 @@
                                 <p><strong>📋 OP:</strong> <span x-text="opNumero"></span></p>
                                 <p><strong>👤 Técnico asignado:</strong> <span x-text="tecnicoSelected?.nombre"></span></p>
                                 <p><strong>📱 Tu teléfono:</strong> <span x-text="clienteForm.telefono"></span></p>
+                                <p><strong>📧 Tu email:</strong> <span x-text="clienteForm.email"></span></p>
                             </div>
                             <p class="text-sm text-emerald-700 font-medium">
                                 El técnico se pondrá en contacto con vos al teléfono <strong x-text="clienteForm.telefono"></strong> para coordinar fecha, hora y detalles del servicio.
@@ -423,7 +426,7 @@
                             <p class="text-[11px] text-emerald-500">
                                 También recibirás una confirmación por email. Si no recibís respuesta en 24 hs hábiles, escribinos a <strong>tuerkargentina@gmail.com</strong>
                             </p>
-                            <button @click="solicitudEnviada = false; view = 'home'; resetCliente()" class="mt-2 btn-celeste text-white px-8 py-3 rounded-xl font-bold text-sm">Volver al Inicio</button>
+                            <button @click="solicitudEnviada = false; resetCliente(); view = 'home'" class="mt-2 btn-celeste text-white px-8 py-3 rounded-xl font-bold text-sm">Volver al Inicio</button>
                         </div>
                     </div>
                 </div>
@@ -597,10 +600,6 @@
 
                     <!-- Validación real por código de admin -->
 
-                    <div class="mt-4 pt-4 border-t border-emerald-200">
-                        <button @click="simularTransferenciaPrueba()" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-500 py-2 rounded-lg text-[10px] font-medium">🧪 Modo Prueba — Saltar validación</button>
-                    </div>
-
                     <button @click="mostrarValidacionCodigo = false" class="w-full text-slate-400 text-xs mt-2 py-2">← Volver</button>
                 </div>
 
@@ -609,10 +608,10 @@
                     <span class="text-3xl">🔓</span>
                     <h3 class="text-lg font-bold text-emerald-800 mt-2">¡Canon Pagado — Datos Desbloqueados!</h3>
                     <div class="mt-4 text-left bg-white rounded-lg p-4 border border-emerald-200 text-sm space-y-2">
-                        <p><strong>👤 Cliente:</strong> Juan Pérez</p>
-                        <p><strong>📱 Teléfono:</strong> +54 9 11 XXXX-XXXX</p>
-                        <p><strong>📧 Email:</strong> juan@email.com</p>
-                        <p><strong>📍 Dirección:</strong> Av. Santa Fe 1234, Palermo, CABA</p>
+                        <p><strong>👤 Nombre:</strong> <span x-text="opAsignada.cliente.nombre"></span></p>
+                        <p><strong>📱 Teléfono:</strong> <span x-text="opAsignada.cliente.telefono"></span></p>
+                        <p><strong>📧 Email:</strong> <span x-text="opAsignada.cliente.email"></span></p>
+                        <p><strong>📍 Dirección:</strong> <span x-text="opAsignada.cliente.direccion"></span></p>
                     </div>
                     <p class="text-[11px] text-emerald-600 mt-3">Contactá al cliente para coordinar fecha, hora y detalles del servicio.</p>
                     <button @click="canonLiquidado = false; pagoPendienteValidacion = false; mostrarValidacionCodigo = false; view = 'home'" class="mt-4 btn-celeste text-white px-6 py-2 rounded-lg text-sm font-bold">Finalizar</button>
@@ -683,11 +682,24 @@
                 codigoGenerado: '',
                 codigosHistorial: [],
 
-                clienteForm: { nombre: '', telefono: '', calle: '', altura: '', localidad: '', provincia: '', direccion: '', aceptaLey: false, mayorEdad: false },
+                clienteForm: { nombre: '', telefono: '', email: '', calle: '', altura: '', localidad: '', provincia: '', direccion: '', aceptaLey: false, mayorEdad: false },
                 tecnicoForm: { nombre: '', cuit: '', email: '', telefono: '', especialidad: 'Electricista', experiencia: '', aceptaCanon: false, aceptaBajaUsuario: false, aceptaDatos: false },
                 tecnicoOPMonto: 35000,
                 mostrarValidacionCodigo: false,
                 solicitudEnviada: false,
+                opAsignada: {
+                    numero: 'OP-20260720123456',
+                    categoria: 'Electricidad ⚡',
+                    zona: 'Palermo, CABA',
+                    diagnostico: 'Se cortó la luz en toda la casa, el tablero hace un ruido raro y huele a quemado.',
+                    archivos: '2 fotos, 1 video',
+                    cliente: {
+                        nombre: 'Juan Pérez',
+                        telefono: '+54 9 11 2345-6789',
+                        email: 'juan.perez@email.com',
+                        direccion: 'Av. Santa Fe 1234, Palermo, CABA'
+                    }
+                },
                 diagnostico: { categoria: '', sintoma: '', zona: '', urgencia: 'Moderada' },
                 anaPreguntaIndex: 0,
                 anaRespuestas: [],
@@ -835,7 +847,33 @@
                     this.codigoError = '';
                 },
 
-                selectCategoria(cat) { this.categoriaSelected = cat; this.clienteStep = 2; },
+                selectCategoria(cat) { 
+                    this.categoriaSelected = cat; 
+                    this.clienteStep = 2; 
+                },
+
+                detectarCategoriaPorTexto(texto) {
+                    const t = texto.toLowerCase();
+                    const mapa = {
+                        'electricidad': ['luz', 'corto', 'térmica', 'enchufe', 'fase', 'cable', 'electric', 'tablero', 'disyuntor'],
+                        'plomeria': ['agua', 'caño', 'filtración', 'gas', 'gotera', 'inodoro', 'calefón', 'calefon', 'termotanque', 'caldera', 'calentador', 'pérdida de agua', 'destapar'],
+                        'refrigeracion': ['aire', 'frío', 'heladera', 'enfría', 'split', 'acondicionado', 'congelador'],
+                        'carpinteria': ['madera', 'mueble', 'puerta', 'placard', 'mesa', 'silla', 'ventana'],
+                        'construccion': ['pared', 'ladrillo', 'cemento', 'revoque', 'piso', 'techo', 'humedad'],
+                        'informatica': ['pc', 'notebook', 'internet', 'wifi', 'virus', 'pantalla', 'lento', 'windows', 'mac', 'computadora'],
+                        'electrodomesticos': ['lavarropas', 'microondas', 'horno', 'tv', 'televisor', 'aspiradora', 'licuadora', 'tostadora', 'lavavajillas']
+                    };
+
+                    for (const [catId, keywords] of Object.entries(mapa)) {
+                        if (keywords.some(k => t.includes(k))) {
+                            const cat = this.categorias.find(c => c.id === catId);
+                            if (cat && cat.id !== this.categoriaSelected?.id) {
+                                return cat;
+                            }
+                        }
+                    }
+                    return null;
+                },
 
                 iniciarChat() {
                     this.clienteForm.direccion = this.clienteForm.calle + ' ' + this.clienteForm.altura + ', ' + this.clienteForm.localidad + ', ' + this.clienteForm.provincia;
@@ -905,12 +943,29 @@
 
                 enviarTextoAna() {
                     if (!this.anaTextInput.trim()) return;
-                    this.chatMessages.push({ from: 'user', text: this.anaTextInput });
+
                     const respuesta = this.anaTextInput;
+                    this.chatMessages.push({ from: 'user', text: respuesta });
                     this.anaRespuestas.push(respuesta);
                     this.anaTextInput = '';
 
+                    // Detectar si el texto menciona otra categoría
+                    const categoriaDetectada = this.detectarCategoriaPorTexto(respuesta);
+
                     setTimeout(() => {
+                        // Si detectó otra categoría, avisar y ofrecer cambiar
+                        if (categoriaDetectada && categoriaDetectada.id !== this.categoriaSelected.id) {
+                            this.chatMessages.push({ 
+                                from: 'ana', 
+                                text: '🤔 <strong>Detecté que tu problema podría ser de <strong>' + categoriaDetectada.nombre + '</strong>.</strong><br><br>' +
+                                    'Vos seleccionaste <strong>' + this.categoriaSelected.nombre + '</strong>.<br>' +
+                                    '¿Querés cambiar la categoría a <strong>' + categoriaDetectada.nombre + '</strong> para que te asignemos el técnico correcto?<br><br>' +
+                                    '<button @click="cambiarCategoriaAna(' + "'" + categoriaDetectada.id + "'" + ')" class="btn-celeste text-white px-4 py-2 rounded-lg text-xs font-bold mr-2">Sí, cambiar a ' + categoriaDetectada.nombre + '</button>' +
+                                    '<button @click="continuarCategoriaActual()" class="bg-slate-200 text-slate-700 px-4 py-2 rounded-lg text-xs font-bold">No, seguir con ' + this.categoriaSelected.nombre + '</button>'
+                            });
+                            return;
+                        }
+
                         this.anaPreguntaIndex++;
 
                         // Si hay más preguntas, hacer la siguiente
@@ -938,6 +993,35 @@
                             this.chatMessages.push({ from: 'ana', text: resumenAna });
                         }
                     }, 800);
+                },
+
+                cambiarCategoriaAna(catId) {
+                    const nuevaCat = this.categorias.find(c => c.id === catId);
+                    if (nuevaCat) {
+                        this.categoriaSelected = nuevaCat;
+                        this.chatMessages.push({ 
+                            from: 'ana', 
+                            text: '✅ <strong>Categoría cambiada a ' + nuevaCat.nombre + '</strong>. Continuemos con el análisis...' 
+                        });
+                        this.anaPreguntaIndex = 0;
+                        this.anaRespuestas = [];
+                        setTimeout(() => {
+                            this.chatMessages.push({ 
+                                from: 'ana', 
+                                text: this.generarPreguntaAna(0) 
+                            });
+                        }, 500);
+                    }
+                },
+
+                continuarCategoriaActual() {
+                    this.anaPreguntaIndex++;
+                    if (this.anaPreguntaIndex < 4) {
+                        this.chatMessages.push({ 
+                            from: 'ana', 
+                            text: this.generarPreguntaAna(this.anaPreguntaIndex) 
+                        });
+                    }
                 },
 
                 previsualizarArchivosDiagnostico(event) {
@@ -1010,15 +1094,6 @@
                     alert('¡Datos de transferencia copiados al portapapeles!\n\nAlias: tuerkaargentina\nTitular: TUERKA Argentina\n\nAbrí tu home banking o app del banco y realizá la transferencia del 1%. Una vez acreditada, el admin te enviará el código de desbloqueo.');
                 },
 
-                // ===== SIMULAR TRANSFERENCIA (MODO PRUEBA) =====
-                simularTransferenciaPrueba() {
-                    this.canonLiquidado = true;
-                    this.pagoPendienteValidacion = false;
-                    this.mostrarValidacionCodigo = false;
-                    this.codigoError = '';
-                    alert('🧪 Modo prueba activado.\n\nLos datos del cliente han sido desbloqueados para testing.');
-                },
-
                 // ===== PANEL TÉCNICO: VALIDAR CÓDIGO DE DESBLOQUEO =====
                 validarCodigoDesbloqueo() {
                     this.codigoError = '';
@@ -1060,6 +1135,7 @@
                     formData.append('op_numero', this.opNumero);
                     formData.append('cliente_nombre', this.clienteForm.nombre);
                     formData.append('cliente_telefono', this.clienteForm.telefono);
+                    formData.append('cliente_email', this.clienteForm.email);
                     formData.append('cliente_direccion', this.clienteForm.direccion);
                     formData.append('diagnostico', this.diagnostico.sintoma);
                     formData.append('categoria', this.diagnostico.categoria);
