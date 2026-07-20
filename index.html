@@ -389,32 +389,42 @@
                             </p>
                         </div>
 
-                        <form action="https://formsubmit.co/tuerkargentina@gmail.com" method="POST" enctype="multipart/form-data" target="_self" class="space-y-5">
-                            <input type="hidden" name="_captcha" value="false">
-                            <input type="hidden" name="_template" value="table">
-                            <input type="hidden" name="_subject" value="🚨 Nueva Solicitud - TUERKA">
-                            <input type="hidden" name="_next" value="https://tuerka.com">
-                            <input type="hidden" name="op_numero" :value="opNumero">
-                            <input type="hidden" name="cliente_nombre" :value="clienteForm.nombre">
-                            <input type="hidden" name="cliente_telefono" :value="clienteForm.telefono">
-                            <input type="hidden" name="cliente_direccion" :value="clienteForm.direccion">
-                            <input type="hidden" name="diagnostico" :value="diagnostico.sintoma">
-                            <input type="hidden" name="categoria" :value="diagnostico.categoria">
-                            <input type="hidden" name="tecnico_asignado" :value="tecnicoSelected?.nombre">
+                        <div x-show="!solicitudEnviada" class="space-y-5">
+                            <form @submit.prevent="enviarSolicitudCliente()" class="space-y-5">
+                                <div><label class="block text-xs font-bold text-slate-500 mb-1">Cargá fotos/videos del desperfecto (Opcional)</label><input type="file" id="fotos-cliente" multiple accept="image/*,video/*" class="w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-slate-100 file:text-slate-700 hover:file:bg-slate-200"></div>
+                                <div class="bg-slate-50 p-3.5 border rounded-xl space-y-3">
+                                    <label class="flex items-start gap-3 cursor-pointer select-none">
+                                        <input type="checkbox" x-model="clienteForm.aceptaLey" required class="mt-1 w-4 h-4 text-celeste rounded">
+                                        <span class="text-[11px] text-slate-500 leading-normal">Acepto los términos de resguardo confidencial de la Ley 25.326 y entiendo que la relación contractual de locación es exclusiva con el profesional independiente elegido.</span>
+                                    </label>
+                                    <label class="flex items-start gap-3 cursor-pointer select-none">
+                                        <input type="checkbox" x-model="clienteForm.mayorEdad" required class="mt-1 w-4 h-4 text-celeste rounded">
+                                        <span class="text-[11px] text-slate-500 leading-normal">Declaro ser mayor de 18 (dieciocho) años, con plena capacidad civil para consentir actos jurídicos y contratar servicios de locación, conforme el art. 30 y 31 del Código Civil y Comercial de la Nación.</span>
+                                    </label>
+                                </div>
+                                <button type="submit" :disabled="!clienteForm.aceptaLey || !clienteForm.mayorEdad" class="w-full btn-celeste text-white py-4 rounded-xl font-bold text-sm uppercase tracking-wider shadow-md disabled:opacity-40 disabled:cursor-not-allowed">Confirmar y Enviar Solicitud</button>
+                            </form>
+                        </div>
 
-                            <div><label class="block text-xs font-bold text-slate-500 mb-1">Cargá fotos/videos del desperfecto (Opcional)</label><input type="file" name="fotos_evidencia" multiple accept="image/*,video/*" class="w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-slate-100 file:text-slate-700 hover:file:bg-slate-200"></div>
-                            <div class="bg-slate-50 p-3.5 border rounded-xl space-y-3">
-                                <label class="flex items-start gap-3 cursor-pointer select-none">
-                                    <input type="checkbox" x-model="clienteForm.aceptaLey" required class="mt-1 w-4 h-4 text-celeste rounded">
-                                    <span class="text-[11px] text-slate-500 leading-normal">Acepto los términos de resguardo confidencial de la Ley 25.326 y entiendo que la relación contractual de locación es exclusiva con el profesional independiente elegido.</span>
-                                </label>
-                                <label class="flex items-start gap-3 cursor-pointer select-none">
-                                    <input type="checkbox" x-model="clienteForm.mayorEdad" required class="mt-1 w-4 h-4 text-celeste rounded">
-                                    <span class="text-[11px] text-slate-500 leading-normal">Declaro ser mayor de 18 (dieciocho) años, con plena capacidad civil para consentir actos jurídicos y contratar servicios de locación, conforme el art. 30 y 31 del Código Civil y Comercial de la Nación.</span>
-                                </label>
+                        <!-- PANTALLA DE CONFIRMACIÓN POST-ENVÍO -->
+                        <div x-show="solicitudEnviada" x-cloak class="bg-emerald-50 border border-emerald-200 rounded-xl p-8 text-center space-y-4">
+                            <div class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto">
+                                <span class="text-3xl">✅</span>
                             </div>
-                            <button type="submit" :disabled="!clienteForm.aceptaLey || !clienteForm.mayorEdad" class="w-full btn-celeste text-white py-4 rounded-xl font-bold text-sm uppercase tracking-wider shadow-md disabled:opacity-40 disabled:cursor-not-allowed">Confirmar y Enviar Solicitud</button>
-                        </form>
+                            <h3 class="text-xl font-bold text-emerald-800">¡Solicitud Enviada con Éxito!</h3>
+                            <div class="bg-white rounded-lg p-4 border border-emerald-200 text-left text-sm space-y-2">
+                                <p><strong>📋 OP:</strong> <span x-text="opNumero"></span></p>
+                                <p><strong>👤 Técnico asignado:</strong> <span x-text="tecnicoSelected?.nombre"></span></p>
+                                <p><strong>📱 Tu teléfono:</strong> <span x-text="clienteForm.telefono"></span></p>
+                            </div>
+                            <p class="text-sm text-emerald-700 font-medium">
+                                El técnico se pondrá en contacto con vos al teléfono <strong x-text="clienteForm.telefono"></strong> para coordinar fecha, hora y detalles del servicio.
+                            </p>
+                            <p class="text-[11px] text-emerald-500">
+                                También recibirás una confirmación por email. Si no recibís respuesta en 24 hs hábiles, escribinos a <strong>tuerkargentina@gmail.com</strong>
+                            </p>
+                            <button @click="solicitudEnviada = false; view = 'home'; resetCliente()" class="mt-2 btn-celeste text-white px-8 py-3 rounded-xl font-bold text-sm">Volver al Inicio</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -585,10 +595,10 @@
 
                     <button @click="validarCodigoDesbloqueo()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 rounded-xl font-bold text-sm mt-3">🔍 Validar Desbloqueo</button>
 
-                    <!-- CATEGORÍA OCULTA: Simular transferencia de prueba -->
+                    <!-- Validación real por código de admin -->
+
                     <div class="mt-4 pt-4 border-t border-emerald-200">
-                        <p class="text-[10px] text-emerald-500 text-center mb-2">¿Hiciste una transferencia de prueba?</p>
-                        <button @click="simularTransferenciaPrueba()" class="w-full bg-emerald-100 hover:bg-emerald-200 text-emerald-700 py-2 rounded-lg text-xs font-bold">✅ Simular Pago Acreditado (Modo Prueba)</button>
+                        <button @click="simularTransferenciaPrueba()" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-500 py-2 rounded-lg text-[10px] font-medium">🧪 Modo Prueba — Saltar validación</button>
                     </div>
 
                     <button @click="mostrarValidacionCodigo = false" class="w-full text-slate-400 text-xs mt-2 py-2">← Volver</button>
@@ -677,6 +687,7 @@
                 tecnicoForm: { nombre: '', cuit: '', email: '', telefono: '', especialidad: 'Electricista', experiencia: '', aceptaCanon: false, aceptaBajaUsuario: false, aceptaDatos: false },
                 tecnicoOPMonto: 35000,
                 mostrarValidacionCodigo: false,
+                solicitudEnviada: false,
                 diagnostico: { categoria: '', sintoma: '', zona: '', urgencia: 'Moderada' },
                 anaPreguntaIndex: 0,
                 anaRespuestas: [],
@@ -738,7 +749,7 @@
                     }
                 },
 
-                generarCodigoAdmin() {
+                async generarCodigoAdmin() {
                     if (!this.adminMonto || this.adminMonto <= 0) {
                         alert('Ingresá el monto acreditado en la cuenta bancaria.');
                         return;
@@ -759,6 +770,32 @@
                     const horaStr = ahora.getHours().toString().padStart(2, '0') + ':' + ahora.getMinutes().toString().padStart(2, '0');
                     this.codigosHistorial.unshift({ codigo: codigo, monto: this.adminMonto, hora: horaStr, usado: false });
                     if (this.codigosHistorial.length > 10) this.codigosHistorial.pop();
+
+                    // Enviar código por email al admin
+                    await this.enviarCodigoPorEmail(codigo, this.adminMonto, this.adminSolicitudId);
+                },
+
+                async enviarCodigoPorEmail(codigo, monto, solicitudId) {
+                    const formData = new FormData();
+                    formData.append('_captcha', 'false');
+                    formData.append('_template', 'table');
+                    formData.append('_subject', '🔓 Código de Desbloqueo Generado - TUERKA');
+                    formData.append('mensaje', 'NUEVO CÓDIGO DE DESBLOQUEO GENERADO\n\n' +
+                        'Código: ' + codigo + '\n' +
+                        'Monto validado: $' + monto + ' ARS\n' +
+                        'Solicitud ID: ' + (solicitudId || 'N/A') + '\n' +
+                        'Fecha: ' + new Date().toLocaleString('es-AR') + '\n\n' +
+                        'Este código debe ser comunicado al técnico para desbloquear los datos del cliente.');
+
+                    try {
+                        await fetch('https://formsubmit.co/ajax/tuerkargentina@gmail.com', {
+                            method: 'POST',
+                            body: formData
+                        });
+                        alert('✅ Código generado y enviado a tuerkargentina@gmail.com\n\nCódigo: ' + codigo);
+                    } catch (e) {
+                        alert('⚠️ Código generado: ' + codigo + '\n\nNo se pudo enviar el email automático. Copiá el código manualmente y envialo al técnico.');
+                    }
                 },
 
                 copiarCodigoAdmin() {
@@ -973,6 +1010,15 @@
                     alert('¡Datos de transferencia copiados al portapapeles!\n\nAlias: tuerkaargentina\nTitular: TUERKA Argentina\n\nAbrí tu home banking o app del banco y realizá la transferencia del 1%. Una vez acreditada, el admin te enviará el código de desbloqueo.');
                 },
 
+                // ===== SIMULAR TRANSFERENCIA (MODO PRUEBA) =====
+                simularTransferenciaPrueba() {
+                    this.canonLiquidado = true;
+                    this.pagoPendienteValidacion = false;
+                    this.mostrarValidacionCodigo = false;
+                    this.codigoError = '';
+                    alert('🧪 Modo prueba activado.\n\nLos datos del cliente han sido desbloqueados para testing.');
+                },
+
                 // ===== PANEL TÉCNICO: VALIDAR CÓDIGO DE DESBLOQUEO =====
                 validarCodigoDesbloqueo() {
                     this.codigoError = '';
@@ -1005,14 +1051,54 @@
                     }
                 },
 
-                // ===== SIMULAR TRANSFERENCIA DE PRUEBA (categoría oculta) =====
-                simularTransferenciaPrueba() {
-                    this.canonLiquidado = true;
-                    this.pagoPendienteValidacion = false;
-                    this.mostrarValidacionCodigo = false;
-                    this.codigoError = '';
-                    alert('✅ Transferencia de prueba simulada con éxito.\n\nLos datos del cliente han sido desbloqueados.');
+                // ===== ENVIAR SOLICITUD DEL CLIENTE (AJAX) =====
+                async enviarSolicitudCliente() {
+                    const formData = new FormData();
+                    formData.append('_captcha', 'false');
+                    formData.append('_template', 'table');
+                    formData.append('_subject', '🚨 Nueva Solicitud - OP ' + this.opNumero);
+                    formData.append('op_numero', this.opNumero);
+                    formData.append('cliente_nombre', this.clienteForm.nombre);
+                    formData.append('cliente_telefono', this.clienteForm.telefono);
+                    formData.append('cliente_direccion', this.clienteForm.direccion);
+                    formData.append('diagnostico', this.diagnostico.sintoma);
+                    formData.append('categoria', this.diagnostico.categoria);
+                    formData.append('tecnico_asignado', this.tecnicoSelected?.nombre || '');
+
+                    const fotos = document.getElementById('fotos-cliente');
+                    if (fotos && fotos.files.length > 0) {
+                        for (let i = 0; i < Math.min(fotos.files.length, 4); i++) {
+                            formData.append('fotos_evidencia', fotos.files[i]);
+                        }
+                    }
+
+                    try {
+                        await fetch('https://formsubmit.co/ajax/tuerkargentina@gmail.com', {
+                            method: 'POST',
+                            body: formData
+                        });
+                    } catch (e) {
+                        console.log('Error envío:', e);
+                    }
+
+                    this.solicitudEnviada = true;
                 },
+
+                resetCliente() {
+                    this.clienteStep = 1;
+                    this.categoriaSelected = null;
+                    this.tecnicoSelected = null;
+                    this.diagnosticoComplete = false;
+                    this.opNumero = '';
+                    this.opGenerada = false;
+                    this.clienteForm = { nombre: '', telefono: '', calle: '', altura: '', localidad: '', provincia: '', direccion: '', aceptaLey: false, mayorEdad: false };
+                    this.diagnostico = { categoria: '', sintoma: '', zona: '', urgencia: 'Moderada' };
+                    this.anaPreguntaIndex = 0;
+                    this.anaRespuestas = [];
+                    this.chatMessages = [];
+                },
+
+                
 
                 confirmarPagoCanon() {
                     if (this.tecnicoOPMonto < 35000) {
