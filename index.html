@@ -317,14 +317,25 @@
             </div>
             <div x-show="clienteStep === 4">
                 <button @click="volverACategorias()" class="mb-4 text-sm text-[#6A8A9A] hover:text-[#4A6A7A] flex items-center gap-1 cursor-pointer">← Volver a Categorías</button>
-                <h2 class="text-xl font-bold text-[#2D4A5E] mb-6">Técnicos recomendados para tu caso</h2>
+                <h2 class="text-xl font-bold text-[#2D4A5E] mb-2">Técnicos recomendados para tu caso</h2>
+
+                <!-- Mensaje si no hay en zona exacta -->
+                <div x-show="!tieneTecnicosEnZona()" class="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-4">
+                    <p class="text-[11px] text-amber-700">⚠️ No encontramos técnicos de <strong x-text="categoriaSelected?.nombre"></strong> en <strong x-text="clienteForm.localidad"></strong>. Te mostramos los más cercanos disponibles.</p>
+                </div>
+
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <template x-for="tec in tecnicosFiltrados" :key="tec.id">
                         <div class="bg-white rounded-xl shadow-sm border border-[#C8D8E4] p-6 card-hover">
-                            <h3 class="font-bold text-[#2D4A5E] text-lg" x-text="tec.nombre"></h3>
+                            <div class="flex items-center justify-between mb-2">
+                                <h3 class="font-bold text-[#2D4A5E] text-lg" x-text="tec.nombre"></h3>
+                                <span x-show="tec.zona.toLowerCase().includes((clienteForm.localidad || '').toLowerCase())" class="text-[10px] bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full font-bold">EN TU ZONA</span>
+                                <span x-show="!tec.zona.toLowerCase().includes((clienteForm.localidad || '').toLowerCase())" class="text-[10px] bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full font-bold">ZONA CERCANA</span>
+                            </div>
                             <p class="text-sm text-[#3B6E8F] font-semibold" x-text="tec.especialidad"></p>
                             <p class="text-xs text-slate-500 mt-2" x-text="'Zona: ' + tec.zona"></p>
                             <p class="text-xs text-slate-500" x-text="'Experiencia: ' + tec.experiencia + ' años'"></p>
+                            <p class="text-xs text-amber-600 font-bold mt-1" x-text="'Match: ' + tec.match + '%'"></p>
                             <div class="mt-4 pt-3 border-t">
                                 <button @click="selectTecnico(tec)" class="w-full btn-celeste text-white py-2 rounded-lg text-sm font-bold">Solicitar contacto</button>
                             </div>
@@ -389,13 +400,17 @@
                             <input type="hidden" name="tecnico_asignado" :value="tecnicoSelected?.nombre">
 
                             <div><label class="block text-xs font-bold text-slate-500 mb-1">Cargá fotos/videos del desperfecto (Opcional)</label><input type="file" name="fotos_evidencia" multiple accept="image/*,video/*" class="w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-slate-100 file:text-slate-700 hover:file:bg-slate-200"></div>
-                            <div class="bg-slate-50 p-3.5 border rounded-xl">
+                            <div class="bg-slate-50 p-3.5 border rounded-xl space-y-3">
                                 <label class="flex items-start gap-3 cursor-pointer select-none">
                                     <input type="checkbox" x-model="clienteForm.aceptaLey" required class="mt-1 w-4 h-4 text-celeste rounded">
                                     <span class="text-[11px] text-slate-500 leading-normal">Acepto los términos de resguardo confidencial de la Ley 25.326 y entiendo que la relación contractual de locación es exclusiva con el profesional independiente elegido.</span>
                                 </label>
+                                <label class="flex items-start gap-3 cursor-pointer select-none">
+                                    <input type="checkbox" x-model="clienteForm.mayorEdad" required class="mt-1 w-4 h-4 text-celeste rounded">
+                                    <span class="text-[11px] text-slate-500 leading-normal">Declaro ser mayor de 18 (dieciocho) años, con plena capacidad civil para consentir actos jurídicos y contratar servicios de locación, conforme el art. 30 y 31 del Código Civil y Comercial de la Nación.</span>
+                                </label>
                             </div>
-                            <button type="submit" :disabled="!clienteForm.aceptaLey" class="w-full btn-celeste text-white py-4 rounded-xl font-bold text-sm uppercase tracking-wider shadow-md disabled:opacity-40 disabled:cursor-not-allowed">Confirmar y Enviar Solicitud</button>
+                            <button type="submit" :disabled="!clienteForm.aceptaLey || !clienteForm.mayorEdad" class="w-full btn-celeste text-white py-4 rounded-xl font-bold text-sm uppercase tracking-wider shadow-md disabled:opacity-40 disabled:cursor-not-allowed">Confirmar y Enviar Solicitud</button>
                         </form>
                     </div>
                 </div>
@@ -450,7 +465,7 @@
         </div>
     </div>
 
-    <!-- VIEW: PANEL TÉCNICO — Aquí el técnico ve sus OPs y paga el canon -->
+    <!-- VIEW: PANEL TÉCNICO — Flujo completo con validación post-pago -->
     <div x-show="view === 'panel-tecnico'" x-cloak class="min-h-screen bg-[#EEF1F4] pb-20">
         <div class="bg-white border-b border-[#C8D8E4]">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
@@ -460,6 +475,8 @@
         </div>
         <div class="max-w-2xl mx-auto px-4 py-8">
             <div class="bg-white rounded-2xl shadow-lg p-8 border border-[#C8D8E4] space-y-6">
+
+                <!-- CABECERA DE LA OP -->
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-[10px] text-slate-400 uppercase tracking-wider font-bold">Orden de Pedido</p>
@@ -468,6 +485,7 @@
                     <span class="px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-xs font-bold">PENDIENTE</span>
                 </div>
 
+                <!-- DATOS DEL CLIENTE (solo diagnóstico, sin contacto aún) -->
                 <div class="border rounded-xl p-4 text-xs space-y-2 bg-slate-50 text-slate-700">
                     <p><strong>📋 Categoría:</strong> Electricidad ⚡</p>
                     <p><strong>📍 Zona:</strong> Palermo, CABA</p>
@@ -475,8 +493,9 @@
                     <p><strong>📎 Archivos adjuntos:</strong> 2 fotos, 1 video</p>
                 </div>
 
-                <div class="bg-amber-50 border-2 border-amber-300 rounded-xl p-6">
-                    <h3 class="text-sm font-bold text-amber-800 mb-3">💰 Definir Monto del Servicio y Pagar Canon</h3>
+                <!-- PASO 1: DEFINIR MONTO DEL SERVICIO -->
+                <div x-show="!canonLiquidado && !pagoPendienteValidacion" class="bg-amber-50 border-2 border-amber-300 rounded-xl p-6">
+                    <h3 class="text-sm font-bold text-amber-800 mb-3">💰 Paso 1 — Definir Monto del Servicio</h3>
                     <p class="text-[11px] text-amber-600 mb-4">
                         Ingresá el monto que le vas a cobrar al cliente por este servicio. Sobre ese monto se calcula el canon del 1% que debés pagar a TUERKA para desbloquear los datos de contacto del cliente.<br>
                         <strong>Monto mínimo de OP: $35.000 ARS.</strong>
@@ -505,19 +524,74 @@
                             </div>
                         </div>
 
-                        <div x-show="tecnicoOPMonto >= 35000" class="bg-slate-900 rounded-lg p-4 border border-slate-700">
-                            <p class="text-[10px] text-slate-400 uppercase tracking-wider mb-2 font-bold">Datos para transferencia:</p>
-                            <p class="text-sm font-mono text-amber-300 mb-1">Alias: <strong>tuerkaargentina</strong></p>
-                            <p class="text-sm font-mono text-amber-300">Titular: TUERKA Argentina</p>
-                            <p class="text-[10px] text-slate-500 mt-2">Concepto: Canon OP</p>
-                        </div>
-
-                        <button x-show="tecnicoOPMonto >= 35000" @click="confirmarPagoCanon()" class="w-full btn-dorado text-white py-3 rounded-xl font-bold text-sm">
-                            💳 Confirmar y Pagar Canon del 1%
+                        <button x-show="tecnicoOPMonto >= 35000" @click="pagoPendienteValidacion = true" class="w-full btn-dorado text-white py-3 rounded-xl font-bold text-sm">
+                            💳 Continuar al Pago del Canon
                         </button>
                     </div>
                 </div>
 
+                <!-- PASO 2: INSTRUCCIONES DE PAGO + DATOS BANCARIOS -->
+                <div x-show="pagoPendienteValidacion && !canonLiquidado" class="space-y-5">
+                    <div class="bg-slate-950 text-slate-100 border border-slate-800 rounded-xl p-5 relative overflow-hidden">
+                        <div class="absolute -right-6 -top-6 w-20 h-20 bg-amber-500/10 rounded-full blur-2xl"></div>
+                        <h3 class="text-xs font-black text-amber-400 uppercase tracking-widest mb-2 flex items-center">🔒 Paso 2 — Transferencia Bancaria</h3>
+                        <p class="text-[11px] text-slate-400 leading-relaxed mb-4">
+                            Realizá una <strong>transferencia bancaria directa</strong> del canon del 1% a la cuenta de TUERKA. Una vez que el pago impacte, el administrador te enviará un <strong>código de validación único</strong> para desbloquear los datos del cliente.
+                        </p>
+                        <div class="bg-slate-900 rounded-lg p-4 mb-4 border border-slate-700">
+                            <p class="text-[10px] text-slate-500 uppercase tracking-wider mb-2 font-bold">Datos para transferencia:</p>
+                            <p class="text-sm font-mono text-amber-300 mb-1">Alias: <strong>tuerkaargentina</strong></p>
+                            <p class="text-sm font-mono text-amber-300">Titular: TUERKA Argentina</p>
+                            <p class="text-[10px] text-slate-500 mt-2">Concepto: Canon OP <span x-text="opNumero || 'OP-XXXX'"></span></p>
+                            <p class="text-[10px] text-slate-500">Monto a transferir: <strong class="text-amber-300" x-text="'$' + Math.round(tecnicoOPMonto * 0.01).toLocaleString('es-AR') + ' ARS'"></strong></p>
+                        </div>
+                        <button type="button" @click="copiarDatosTransferencia()" class="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 shadow-[0_4px_15px_rgba(245,158,11,0.15)] text-xs py-3 rounded-lg font-extrabold uppercase tracking-wider transition-all active:scale-[0.99] flex items-center justify-center gap-2 border border-amber-400">📋 Copiar Datos de Transferencia</button>
+                    </div>
+
+                    <div class="bg-amber-50 border border-amber-200 rounded-xl p-4">
+                        <h4 class="text-xs font-bold text-amber-700 mb-2">📋 Instrucciones post-pago:</h4>
+                        <ol class="text-[11px] text-amber-600 space-y-1 list-decimal list-inside">
+                            <li>Realizá la transferencia del canon a la cuenta de TUERKA.</li>
+                            <li>El administrador validará el pago y generará un código de desbloqueo.</li>
+                            <li>Volvé a esta página y presioná <strong>"Validar Código de Desbloqueo"</strong>.</li>
+                            <li>Ingresá el código para acceder a los datos del cliente.</li>
+                        </ol>
+                    </div>
+
+                    <button @click="mostrarValidacionCodigo = true" class="w-full bg-slate-800 text-white py-3 rounded-xl font-bold text-sm">🔓 Validar Código de Desbloqueo →</button>
+                    <button @click="pagoPendienteValidacion = false" class="w-full text-slate-400 text-xs py-2">← Volver a definir monto</button>
+                </div>
+
+                <!-- PASO 3: VALIDACIÓN POR CÓDIGO (categoría oculta) -->
+                <div x-show="mostrarValidacionCodigo && !canonLiquidado" class="bg-emerald-50 border border-emerald-200 rounded-xl p-5">
+                    <h3 class="text-sm font-bold text-emerald-800 mb-3">🔓 Validar Código de Desbloqueo</h3>
+                    <p class="text-[11px] text-emerald-600 mb-4">Ingresá el código de validación que recibiste por email una vez acreditada la transferencia.</p>
+
+                    <div class="space-y-3">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-600 mb-1">Código de validación *</label>
+                            <input type="text" x-model="canonCodigoValidar" placeholder="Ej: ABC123" class="input-tuerk w-full px-4 py-3 rounded-xl text-sm font-mono text-center tracking-[0.3em] uppercase">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-600 mb-1">Monto transferido ($ARS) *</label>
+                            <input type="number" x-model="canonMontoValidar" placeholder="Ej: 350" class="input-tuerk w-full px-4 py-3 rounded-xl text-sm font-mono">
+                        </div>
+                    </div>
+
+                    <p x-show="codigoError" x-text="codigoError" class="text-xs text-red-600 mt-2 text-center font-bold"></p>
+
+                    <button @click="validarCodigoDesbloqueo()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 rounded-xl font-bold text-sm mt-3">🔍 Validar Desbloqueo</button>
+
+                    <!-- CATEGORÍA OCULTA: Simular transferencia de prueba -->
+                    <div class="mt-4 pt-4 border-t border-emerald-200">
+                        <p class="text-[10px] text-emerald-500 text-center mb-2">¿Hiciste una transferencia de prueba?</p>
+                        <button @click="simularTransferenciaPrueba()" class="w-full bg-emerald-100 hover:bg-emerald-200 text-emerald-700 py-2 rounded-lg text-xs font-bold">✅ Simular Pago Acreditado (Modo Prueba)</button>
+                    </div>
+
+                    <button @click="mostrarValidacionCodigo = false" class="w-full text-slate-400 text-xs mt-2 py-2">← Volver</button>
+                </div>
+
+                <!-- PASO 4: DATOS DESBLOQUEADOS -->
                 <div x-show="canonLiquidado" x-cloak class="bg-emerald-50 border border-emerald-200 rounded-xl p-6 text-center">
                     <span class="text-3xl">🔓</span>
                     <h3 class="text-lg font-bold text-emerald-800 mt-2">¡Canon Pagado — Datos Desbloqueados!</h3>
@@ -528,7 +602,9 @@
                         <p><strong>📍 Dirección:</strong> Av. Santa Fe 1234, Palermo, CABA</p>
                     </div>
                     <p class="text-[11px] text-emerald-600 mt-3">Contactá al cliente para coordinar fecha, hora y detalles del servicio.</p>
+                    <button @click="canonLiquidado = false; pagoPendienteValidacion = false; mostrarValidacionCodigo = false; view = 'home'" class="mt-4 btn-celeste text-white px-6 py-2 rounded-lg text-sm font-bold">Finalizar</button>
                 </div>
+
             </div>
         </div>
     </div>
@@ -594,10 +670,13 @@
                 codigoGenerado: '',
                 codigosHistorial: [],
 
-                clienteForm: { nombre: '', calle: '', altura: '', localidad: '', provincia: '', direccion: '', aceptaLey: false },
+                clienteForm: { nombre: '', calle: '', altura: '', localidad: '', provincia: '', direccion: '', aceptaLey: false, mayorEdad: false },
                 tecnicoForm: { nombre: '', cuit: '', email: '', telefono: '', especialidad: 'Electricista', experiencia: '', aceptaCanon: false, aceptaBajaUsuario: false, aceptaDatos: false },
                 tecnicoOPMonto: 35000,
+                mostrarValidacionCodigo: false,
                 diagnostico: { categoria: '', sintoma: '', zona: '', urgencia: 'Moderada' },
+                anaPreguntaIndex: 0,
+                anaRespuestas: [],
 
                 categorias: [
                     { id: 'electricidad', nombre: 'Electricidad ⚡', icon: '⚡', descripcion: 'Cortos, térmicas, cableados, luminarias.', keywords: ['luz', 'corto', 'térmica', 'enchufe', 'fase', 'cable'] },
@@ -609,21 +688,36 @@
                 ],
 
                 tecnicos: [
-                    { id: 1, nombre: 'Carlos Gómez', especialidad: 'Electricista Matriculado', zona: 'Palermo, CABA', experiencia: 12, match: 95 },
-                    { id: 2, nombre: 'Mariano Silva', especialidad: 'Plomero / Gasista Avanzado', zona: 'Belgrano, CABA', experiencia: 8, match: 88 },
-                    { id: 3, nombre: 'Walter Rossi', especialidad: 'Técnico Superior en Refrigeración', zona: 'Palermo, CABA', experiencia: 15, match: 92 },
-                    { id: 4, nombre: 'Jorge Peralta', especialidad: 'Carpintero Ebanista', zona: 'Caballito, CABA', experiencia: 20, match: 85 }
+                    { id: 1, nombre: 'Carlos Gómez', especialidad: 'Electricista Matriculado', zona: 'Palermo, CABA', experiencia: 12, match: 95, cat: 'electricidad' },
+                    { id: 2, nombre: 'Mariano Silva', especialidad: 'Plomero / Gasista Avanzado', zona: 'Belgrano, CABA', experiencia: 8, match: 88, cat: 'plomeria' },
+                    { id: 3, nombre: 'Walter Rossi', especialidad: 'Técnico Superior en Refrigeración', zona: 'Palermo, CABA', experiencia: 15, match: 92, cat: 'refrigeracion' },
+                    { id: 4, nombre: 'Jorge Peralta', especialidad: 'Carpintero Ebanista', zona: 'Caballito, CABA', experiencia: 20, match: 85, cat: 'carpinteria' },
+                    { id: 5, nombre: 'Lucas Fernández', especialidad: 'Electricista Matriculado', zona: 'Belgrano, CABA', experiencia: 10, match: 90, cat: 'electricidad' },
+                    { id: 6, nombre: 'Roberto Díaz', especialidad: 'Albañil / Construcción', zona: 'Palermo, CABA', experiencia: 18, match: 87, cat: 'construccion' },
+                    { id: 7, nombre: 'Martín López', especialidad: 'Técnico en Informática', zona: 'Palermo, CABA', experiencia: 9, match: 93, cat: 'informatica' },
+                    { id: 8, nombre: 'Diego Torres', especialidad: 'Plomero / Gasista', zona: 'Caballito, CABA', experiencia: 14, match: 89, cat: 'plomeria' }
                 ],
 
                 get tecnicosFiltrados() {
                     if (!this.categoriaSelected) return this.tecnicos;
                     const idCat = this.categoriaSelected.id;
-                    return this.tecnicos.filter(t => {
-                        if (idCat === 'electricidad') return t.especialidad.toLowerCase().includes('electri');
-                        if (idCat === 'plomeria') return t.especialidad.toLowerCase().includes('plomero') || t.especialidad.toLowerCase().includes('gasista');
-                        if (idCat === 'refrigeracion') return t.especialidad.toLowerCase().includes('refrig');
-                        if (idCat === 'carpinteria') return t.especialidad.toLowerCase().includes('carpintero');
-                        return true;
+                    const zonaCliente = (this.clienteForm.localidad || '').toLowerCase();
+
+                    // Primero: técnicos de la categoría exacta en la misma zona
+                    let exactos = this.tecnicos.filter(t => t.cat === idCat && t.zona.toLowerCase().includes(zonaCliente));
+
+                    // Segundo: técnicos de la categoría exacta en otras zonas
+                    let mismos = this.tecnicos.filter(t => t.cat === idCat && !t.zona.toLowerCase().includes(zonaCliente));
+
+                    // Si no hay de la categoría exacta, mostrar todos (fallback)
+                    let resultado = exactos.length > 0 ? exactos : (mismos.length > 0 ? mismos : this.tecnicos);
+
+                    // Ordenar: primero zona, luego match
+                    return resultado.sort((a, b) => {
+                        const aZona = a.zona.toLowerCase().includes(zonaCliente) ? 0 : 1;
+                        const bZona = b.zona.toLowerCase().includes(zonaCliente) ? 0 : 1;
+                        if (aZona !== bZona) return aZona - bZona;
+                        return b.match - a.match;
                     });
                 },
 
@@ -703,36 +797,99 @@
 
                 iniciarChat() {
                     this.clienteForm.direccion = this.clienteForm.calle + ' ' + this.clienteForm.altura + ', ' + this.clienteForm.localidad + ', ' + this.clienteForm.provincia;
+                    this.anaPreguntaIndex = 0;
+                    this.anaRespuestas = [];
+                    this.diagnostico.categoria = this.categoriaSelected.nombre;
+                    this.diagnostico.zona = this.clienteForm.localidad;
+
                     const mensajesIniciales = [
                         { from: 'ana', text: '¡Hola <strong>' + this.clienteForm.nombre.split(' ')[0] + '</strong>! Soy Ana, tu analista de caso en TUERKA. 👩‍💻' },
-                        { from: 'ana', text: 'Registré que necesitás asistencia en <strong>' + this.categoriaSelected.nombre + '</strong> en la zona de <strong>' + this.clienteForm.localidad + ', ' + this.clienteForm.provincia + '</strong>.' },
-                        { from: 'ana', text: 'Contame con tus palabras qué le pasa al "cosito"... 🛠️ No hace falta que uses términos técnicos. Si podés, adjuntá fotos o videos del problema para que el técnico llegue mejor preparado.' }
+                        { from: 'ana', text: 'Registré que necesitás asistencia en <strong>' + this.categoriaSelected.nombre + '</strong> en <strong>' + this.clienteForm.localidad + ', ' + this.clienteForm.provincia + '</strong>.' },
+                        { from: 'ana', text: this.generarPreguntaAna(0) }
                     ];
                     this.chatMessages = mensajesIniciales;
                     this.clienteStep = 3;
                 },
 
+                generarPreguntaAna(index) {
+                    const catId = this.categoriaSelected.id;
+                    const preguntas = {
+                        'electricidad': [
+                            '¿Se cortó la luz en toda la casa o solo en algunos ambientes? 🔌',
+                            '¿Notaste algún olor a quemado o chispas en el tablero? ⚡',
+                            '¿Cuándo empezó el problema? ¿Fue de repente o gradual?',
+                            '¿Tenés algún electrodoméstico nuevo conectado últimamente?'
+                        ],
+                        'plomeria': [
+                            '¿Es una filtración visible o una pérdida oculta? 💧',
+                            '¿El agua sale con poca presión o directamente no sale? 🚿',
+                            '¿Hay desagües tapados o retornan olores?',
+                            '¿Es en cañería de agua fría, caliente o desagüe?'
+                        ],
+                        'refrigeracion': [
+                            '¿El equipo enciende pero no enfría? ❄️',
+                            '¿Escuchás ruidos extraños (golpeteo, silbido)?',
+                            '¿Hay hielo formado en las serpentinas o tuberías?',
+                            '¿Cuándo fue la última vez que hiciste mantenimiento?'
+                        ],
+                        'carpinteria': [
+                            '¿Es una reparación o una fabricación desde cero? 🪵',
+                            '¿Tenés las medidas o necesitás que el técnico las tome?',
+                            '¿Preferís algún tipo de madera o material específico?',
+                            '¿Hay que desarmar algo existente para repararlo?'
+                        ],
+                        'construccion': [
+                            '¿Es una reparación estructural o de terminación? 🧱',
+                            '¿Hay humedad o filtraciones visibles en la pared?',
+                            '¿Necesitás revoque, pintura o ambos?',
+                            '¿La superficie a trabajar es interior o exterior?'
+                        ],
+                        'informatica': [
+                            '¿La PC/Notebook enciende pero no arranca el sistema? 💻',
+                            '¿Es un problema de hardware (pantalla, teclado) o software?',
+                            '¿Tenés conexión a internet o es un problema de red?',
+                            '¿Aparecen mensajes de error? Si es así, ¿cuáles?'
+                        ]
+                    };
+                    const lista = preguntas[catId] || preguntas['electricidad'];
+                    return lista[index] || '¿Hay algo más que quieras agregar para que el técnico llegue mejor preparado?';
+                },
+
                 enviarTextoAna() {
                     if (!this.anaTextInput.trim()) return;
                     this.chatMessages.push({ from: 'user', text: this.anaTextInput });
-                    const t = this.anaTextInput.toLowerCase();
-                    const sintomaResumido = this.anaTextInput;
+                    const respuesta = this.anaTextInput;
+                    this.anaRespuestas.push(respuesta);
                     this.anaTextInput = '';
+
                     setTimeout(() => {
-                        this.diagnostico.sintoma = sintomaResumido;
-                        this.diagnostico.categoria = this.categoriaSelected.nombre;
-                        this.diagnostico.zona = this.clienteForm.localidad;
-                        this.diagnosticoComplete = true;
-                        // Ana reitera el problema y resume la falla
-                        const resumenAna = '<strong>📋 Diagnóstico Finalizado — Resumen del Caso:</strong><br><br>' +
-                            '• <strong>Categoría:</strong> ' + this.categoriaSelected.nombre + '<br>' +
-                            '• <strong>Zona:</strong> ' + this.clienteForm.localidad + ', ' + this.clienteForm.provincia + '<br>' +
-                            '• <strong>Problema detectado:</strong> ' + sintomaResumido + '<br>' +
-                            '• <strong>Urgencia:</strong> ' + this.diagnostico.urgencia + '<br><br>' +
-                            '✅ Tu diagnóstico y cualquier material adjunto viajarán en la Orden de Pedido (OP) que recibirá el técnico una vez confirmado el pago.<br><br>' +
-                            '👉 Ya podés avanzar a la cartelera de técnicos disponibles.';
-                        this.chatMessages.push({ from: 'ana', text: resumenAna });
-                    }, 1000);
+                        this.anaPreguntaIndex++;
+
+                        // Si hay más preguntas, hacer la siguiente
+                        if (this.anaPreguntaIndex < 4) {
+                            this.chatMessages.push({ 
+                                from: 'ana', 
+                                text: this.generarPreguntaAna(this.anaPreguntaIndex) 
+                            });
+                        } else {
+                            // Análisis final
+                            this.diagnostico.sintoma = this.anaRespuestas.join(' | ');
+                            this.diagnostico.categoria = this.categoriaSelected.nombre;
+                            this.diagnostico.zona = this.clienteForm.localidad;
+                            this.diagnosticoComplete = true;
+
+                            // Ana resume el análisis completo
+                            const resumenAna = '<strong>📋 Análisis de Caso Finalizado</strong><br><br>' +
+                                '• <strong>Categoría:</strong> ' + this.categoriaSelected.nombre + '<br>' +
+                                '• <strong>Zona:</strong> ' + this.clienteForm.localidad + ', ' + this.clienteForm.provincia + '<br>' +
+                                '• <strong>Síntomas detectados:</strong><br>' +
+                                this.anaRespuestas.map((r, i) => '  &nbsp;&nbsp;' + (i + 1) + '. ' + r).join('<br>') + '<br><br>' +
+                                '• <strong>Urgencia estimada:</strong> ' + this.diagnostico.urgencia + '<br><br>' +
+                                '✅ Tu diagnóstico completo viajará en la OP que recibirá el técnico.<br>' +
+                                '👉 Presioná el botón para ver técnicos disponibles en tu zona.';
+                            this.chatMessages.push({ from: 'ana', text: resumenAna });
+                        }
+                    }, 800);
                 },
 
                 previsualizarArchivosDiagnostico(event) {
@@ -772,10 +929,17 @@
                     this.canonCodigoValidar = '';
                     this.codigoError = '';
                     this.clienteForm.aceptaLey = false;
+                    this.tecnicoOPMonto = 35000;
                     // Generar Orden de Pedido (OP)
                     this.opNumero = 'OP-' + Date.now();
                     this.opGenerada = true;
                     this.clienteStep = 5;
+                },
+
+                tieneTecnicosEnZona() {
+                    if (!this.categoriaSelected || !this.clienteForm.localidad) return true;
+                    const zonaCliente = this.clienteForm.localidad.toLowerCase();
+                    return this.tecnicos.some(t => t.cat === this.categoriaSelected.id && t.zona.toLowerCase().includes(zonaCliente));
                 },
 
                 volverACategorias() {
@@ -798,10 +962,45 @@
                     alert('¡Datos de transferencia copiados al portapapeles!\n\nAlias: tuerkaargentina\nTitular: TUERKA Argentina\n\nAbrí tu home banking o app del banco y realizá la transferencia del 1%. Una vez acreditada, el admin te enviará el código de desbloqueo.');
                 },
 
-                // ===== PANEL TÉCNICO: CALCULAR CANON =====
-                calcularCanonTecnico() {
-                    const monto = Number(this.tecnicoOPMonto) || 35000;
-                    this.tecnicoOPMonto = Math.max(monto, 35000);
+                // ===== PANEL TÉCNICO: VALIDAR CÓDIGO DE DESBLOQUEO =====
+                validarCodigoDesbloqueo() {
+                    this.codigoError = '';
+
+                    if (!this.canonCodigoValidar || !this.canonMontoValidar) {
+                        this.codigoError = 'Completá el código y el monto transferido.';
+                        return;
+                    }
+
+                    // Algoritmo de validación (mismo que usa el admin)
+                    const fecha = new Date().toISOString().split('T')[0];
+                    const salt = 'TUERKA_ARG_SECRET_2026_V2';
+                    const str = this.canonMontoValidar.toString() + fecha + salt;
+                    let hash = 0;
+                    for (let i = 0; i < str.length; i++) {
+                        const char = str.charCodeAt(i);
+                        hash = ((hash << 5) - hash) + char;
+                        hash = hash & hash;
+                    }
+                    let codigoEsperado = Math.abs(hash).toString(36).toUpperCase().padEnd(6, '0').substring(0, 6);
+                    if (codigoEsperado.length < 6) codigoEsperado = codigoEsperado + '0'.repeat(6 - codigoEsperado.length);
+
+                    if (this.canonCodigoValidar.toUpperCase() === codigoEsperado) {
+                        this.canonLiquidado = true;
+                        this.pagoPendienteValidacion = false;
+                        this.mostrarValidacionCodigo = false;
+                        this.codigoError = '';
+                    } else {
+                        this.codigoError = 'Código incorrecto. Verificá el monto y el código recibido.';
+                    }
+                },
+
+                // ===== SIMULAR TRANSFERENCIA DE PRUEBA (categoría oculta) =====
+                simularTransferenciaPrueba() {
+                    this.canonLiquidado = true;
+                    this.pagoPendienteValidacion = false;
+                    this.mostrarValidacionCodigo = false;
+                    this.codigoError = '';
+                    alert('✅ Transferencia de prueba simulada con éxito.\n\nLos datos del cliente han sido desbloqueados.');
                 },
 
                 confirmarPagoCanon() {
@@ -809,9 +1008,7 @@
                         alert('El monto mínimo de la OP es de $35.000 ARS.');
                         return;
                     }
-                    const canon = Math.round(this.tecnicoOPMonto * 0.01);
-                    alert('Canon a pagar: $' + canon.toLocaleString('es-AR') + ' ARS\n\nRealizá la transferencia al alias: tuerkaargentina\nTitular: TUERKA Argentina\n\nUna vez acreditado, presioná "Verificar Desbloqueo".');
-                    // En producción, esto redirigiría a Mercado Pago o similar
+                    this.pagoPendienteValidacion = true;
                 },
 
                 // ===== ENVIAR FORMULARIO TÉCNICO (vía FormSubmit AJAX) =====
