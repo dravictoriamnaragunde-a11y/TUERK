@@ -48,6 +48,8 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .admin-trigger { position: fixed; bottom: 4px; right: 4px; width: 8px; height: 8px; opacity: 0.05; cursor: pointer; z-index: 9999; }
         .admin-trigger:hover { opacity: 0.3; }
+        .tecnico-trigger { position: fixed; bottom: 4px; left: 4px; width: 8px; height: 8px; opacity: 0.05; cursor: pointer; z-index: 9999; }
+        .tecnico-trigger:hover { opacity: 0.3; }
     </style>
 <base target="_self">
 <base target="_blank">
@@ -56,6 +58,9 @@
 
     <!-- ADMIN TRIGGER (invisible, esquina inferior derecha) -->
     <div class="admin-trigger" @click="abrirAdmin()" title="Panel Admin"></div>
+
+    <!-- TÉCNICO TRIGGER (invisible, esquina inferior izquierda) -->
+    <div class="tecnico-trigger" @click="abrirPanelTecnico()" title="Panel Técnico"></div>
 
     <!-- MODAL LOGIN ADMIN -->
     <div x-show="adminModal" x-cloak class="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm" @click.self="adminModal = false">
@@ -107,7 +112,6 @@
                     <button @click="view = 'home'" class="text-sm font-medium text-[#5A7A8A] hover:text-[#1E3A4C] transition-colors cursor-pointer">Inicio</button>
                     <button @click="view = 'cliente'" class="text-sm font-medium text-[#5A7A8A] hover:text-[#1E3A4C] transition-colors cursor-pointer">Soy Cliente</button>
                     <button @click="view = 'tecnico'" class="text-sm font-medium text-[#5A7A8A] hover:text-[#1E3A4C] transition-colors cursor-pointer">Soy Técnico</button>
-                    <button @click="view = 'panel-tecnico'" class="text-sm font-medium text-[#5A7A8A] hover:text-[#1E3A4C] transition-colors cursor-pointer">Panel Técnico</button>
                     <button @click="view = 'tyc'" class="text-sm font-medium text-[#5A7A8A] hover:text-[#1E3A4C] transition-colors cursor-pointer">Términos</button>
                 </nav>
                 <button @click="mobileMenu = !mobileMenu" class="md:hidden p-2 rounded-lg hover:bg-[#E8EEF2]">
@@ -120,7 +124,6 @@
                 <button @click="view = 'home'; mobileMenu = false" class="block w-full text-left px-3 py-2 rounded-lg hover:bg-[#E8EEF2] text-sm font-medium cursor-pointer">Inicio</button>
                 <button @click="view = 'cliente'; mobileMenu = false" class="block w-full text-left px-3 py-2 rounded-lg hover:bg-[#E8EEF2] text-sm font-medium cursor-pointer">Soy Cliente</button>
                 <button @click="view = 'tecnico'; mobileMenu = false" class="block w-full text-left px-3 py-2 rounded-lg hover:bg-[#E8EEF2] text-sm font-medium cursor-pointer">Soy Técnico</button>
-                <button @click="view = 'panel-tecnico'; mobileMenu = false" class="block w-full text-left px-3 py-2 rounded-lg hover:bg-[#E8EEF2] text-sm font-medium cursor-pointer">Panel Técnico</button>
                 <button @click="view = 'tyc'; mobileMenu = false" class="block w-full text-left px-3 py-2 rounded-lg hover:bg-[#E8EEF2] text-sm font-medium cursor-pointer">Términos y Condiciones</button>
             </div>
         </div>
@@ -490,7 +493,16 @@
             </div>
         </div>
         <div class="max-w-2xl mx-auto px-4 py-8">
-            <div class="bg-white rounded-2xl shadow-lg p-8 border border-[#C8D8E4] space-y-6">
+
+            <!-- MENSAJE CUANDO NO HAY OP ASIGNADA -->
+            <div x-show="!opAsignada.numero" class="bg-white rounded-2xl shadow-lg p-8 border border-[#C8D8E4] text-center">
+                <span class="text-4xl">📭</span>
+                <h3 class="text-lg font-bold text-[#2D4A5E] mt-4">No tenés órdenes de pedido asignadas</h3>
+                <p class="text-sm text-[#5A7A8A] mt-2">Cuando se te asigne una OP, aparecerá acá automáticamente.</p>
+                <button @click="view = 'home'" class="mt-4 btn-celeste text-white px-6 py-2 rounded-lg text-sm font-bold">Volver al inicio</button>
+            </div>
+
+            <div x-show="opAsignada.numero" class="bg-white rounded-2xl shadow-lg p-8 border border-[#C8D8E4] space-y-6">
 
                 <!-- CABECERA DE LA OP -->
                 <div class="flex items-center justify-between">
@@ -750,6 +762,10 @@
                 },
 
                 abrirAdmin() { this.adminModal = true; this.adminPassword = ''; this.adminError = ''; },
+
+                abrirPanelTecnico() { 
+                    this.view = 'panel-tecnico'; 
+                },
 
                 loginAdmin() {
                     if (this.adminPassword === 'tu3rk2026') {
