@@ -61,6 +61,7 @@
 <base target="_blank">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 <base target="_blank">
+<base target="_blank">
 </head>
 <body class="font-sans bg-[#EEF1F4] text-[#3A5A6A] antialiased" x-data="tuerkApp()">
     <script>
@@ -707,7 +708,7 @@
     <div x-show="view === 'cliente'" x-cloak class="min-h-screen bg-[#EEF1F4] pb-20">
         <div class="bg-white border-b border-[#C8D8E4]">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-                <button @click="view = 'home'" class="text-sm text-[#6A8A9A] hover:text-[#4A6A7A] flex items-center gap-1 mb-4">← Volver al inicio</button>
+                <button @click="volverPasoCliente()" class="text-sm text-[#6A8A9A] hover:text-[#4A6A7A] flex items-center gap-1 mb-4">← Volver</button>
                 <h1 class="text-2xl sm:text-3xl font-display font-bold text-[#2D4A5E]">¿Qué necesitás arreglar?</h1>
             </div>
         </div>
@@ -1647,6 +1648,14 @@
                     if (!this.categoriaSelected || !this.clienteForm.localidad) return true;
                     const zonaCliente = this.clienteForm.localidad.toLowerCase();
                     return this.tecnicos.some(t => t.cat === this.categoriaSelected.id && t.zona.toLowerCase().includes(zonaCliente));
+                },
+
+                volverPasoCliente() {
+                    if (this.clienteStep > 1) {
+                        this.clienteStep--;
+                    } else {
+                        this.view = 'home';
+                    }
                 },
 
                 volverACategorias() {
